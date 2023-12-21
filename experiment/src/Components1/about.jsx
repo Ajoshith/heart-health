@@ -1,40 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import { getUserData } from './exp7';
-
+import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 const AboutPage = () => {
-  const [userData, setUserData] = useState(null);
+  const navigate=useNavigate()
+  useEffect(()=>{
+    HandleClick2();
+  },[])
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = getUserData(); // Call the function to get the actual JWT token
+  async function HandleClick2(event) {
+  
+    try {
+      const res = await fetch("/about", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: 'Hello',
+          password: 'password',
+        }),
+      });
 
-        const response = await fetch('/about', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-        setUserData(data);
-      } catch (error) {
-        console.error('Error fetching data:', error.message);
+      if (res.ok) {
+        console.log("Hello")
+        navigate("/about")
+      } else {
+        console.error("Login pass");
+        navigate("/")
       }
-    };
-
-    fetchData();
-  }, [getUserData]); // Include getUserData in the dependency array
-
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
+  }
   return (
     <div>
-      <h1>About Page</h1>
-      {userData}
+      <h1>My Component</h1>
     </div>
   );
 };
-
-export default AboutPage;
+export default AboutPage
