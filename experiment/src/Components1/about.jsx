@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
+
 import { useNavigate } from "react-router-dom";
 const AboutPage = () => {
   const navigate=useNavigate()
@@ -14,7 +14,7 @@ const AboutPage = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-        },
+        },  
         body: JSON.stringify({
           name: 'Hello',
           password: 'password',
@@ -23,7 +23,7 @@ const AboutPage = () => {
 
       if (res.ok) {
         console.log("Hello")
-        navigate("/about")
+        
       } else {
         console.error("Login pass");
         navigate("/")

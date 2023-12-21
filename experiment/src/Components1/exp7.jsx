@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AboutPage from "./about";
+
 let userData1=''
 function Exp7() {
   const [username, setUsername] = useState('');
@@ -8,7 +9,10 @@ function Exp7() {
   const [userData, setUserData] = useState(userData1);
   const [userData11,setUserdata1]=useState('')
   const navigate = useNavigate();
-
+  
+  useEffect(()=>{
+    
+  },[])
   function Home() {
     navigate("/exp7");
   }
@@ -32,7 +36,7 @@ function Exp7() {
         console.log("Login successful");
         setUserData(token);
       } else {
-        console.error("Login failed");
+        console.error("Login passed");
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -69,29 +73,31 @@ function Exp7() {
       console.error("Error during registration:", error);
     }
   }
-  async function HandleClick3(event) {
-    event.preventDefault();
-
+ 
+  async function HandleClick2(event) {
+    event.preventDefault()
     try {
-        const response = await fetch('/about', {
-            method: 'POST',
-            
-        });
+      const res = await fetch("/about", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: username,
+          password: password,
+        }),
+      });
 
-        if (response.ok) {
-            const data = await response.json();
-            console.log('Data from server:', data);
-            setUserdata1(data.name);
-        } else {
-            console.error('Request failed with status:', response.status);
-            // Handle other error statuses as needed
-        }
+      if (res.ok) {
+        console.log("Hello")
+        navigate("/about")
+      } else {
+        console.error("Login pass");
+      }
     } catch (error) {
-        console.error('Error during request:', error.message);
+      console.error("Error during login:", error);
     }
-}
-
-  
+  }
 
   useEffect(() => {
     console.log(username);
@@ -113,12 +119,11 @@ function Exp7() {
         <button type="button" onClick={handleClick1}>
           Register
         </button>
-        <button onClick={HandleClick3}>
+        <button onClick={HandleClick2}>
           Get data from /protected
         </button>
       </form>
-      <h1>{userData}</h1>
-      <h1>{userData11}</h1>
+      
     </>
   );
 }
