@@ -12,7 +12,7 @@ const secretKey = 'hello world';
 app.use(express.json());
 app.use(cookieParser());
 
-mongoose.connect("mongodb://localhost:27017/new1", { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect("mongodb+srv://bunnypowers26:pepjkeljIEfn5zgN@cluster01.egs7npg.mongodb.net/?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("Connected successfully");
   })
