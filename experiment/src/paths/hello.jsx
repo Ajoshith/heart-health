@@ -32,7 +32,8 @@ function Home() {
       });
 
       if (res.ok) {
-        const {name}=res;
+        const data=await res.json();
+        const {name}=data;
         console.log(name)
         console.log("Hello")
         

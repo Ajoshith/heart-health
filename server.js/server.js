@@ -122,7 +122,8 @@ app.post('/about', Authentication,async (req, resp) => {
     }
     console.log("Login successful");
     console.log({name});
-    resp.status(200).json({ user });
+    resp.status(200).json({ name });
+    console.log("Hello546")
   } catch (error) {
     console.error("Error during login:", error.message);
     resp.status(500).send("Internal Server Error");
