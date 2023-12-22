@@ -6,8 +6,9 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const Authentication = require('./authenticate.js')
 const app = express();
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+const API_KEY=require('dotenv').config();
 const secretKey = 'hello world';
-
 app.use(express.json());
 app.use(cookieParser());
 
@@ -76,6 +77,30 @@ app.post('/login', async (req, resp) => {
     console.error("Error during login:", error.message);
     resp.status(500).send("Internal Server Error");
   }
+});
+app.post('/genai',async(req, resp)=>{
+  const data = req.body;
+  const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+  const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+    const prompt =`age = ${data.age}
+    gender = ${data.sex}
+    chest pain type (4 values)=${data.cp}
+    resting blood pressure=${data.rbp}
+    serum cholestoral in mg/dl=${data.sc}
+    fasting blood sugar > 120 mg/dl=${data.fbs}
+    resting electrocardiographic results (values 0,1,2)=${data.rer}
+    maximum heart rate achieved=${data.mhr}
+    exercise induced angina=${data.eia}
+    oldpeak = ST depression induced by exercise relative to rest=${data.olds}
+    the slope of the peak exercise ST segment=${data.st}
+    number of major vessels (0-3) colored by flourosopy=${data.mvs}
+    explain these terms to a patient in way they understand for the given values and short summary
+    `;
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+    resp.status(201).json(text);
+
 });
 
 // Fix the middleware to set user information on req.rootuser
