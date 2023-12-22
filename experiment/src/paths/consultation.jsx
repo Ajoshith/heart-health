@@ -7,7 +7,38 @@ import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import Cards from "./cards";
 import prf from "../images/profile1.jpg"
+import { useNavigate } from "react-router-dom";
 function Consult() {
+    const navigate=useNavigate()
+  useEffect(()=>{
+    HandleClick2();
+  },[])
+
+  async function HandleClick2(event) {
+  
+    try {
+      const res = await fetch("/about", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },  
+        body: JSON.stringify({
+          name: 'Hello',
+          password: 'password',
+        }),
+      });
+
+      if (res.ok) {
+        console.log("Hello")
+        
+      } else {
+        console.error("Login pass");
+        navigate("/registration")
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
+  }
     useEffect(() => {
         // Scroll to the top of the page when the component is mounted
         window.scrollTo(0, 0);

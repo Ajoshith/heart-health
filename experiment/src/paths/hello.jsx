@@ -32,6 +32,8 @@ function Home() {
       });
 
       if (res.ok) {
+        const {name}=res;
+        console.log(name)
         console.log("Hello")
         
       } else {

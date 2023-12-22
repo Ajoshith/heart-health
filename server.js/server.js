@@ -115,7 +115,7 @@ app.post('/about', Authentication,async (req, resp) => {
   try {
     const data = req.userId;
     const user = await User.findOne({ _id: data });
-    const {name}=user.name;
+    const {name}=user;
     if (!user) {
       console.log("User not found");
       return resp.status(404).send("User not found");
