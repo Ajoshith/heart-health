@@ -79,6 +79,7 @@ app.post('/login', async (req, resp) => {
   }
 });
 app.post('/genai',async(req, resp)=>{
+  console.log("helloiihoihohio")
   const data = req.body;
   const genAI = new GoogleGenerativeAI(process.env.API_KEY);
   const model = genAI.getGenerativeModel({ model: "gemini-pro"});
@@ -96,6 +97,7 @@ app.post('/genai',async(req, resp)=>{
     number of major vessels (0-3) colored by flourosopy=${data.mvs}
     explain these terms to a patient in way they understand for the given values and short summary
     `;
+    console.log("the Worldo")
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();

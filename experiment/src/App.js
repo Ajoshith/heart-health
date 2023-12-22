@@ -9,6 +9,7 @@ import Doctorshomepage from './paths/doctorshomepage';
 import Searchpage from './paths/docsea';
 import Consult from './paths/consultation';
 import Registrationform from './paths/login';
+import Experiment1 from './paths/experiment1';
 function App() {
   return (
     <>
@@ -16,6 +17,7 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/exp' element={<Experiment1 />}/>
           <Route path='/registration' element={<Registrationform/>}/>
           <Route path='/symptompage' element={<Symptom/>}/>
           <Route path='/experimentpage' element={<Experiment />} />
