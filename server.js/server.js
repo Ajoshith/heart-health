@@ -1,18 +1,22 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const User = require('./userSchema');
-const jwt = require('jsonwebtoken');
-const cookieParser = require('cookie-parser');
-const Authentication = require('./authenticate.js')
+const express = require("express");
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const User = require("./userSchema");
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
+const Authentication = require("./authenticate.js");
 const app = express();
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-const API_KEY=require('dotenv').config();
-const secretKey = 'hello world';
+const API_KEY = require("dotenv").config();
+const secretKey = "hello world";
 app.use(express.json());
 app.use(cookieParser());
 
-mongoose.connect("mongodb+srv://bunnypowers26:pepjkeljIEfn5zgN@cluster01.egs7npg.mongodb.net/?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose
+  .connect(
+    "mongodb+srv://bunnypowers26:pepjkeljIEfn5zgN@cluster01.egs7npg.mongodb.net/?retryWrites=true&w=majority",
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
   .then(() => {
     console.log("Connected successfully");
   })
@@ -20,11 +24,11 @@ mongoose.connect("mongodb+srv://bunnypowers26:pepjkeljIEfn5zgN@cluster01.egs7npg
     console.error("Error connecting to MongoDB:", error.message);
   });
 
-app.get('/', (req, resp) => {
+app.get("/", (req, resp) => {
   resp.send("Hello world");
 });
 
-app.post('/register', async (req, resp) => {
+app.post("/register", async (req, resp) => {
   try {
     const data = req.body;
     const existingUser = await User.findOne({ name: data.name });
@@ -47,7 +51,7 @@ app.post('/register', async (req, resp) => {
   }
 });
 
-app.post('/login', async (req, resp) => {
+app.post("/login", async (req, resp) => {
   try {
     const data = req.body;
     const user = await User.findOne({ name: data.name });
@@ -78,11 +82,11 @@ app.post('/login', async (req, resp) => {
     resp.status(500).send("Internal Server Error");
   }
 });
-app.post('/genai',async(req, resp)=>{
+app.post("/genai", async (req, resp) => {
   const data = req.body;
   const genAI = new GoogleGenerativeAI(process.env.API_KEY);
-  const model = genAI.getGenerativeModel({ model: "gemini-pro"});
-    const prompt =`age = ${data.age}
+  const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+  const prompt = `age = ${data.age}
     gender = ${data.sex}
     chest pain type (4 values)=${data.cp}
     resting blood pressure=${data.rbp}
@@ -95,12 +99,12 @@ app.post('/genai',async(req, resp)=>{
     the slope of the peak exercise ST segment=${data.st}
     number of major vessels (0-3) colored by flourosopy=${data.mvs}
     explain these terms to a patient in way they understand for the given values and short summary
+    explain dieases which arise from these values 
     `;
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
-    resp.status(201).json(text);
-
+  const result = await model.generateContent(prompt);
+  const response = await result.response;
+  const text = response.text();
+  resp.status(201).json(text);
 });
 
 // Fix the middleware to set user information on req.rootuser
@@ -132,23 +136,23 @@ app.post('/genai',async(req, resp)=>{
 //       res.status(401).json({ error: 'Unauthorized' });
 //     }
 //   } else {
-    
+
 //   }
-  // Change to req.user instead of req.rootuser
+// Change to req.user instead of req.rootuser
 // });
-app.post('/about', Authentication,async (req, resp) => {
+app.post("/about", Authentication, async (req, resp) => {
   try {
     const data = req.userId;
     const user = await User.findOne({ _id: data });
-    const {name}=user;
+    const { name } = user;
     if (!user) {
       console.log("User not found");
       return resp.status(404).send("User not found");
     }
     console.log("Login successful");
-    console.log({name});
+    console.log({ name });
     resp.status(200).json({ name });
-    console.log("Hello546")
+    console.log("Hello546");
   } catch (error) {
     console.error("Error during login:", error.message);
     resp.status(500).send("Internal Server Error");
