@@ -11,7 +11,7 @@ import Registrationform from './login';
 
 
 function Home() {
-
+  const [ud,Setud]=useState('')
   const navigate=useNavigate()
   useEffect(()=>{
     HandleClick2();
@@ -35,6 +35,7 @@ function Home() {
         const data=await res.json();
         const {name}=data;
         console.log(name)
+        Setud(name);
         console.log("Hello")
         
       } else {
@@ -83,7 +84,10 @@ function Home() {
           <div className="details">
             <h3 style={{ display: 'block' }}>Patients details</h3>
             <div className="details1">
+             
+             {ud} <br />
               Name, age, blood group, etc .......
+            
             </div>
           </div>
         </div>
