@@ -100,6 +100,7 @@ app.post("/genai", async (req, resp) => {
     number of major vessels (0-3) colored by flourosopy=${data.mvs}
     explain these terms to a patient in way they understand for the given values and short summary
     explain dieases which arise from these values 
+    How to cure this problems 
     `;
   const result = await model.generateContent(prompt);
   const response = await result.response;
