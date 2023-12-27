@@ -160,6 +160,56 @@ app.post("/about", Authentication, async (req, resp) => {
   }
 });
 
+app.post('/filldata', async (req, resp) => {
+  try {
+    const data = req.body;
+    const existingUser = await User.findOne({ name: data.name });
+
+    if (existingUser) {
+      // User exists, update medical history
+      existingUser.medicalHistory = {
+        
+        age:data.medicalHistory.age,
+        sex:data.medicalHistory.sex,
+        cp:data.medicalHistory.cp,
+        rbp:data.medicalHistory.rbp,
+        sc:data.medicalHistory.sc,
+        fbs:data.medicalHistory.fbs,
+        rer:data.medicalHistory.rer,
+        mhr:data.medicalHistory.mhr,
+        eia:data.medicalHistory.eia,
+        olds:data.medicalHistory.olds,
+        st:data.medicalHistory.st,
+        mvs:data.medicalHistory.mvs
+        // Add more fields as needed
+      };
+
+      await existingUser.save();
+      console.log("User medical history updated");
+      return resp.status(200).send("User medical history updated");
+    }
+
+    // User doesn't exist, create a new user
+    const user = new User({
+      name: data.name,
+      password: data.password,
+      medicalHistory: {
+        bloodType: data.medicalHistory.bloodType,
+        allergies: data.medicalHistory.allergies,
+        
+        // Add more fields as needed
+      },
+    });
+
+    await user.save();
+    console.log("New user registered");
+    resp.status(201).send("Registration successful");
+  } catch (error) {
+    console.error("Error during registration:", error.message);
+    resp.status(500).send("Internal Server Error");
+  }
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

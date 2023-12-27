@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     },
     password: {
       type: String,
-      required: true,
+      
        // Adjust the minimum length as needed
     },
     tokens: [
@@ -22,7 +22,22 @@ const userSchema = new mongoose.Schema({
           required:true
         }
       }
-    ]
+    ],
+    medicalHistory: {
+      age:{type:Number},
+      sex:{type:Number},
+      cp:{type:Number},
+      rbp:{type:Number},
+      sc:{type:Number},
+      fbs:{type:Number},
+      rer:{type:Number},
+      mhr:{type:Number},
+      eia:{type:Number},
+      olds:{type:Number},
+      st:{type:Number},
+      mvs:{type:Number}
+  },
+
   });
 userSchema.pre('save', async function (next) {
     if (this.isModified('password')) {
