@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-
+import pjlogo from '../images/pjlogo.png';
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import logo from "../images/image.png"
 const Experiment = () => {
   
   const [username,setUsername]=useState('')
@@ -82,17 +84,17 @@ const Experiment = () => {
         body: JSON.stringify({
           name:username,
           medicalHistory: {
-            age:username11,
-            sex:username1,
-            cp:username2,
-            rbp:username3,
-            sc:username4,
-            fbs:username5,
-            rer:username6,
-            mhr:username7,
-            eia:username8,
-            olds:username9,
-            st:username10,
+            age:username1,
+            sex:username2,
+            cp:username3,
+            rbp:username4,
+            sc:username5,
+            fbs:username6,
+            rer:username7,
+            mhr:username8,
+            eia:username9,
+            olds:username10,
+            st:username11,
             mvs:username12,
           },
         }),
@@ -134,7 +136,47 @@ const Experiment = () => {
     }
   }
   return (
-    <div>
+    <>
+                        <header className="header1" style={{backgroundColor:"#e11127"}}>
+        <nav className="navbar navbar-expand-lg">
+          <div className="container-fluid">
+            <Link to="/afterlogin" id="header " className="navbar-brand navbarcolorfont scale-in-center" >
+              <img src={logo} style={{ height: '60px' }} alt="logo" />
+            </Link>
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                <li className="nav-item">
+                  <a className="nav-link" style={{ color: 'aliceblue' }} aria-current="page" href="#">Home</a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" style={{ color: 'aliceblue' }} href="#">About us</a>
+                </li>
+                <a style={{ paddingTop: "9px", paddingLeft: "7px",position: 'absolute', left: '1430px', top: '17px', fontSize: '25px', fontWeight: '100', color: 'aliceblue' }} data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                  <i className="bi bi-person-circle"></i>
+                </a>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div className="offcanvas-header">
+          <h1 style={{ color: '#e11127' }}>Profile</h1>
+          <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div className="offcanvas-body">
+          <div className="details">
+            <h3 style={{ display: 'block' }}>Patients details</h3>
+            <div className="details1">
+              Name, age, blood group, etc .......
+            </div>
+          </div>
+        </div>
+      </div>
+            
       <h1>My Component</h1>
       
       <input style={{border:'1px solid black'}} type="text" onChange={Handle1}/>
@@ -150,9 +192,9 @@ const Experiment = () => {
       <input style={{border:'1px solid black'}} type="text" onChange={Handle11}/>
       <input style={{border:'1px solid black'}} type="text" onChange={Handle12}/>
       <br/>
-      <button onClick={handleClick1}>click</button>
+      <button className="btn" style={{backgroundColor:"#e11127",color:"aliceblue"}} onClick={handleClick1}>click</button>
       
-    </div>
+    </>
   );
 };
 export default Experiment
