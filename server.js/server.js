@@ -95,8 +95,7 @@ app.post('/genai',async(req, resp)=>{
     oldpeak = ST depression induced by exercise relative to rest=${data.olds}
     the slope of the peak exercise ST segment=${data.st}
     number of major vessels (0-3) colored by flourosopy=${data.mvs}
-    explain these terms to a patient in way they understand for the given values and short summary
-    `;
+    explain these terms to a patient in way they understand for the given values and short summary`;
     console.log("the Worldo")
     const result = await model.generateContent(prompt);
     const response = await result.response;
