@@ -45,7 +45,7 @@ function Experiment1() {
   return (
     <>
       <button onClick={HandleClick2}>Click me</button>
-      <pre>
+      <pre style={{fontFamily:"cursive",color:"red",fontSize:'1.25rem'}}>
         {userdata}
       </pre>
     </>
