@@ -8,9 +8,29 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useUserData } from './confirmation';
 import Registrationform from './login';
-
-
 function Home() {
+  async function handleClick1() {
+    try {
+      const res = await fetch("/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          
+          
+        }),
+      });
+  
+      if (res.ok) {
+        navigate('/registration')
+      } else {
+        console.error("Registration passed");
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
+  }
   const [ud,Setud]=useState('')
   const navigate=useNavigate()
   useEffect(()=>{
@@ -90,6 +110,7 @@ function Home() {
             
             </div>
           </div>
+          <button className='btn btn-lg' style={{backgroundColor:"#e11127",color:'aliceblue'}}  onClick={handleClick1}>Logout</button>
         </div>
       </div>
 
