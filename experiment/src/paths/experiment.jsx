@@ -193,6 +193,7 @@ const Experiment = () => {
       <input style={{border:'1px solid black'}} type="text" onChange={Handle12}/>
       <br/>
       <button className="btn" style={{backgroundColor:"#e11127",color:"aliceblue"}} onClick={handleClick1}>click</button>
+      <footer style={{ width: '100%', height: '30px', backgroundColor: '#e11127', color: 'aliceblue', textAlign: 'center', marginTop: '40px', fontWeight: '200' }}>Copyright belongs to American Heart Association</footer>
       
     </>
   );
