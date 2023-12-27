@@ -207,6 +207,24 @@ app.post('/filldata', async (req, resp) => {
   }
 });
 
+
+app.post('/logout', async (req, res) => {
+  try {
+    // Clear the 'jwtoken' cookie with path '/'
+    res.clearCookie('jwtoken', { path: '/' });
+
+    // Log a message indicating successful logout
+    console.log("User logged out successfully");
+
+    // Optionally, you might redirect the user to a login page or send a response
+    res.status(200).json({ message: "Logout successful" });
+  } catch (error) {
+    // Handle errors, if any
+    console.error("Logout error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
