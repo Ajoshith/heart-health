@@ -217,7 +217,7 @@ app.post('/logout', async (req, res) => {
     console.log("User logged out successfully");
 
     // Optionally, you might redirect the user to a login page or send a response
-    res.status(200).json({ message: "Logout successful" });
+    res.status(200).json({ message: "Logout successfullly" });
   } catch (error) {
     // Handle errors, if any
     console.error("Logout error:", error);
