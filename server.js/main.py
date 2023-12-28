@@ -1,12 +1,8 @@
 from flask import Flask, request, jsonify
 import pandas as pd
 import pickle
-
 app = Flask(__name__)
-
-# Assuming `neigh` is loaded from somewhere
 neigh = pickle.load(open("server.js/finalized_model.sav", 'rb'))
-
 @app.route('/predict', methods=['POST'])
 def prediction():
     data = request.json["data"]
