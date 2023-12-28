@@ -13,3 +13,4 @@ if pred[0] ==1:
  print("heart disease present")
 else:
    print("heart disease absent")
+   

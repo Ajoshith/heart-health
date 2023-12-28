@@ -98,7 +98,7 @@ app.post("/genai", async (req, resp) => {
     oldpeak = ST depression induced by exercise relative to rest=${data.oldpeak}
     the slope of the peak exercise ST segment=${data.slope}
     number of major vessels (0-3) colored by flourosopy=${data.ca}
-    thal *** = ${data.thal}
+    thalassemia = ${data.thal}
     explain these terms to a patient in way they understand for the given values and short summary
     explain dieases which arise from these values 
     How to cure this problems 
@@ -184,7 +184,6 @@ app.post("/filldata", async (req, resp) => {
         thal: data.medicalHistory.thal,
         // Add more fields as needed
       };
-
       await existingUser.save();
       console.log("User medical history updated");
       return resp.status(200).send("User medical history updated");
