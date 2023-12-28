@@ -1,17 +1,19 @@
-from fastapi import FastAPI
-import uvicorn
+from flask import Flask, request, jsonify
 import pandas as pd
 import pickle
 
-app = FastAPI()
+app = Flask(__name__)
 
 # Assuming `neigh` is loaded from somewhere
-neigh = pickle.load(open("finalized_model.sav", 'rb'))
+neigh = pickle.load(open("server.js/finalized_model.sav", 'rb'))
 
-@app.post("/predict")
-async def prediction(data: list):
-    df = pd.DataFrame(data, columns=['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak', 'slope', 'ca', 'thal'])
-    return {"prediction": neigh.predict(df).tolist()}
+@app.route('/predict', methods=['POST'])
+def prediction():
+    data = request.json["data"]
+    series_data = pd.Series(data, index=['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak', 'slope', 'ca', 'thal'])
+    df = pd.DataFrame([series_data])  # Convert Series to DataFrame
+    prediction_result = {"prediction": neigh.predict(df).tolist()}
+    return jsonify(prediction_result)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=4000, reload=True)
+    app.run(host="0.0.0.0", port=4000, debug=True)
