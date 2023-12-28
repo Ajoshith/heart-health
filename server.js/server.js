@@ -89,15 +89,16 @@ app.post("/genai", async (req, resp) => {
   const prompt = `age = ${data.age}
     gender = ${data.sex}
     chest pain type (4 values)=${data.cp}
-    resting blood pressure=${data.rbp}
-    serum cholestoral in mg/dl=${data.sc}
+    resting blood pressure=${data.trestbps}
+    serum cholestoral in mg/dl=${data.chol}
     fasting blood sugar > 120 mg/dl=${data.fbs}
-    resting electrocardiographic results (values 0,1,2)=${data.rer}
-    maximum heart rate achieved=${data.mhr}
-    exercise induced angina=${data.eia}
-    oldpeak = ST depression induced by exercise relative to rest=${data.olds}
-    the slope of the peak exercise ST segment=${data.st}
-    number of major vessels (0-3) colored by flourosopy=${data.mvs}
+    resting electrocardiographic results (values 0,1,2)=${data.restecg}
+    maximum heart rate achieved=${data.thalach}
+    exercise induced angina=${data.exang}
+    oldpeak = ST depression induced by exercise relative to rest=${data.oldpeak}
+    the slope of the peak exercise ST segment=${data.slope}
+    number of major vessels (0-3) colored by flourosopy=${data.ca}
+    thal *** = ${data.thal}
     explain these terms to a patient in way they understand for the given values and short summary
     explain dieases which arise from these values 
     How to cure this problems 
@@ -160,7 +161,7 @@ app.post("/about", Authentication, async (req, resp) => {
   }
 });
 
-app.post('/filldata', async (req, resp) => {
+app.post("/filldata", async (req, resp) => {
   try {
     const data = req.body;
     const existingUser = await User.findOne({ name: data.name });
@@ -168,19 +169,19 @@ app.post('/filldata', async (req, resp) => {
     if (existingUser) {
       // User exists, update medical history
       existingUser.medicalHistory = {
-        
-        age:data.medicalHistory.age,
-        sex:data.medicalHistory.sex,
-        cp:data.medicalHistory.cp,
-        rbp:data.medicalHistory.rbp,
-        sc:data.medicalHistory.sc,
-        fbs:data.medicalHistory.fbs,
-        rer:data.medicalHistory.rer,
-        mhr:data.medicalHistory.mhr,
-        eia:data.medicalHistory.eia,
-        olds:data.medicalHistory.olds,
-        st:data.medicalHistory.st,
-        mvs:data.medicalHistory.mvs
+        age: data.medicalHistory.age,
+        sex: data.medicalHistory.sex,
+        cp: data.medicalHistory.cp,
+        rbp: data.medicalHistory.trestbps,
+        sc: data.medicalHistory.chol,
+        fbs: data.medicalHistory.fbs,
+        rer: data.medicalHistory.restecg,
+        mhr: data.medicalHistory.thalach,
+        eia: data.medicalHistory.exang,
+        olds: data.medicalHistory.oldpeak,
+        st: data.medicalHistory.slope,
+        mvs: data.medicalHistory.ca,
+        thal: data.medicalHistory.thal,
         // Add more fields as needed
       };
 
@@ -196,7 +197,7 @@ app.post('/filldata', async (req, resp) => {
       medicalHistory: {
         bloodType: data.medicalHistory.bloodType,
         allergies: data.medicalHistory.allergies,
-        
+
         // Add more fields as needed
       },
     });
@@ -210,11 +211,10 @@ app.post('/filldata', async (req, resp) => {
   }
 });
 
-
-app.post('/logout', async (req, res) => {
+app.post("/logout", async (req, res) => {
   try {
     // Clear the 'jwtoken' cookie with path '/'
-    res.clearCookie('jwtoken', { path: '/' });
+    res.clearCookie("jwtoken", { path: "/" });
 
     // Log a message indicating successful logout
     console.log("User logged out successfully");
