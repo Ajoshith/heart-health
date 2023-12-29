@@ -3,6 +3,7 @@ import pjlogo from "../images/pjlogo.png";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import logo from "../images/image.png";
+
 const Experiment = () => {
   const [username, setUsername] = useState("");
   const [username1, setUsername1] = useState("");
@@ -231,13 +232,14 @@ const Experiment = () => {
         </div>
       </div>
 
-      <h1>My Component</h1>
-
-      <input
-        style={{ border: "1px solid black" }}
+     
+      <div className="">
+        
+      {/* <input
+        styl  e={{ border: "1px solid black" }}
         type="text"
         onChange={Handle1}
-      />
+      /></div>
       <input
         style={{ border: "1px solid black" }}
         type="text"
@@ -297,15 +299,374 @@ const Experiment = () => {
         style={{ border: "1px solid black" }}
         type="text"
         onChange={Handle13}
-      />
+      /> */}
       <br />
-      <button
-        className="btn"
-        style={{ backgroundColor: "#e11127", color: "aliceblue" }}
+      
+  
+  <div
+    className="container"
+    style={{
+      marginTop:"20px",
+      marginLeft:"85px",
+      position: "relative",
+      border:"#e11127 solid 10px" ,
+      width: "2000px",
+      borderRadius: 6,
+     
+      backgroundColor: "#fff",
+      boxShadow: "0 5px 10px rgba(0,0,0,0.1)"
+    }}
+  >
+    
+    <form
+      action="#"
+      className=""
+      id=""
+      style={{
+        position: "relative",
+        marginTop: 16,
+        minHeight: 490,
+        backgroundColor: "#fff",
+      
+      }}
+    >
+      <div className="form first">
+        <div className="details personal" style={{ marginTop: 30 }}>
+          <span
+            className="title"
+            style={{
+              display: "block",
+              marginBottom: 8,
+              fontSize: 16,
+              fontWeight: 500,
+              margin: "6px 0",
+              color: "#333"
+            }}
+          >
+            <h2>Details</h2>
+          </span>
+          <div
+            className="fields"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              flexWrap: "wrap"
+            }}
+          >
+            
+            <div
+              className="input-field"
+              style={{
+                display: "flex",
+                width: "calc(100% / 3 - 50px)",
+                flexDirection: "column",
+                margin: "4px 0",
+                marginLeft:"80px"
+              }}
+            >
+              <label htmlFor="">Age</label>
+              <input onChange={Handle1}
+                type="text"
+                placeholder="Enter your age"
+                required=""
+                style={{
+                  outline: "none",
+                  borderRadius: 5,
+                  border: "1px solid #aaa",
+                  padding: "0 10px",
+                  height: 42,
+                  margin: "8px 0"
+                }}
+              />
+            </div>
+            <div
+              className="input-field"
+              style={{
+                display: "flex",
+                width: "calc(100% / 3 - 50px)",
+                flexDirection: "column",
+                margin: "4px 0"
+              }}
+            >
+              <label htmlFor="">Gender</label>
+              <input onChange={Handle2}
+                type="text"
+                placeholder="Enter your gender"
+                required=""
+                style={{
+                  outline: "none",
+                  borderRadius: 5,
+                  border: "1px solid #aaa",
+                  padding: "0 10px",
+                  height: 42,
+                  margin: "8px 0"
+                }}
+              />
+            </div>
+            <div
+              className="input-field"
+              style={{
+                display: "flex",
+                width: "calc(100% / 3 - 50px)",
+                flexDirection: "column",
+                margin: "4px 0"
+              }}
+            >
+              <label htmlFor="">CP</label>
+              <input onChange={Handle3}
+                type="text"
+                placeholder="Enter your cp"
+                required=""
+                style={{
+                  outline: "none",
+                  borderRadius: 5,
+                  border: "1px solid #aaa",
+                  padding: "0 10px",
+                  height: 42,
+                  margin: "8px 0"
+                }}
+              />
+            </div>
+            <div
+              className="input-field"
+              style={{
+                display: "flex",
+                width: "calc(100% / 3 - 50px)",
+                flexDirection: "column",
+                margin: "4px 0",
+                marginLeft:"80px"
+              }}
+            >
+              <label htmlFor="">RBP</label>
+              <input onChange={Handle4}
+                type="text"
+                placeholder="Enter your rbp"
+                required=""
+                style={{
+                  outline: "none",
+                  borderRadius: 5,
+                  border: "1px solid #aaa",
+                  padding: "0 10px",
+                  height: 42,
+                  margin: "8px 0"
+                }}
+              />
+            </div>
+            <div
+              className="input-field"
+              style={{
+                display: "flex",
+                width: "calc(100% / 3 - 50px)",
+                flexDirection: "column",
+                margin: "4px 0"
+              }}
+            >
+              <label htmlFor="">SC</label>
+              <input onChange={Handle5}
+                type="text"
+                placeholder="Enter your sc"
+                required=""
+                style={{
+                  outline: "none",
+                  borderRadius: 5,
+                  border: "1px solid #aaa",
+                  padding: "0 10px",
+                  height: 42,
+                  margin: "8px 0"
+                }}
+              />
+            </div>
+            <div
+              className="input-field"
+              style={{
+                display: "flex",
+                width: "calc(100% / 3 - 50px)",
+                flexDirection: "column",
+                margin: "4px 0"
+              }}
+            >
+              <label htmlFor="">Fbs</label>
+              <input onChange={Handle6}
+                type="text"
+                placeholder="Enter your fbs"
+                required=""
+                style={{
+                  outline: "none",
+                  borderRadius: 5,
+                  border: "1px solid #aaa",
+                  padding: "0 10px",
+                  height: 42,
+                  margin: "8px 0"
+                }}
+              />
+            </div>
+            <div
+              className="input-field"
+              style={{
+                display: "flex",
+                width: "calc(100% / 3 - 50px)",
+                flexDirection: "column",
+                margin: "4px 0"
+              }}
+            >
+              <label htmlFor="" style={{marginLeft:"80px"}}>Rer</label>
+              <input onChange={Handle7}
+                type="text"
+                placeholder="Enter your rer"
+                required=""
+                style={{
+                  outline: "none",
+                  borderRadius: 5,
+                  border: "1px solid #aaa",
+                  padding: "0 10px",
+                  height: 42,
+                  margin: "8px 0",
+                  marginLeft:"80px"
+                }}
+              />
+            </div>
+            <div
+              className="input-field"
+              style={{
+                display: "flex",
+                width: "calc(100% / 3 - 50px)",
+                flexDirection: "column",
+                margin: "4px 0"
+              }}
+            >
+              <label htmlFor="" style={{marginLeft:"35px"}}>MHR</label>
+              <input onChange={Handle8}
+                type="text"
+                placeholder="Enter your mhr"
+                required=""
+                style={{
+                  outline: "none",
+                  borderRadius: 5,
+                  border: "1px solid #aaa",
+                  padding: "0 10px",
+                  height: 42,
+                  margin: "8px 0",
+                  marginLeft:"35px"
+                }}
+              />
+            </div>
+            <div
+              className="input-field"
+              style={{
+                display: "flex",
+                width: "calc(100% / 3 - 50px)",
+                flexDirection: "column",
+                margin: "4px 0"
+              }}
+            >
+              <label htmlFor="">Eia</label>
+              <input onChange={Handle9}
+                type="text"
+                placeholder="Enter your eia"
+                required=""
+                style={{
+                  outline: "none",
+                  borderRadius: 5,
+                  border: "1px solid #aaa",
+                  padding: "0 10px",
+                  height: 42,
+                  margin: "8px 0"
+                }}
+              />
+            </div>
+            <div
+              className="input-field"
+              style={{
+                display: "flex",
+                width: "calc(100% / 3 - 50px)",
+                flexDirection: "column",
+                margin: "4px 0"
+              }}
+            >
+              <label htmlFor="" style={{marginLeft:"80px"}}>Olds</label>
+              <input onChange={Handle10}
+                type="text"
+                placeholder="Enter your olds"
+                required=""
+                style={{
+                  outline: "none",
+                  borderRadius: 5,
+                  border: "1px solid #aaa",
+                  padding: "0 10px",
+                  height: 42,
+                  margin: "8px 0",
+                  marginLeft:"80px"
+                }}
+              />
+            </div>
+            <div
+              className="input-field"
+              style={{
+                display: "flex",
+                width: "calc(100% / 3 - 50px)",
+                flexDirection: "column",
+                margin: "4px 0"
+              }}
+            >
+              <label htmlFor="" style={{marginLeft:"35px"}}>ST</label>
+              <input onChange={Handle11}
+                type="text"
+                placeholder="Enter your st"
+                required=""
+                style={{
+                  outline: "none",
+                  borderRadius: 5,
+                  border: "1px solid #aaa",
+                  padding: "0 10px",
+                  height: 42,
+                  margin: "8px 0",
+                  marginLeft:"35px"
+                }}
+              />
+            </div>
+            <div
+              className="input-field"
+              style={{
+                display: "flex",
+                width: "calc(100% / 3 - 50px)",
+                flexDirection: "column",
+                margin: "4px 0"
+              }}
+            >
+              <label htmlFor="">MVS</label>
+              <input onChange={Handle12}
+                type="text"
+                placeholder="Enter your mvs"
+                required=""
+                style={{
+                  outline: "none",
+                  borderRadius: 5,
+                  border: "1px solid #aaa",
+                  padding: "0 10px",
+                  height: 42,
+                  margin: "8px 0"
+                }}
+              />
+            </div>
+          </div>
+          
+        </div>
+        <button
+        className="btn btn-lg"
+        style={{ backgroundColor: "#e11127", color: "aliceblue",marginTop:"20px",marginLeft:"550px",borderRadius:"25px",fontSize:"1.1rem" }}
         onClick={handleClick1}
       >
-        click
+        Submit
       </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+      
+      
       <footer
         style={{
           width: "100%",

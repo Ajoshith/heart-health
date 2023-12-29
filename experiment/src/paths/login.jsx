@@ -31,6 +31,7 @@ function Registrationform() {
         localStorage.setItem('jwtToken', token);
         console.log("Login successful");
         setUserData(token);
+        navigate('/')
        
       } else {
         console.error("Login passed");
