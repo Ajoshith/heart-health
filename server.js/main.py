@@ -7,7 +7,7 @@ neigh = pickle.load(open("server.js/finalized_model.sav", 'rb'))
 def prediction():
     data = request.json["data"]
     series_data = pd.Series(data, index=['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak', 'slope', 'ca', 'thal'])
-    df = pd.DataFrame([series_data])  # Convert Series to DataFrame
+    df = pd.DataFrame([series_data]) 
     prediction_result = {"prediction": neigh.predict(df).tolist()}
     return jsonify(prediction_result)
 
