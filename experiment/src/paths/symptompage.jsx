@@ -7,6 +7,7 @@ import { useState,useEffect } from 'react';
 function Symptom() {
   const navigate=useNavigate()
   useEffect(()=>{
+    window.scrollTo(0, 0);
     HandleClick2();
   },[])
 
@@ -40,7 +41,7 @@ function Symptom() {
       <header className="header1">
         <nav className="navbar navbar-expand-lg">
           <div className="container-fluid">
-            <Link to="/afterlogin" id="header " className="navbar-brand navbarcolorfont scale-in-center" >
+            <Link to="/" id="header " className="navbar-brand navbarcolorfont scale-in-center" >
               <img src={pjlogo} style={{ height: '60px' }} alt="logo" />
             </Link>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

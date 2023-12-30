@@ -9,6 +9,9 @@ import { useNavigate } from 'react-router-dom';
 import { useUserData } from './confirmation';
 import Registrationform from './login';
 function Home() {
+  function onC(){
+    navigate("/experiment")
+  }
   async function handleClick1() {
     try {
       const res = await fetch("/logout", {
@@ -121,7 +124,7 @@ function Home() {
         <h3 style={{ display: 'block', position: 'absolute', top: '300px', left: '530px', color: '#e11127', wordSpacing: '5px', fontWeight: '200' }}>
           Precaution: Safeguarding Your Future Health
         </h3>
-        <button style={{ fontWeight: '200', borderRadius: '50px', display: 'block', position: 'absolute', top: '350px', left: '650px', backgroundColor: '#e11127', color: 'aliceblue', width: '250px', height: '50px', fontSize: '1.5rem' }} className="btn" type="submit">Get your report</button>
+        <button onClick={onC} style={{ fontWeight: '200', borderRadius: '50px', display: 'block', position: 'absolute', top: '350px', left: '650px', backgroundColor: '#e11127', color: 'aliceblue', width: '250px', height: '50px', fontSize: '1.5rem' }} className="btn" type="submit">Get your report</button>
       </div>
 
       <div className="middle" style={{ height: '600px', width: '100%' }}>
@@ -133,7 +136,9 @@ function Home() {
           <div className="text2" style={{ fontWeight: '200', fontSize: '1.5rem', position: 'absolute', top: '120px', left: '20px' }}>
             High blood pressure often has no signs. That's why it's called the silent killer. Help stop the silent killer and other causes of heart disease with your gift now.
           </div>
+          <Link to="/symptompage">
           <button style={{ position: 'absolute', top: '270px', backgroundColor: '#e11127', width: '240px', color: 'aliceblue', left: '150px', borderRadius: '50px' }} className="btn btn-lg">Check your symptoms</button>
+          </Link>
         </div>
       </div>
 

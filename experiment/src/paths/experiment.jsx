@@ -233,7 +233,7 @@ const Experiment = () => {
       </div>
 
      
-      <div className="">
+      <div className="" style={{backgroundColor:"aliceblue",height:"620px"}}>
         
       {/* <input
         styl  e={{ border: "1px solid black" }}
@@ -304,7 +304,7 @@ const Experiment = () => {
       
   
   <div
-    className="container"
+    className="container slide-in-form "
     style={{
       marginTop:"20px",
       marginLeft:"85px",
@@ -336,15 +336,16 @@ const Experiment = () => {
             className="title"
             style={{
               display: "block",
-              marginBottom: 8,
+              marginBottom: 16,
               fontSize: 16,
               fontWeight: 500,
               margin: "6px 0",
-              color: "#333"
+              color: "#333",
+              textAlign:"center"
             }}
           >
-            <h2>Details</h2>
-          </span>
+            <h2>Medical Report</h2>
+          </span >
           <div
             className="fields"
             style={{
@@ -652,13 +653,15 @@ const Experiment = () => {
           </div>
           
         </div>
+        
         <button
         className="btn btn-lg"
-        style={{ backgroundColor: "#e11127", color: "aliceblue",marginTop:"20px",marginLeft:"550px",borderRadius:"25px",fontSize:"1.1rem" }}
+        style={{ backgroundColor: "#e11127", color: "aliceblue",marginTop:"20px",marginLeft:"580px",borderRadius:"25px",fontSize:"1.1rem" }}
         onClick={handleClick1}
       >
         Submit
       </button>
+        
       </div>
     </form>
   </div>
@@ -674,7 +677,7 @@ const Experiment = () => {
           backgroundColor: "#e11127",
           color: "aliceblue",
           textAlign: "center",
-          marginTop: "40px",
+          
           fontWeight: "200",
         }}
       >
