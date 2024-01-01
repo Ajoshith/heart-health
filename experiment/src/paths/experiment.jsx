@@ -109,7 +109,7 @@ const Experiment = () => {
       if (res.ok) {
         console.log("Updated");
       } else {
-        console.error("Registration failed");
+        console.error("Registration passed");
       }
     } catch (error) {
       console.error("Error during registration:", error);
@@ -233,7 +233,7 @@ const Experiment = () => {
       </div>
 
      
-      <div className="" style={{backgroundColor:"aliceblue",height:"620px"}}>
+      <div className="" style={{backgroundColor:"aliceblue",height:"710px"}}>
         
       {/* <input
         styl  e={{ border: "1px solid black" }}
@@ -325,7 +325,7 @@ const Experiment = () => {
       style={{
         position: "relative",
         marginTop: 16,
-        minHeight: 490,
+        minHeight: 580,
         backgroundColor: "#fff",
       
       }}
@@ -344,7 +344,7 @@ const Experiment = () => {
               textAlign:"center"
             }}
           >
-            <h2>Medical Report</h2>
+            <h2>Health data form</h2>
           </span >
           <div
             className="fields"
@@ -647,6 +647,31 @@ const Experiment = () => {
                   padding: "0 10px",
                   height: 42,
                   margin: "8px 0"
+                }}
+              />
+            </div>
+            <div
+              className="input-field"
+              style={{
+                display: "flex",
+                width: "calc(100% / 3 - 50px)",
+                flexDirection: "column",
+                margin: "4px 0"
+              }}
+            >
+              <label htmlFor="" style={{marginLeft:"480px"}}>Thal</label>
+              <input onChange={Handle13}
+                type="text"
+                placeholder="Enter your st"
+                required=""
+                style={{
+                  outline: "none",
+                  borderRadius: 5,
+                  border: "1px solid #aaa",
+                  padding: "0 10px",
+                  height: 42,
+                  margin: "8px 0",
+                  marginLeft:"480px"
                 }}
               />
             </div>
