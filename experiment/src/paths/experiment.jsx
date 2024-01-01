@@ -28,11 +28,18 @@ const Experiment = () => {
     console.log(username);
   }
   function Handle1(e) {
+
     setUsername1(e.target.value);
     console.log(username1);
   }
   function Handle2(e) {
-    setUsername2(e.target.value);
+    const k=e.target.value;
+    if (k=="Male")
+    {setUsername2(1);}
+    else{
+      setUsername2(0)
+    }
+
     console.log(username2);
   }
   function Handle3(e) {
@@ -232,10 +239,10 @@ const Experiment = () => {
         </div>
       </div>
 
-     
-      <div className="" style={{backgroundColor:"aliceblue",height:"710px"}}>
-        
-      {/* <input
+
+      <div className="" style={{ backgroundColor: "aliceblue", height: "710px" }}>
+
+        {/* <input
         styl  e={{ border: "1px solid black" }}
         type="text"
         onChange={Handle1}
@@ -300,401 +307,406 @@ const Experiment = () => {
         type="text"
         onChange={Handle13}
       /> */}
-      <br />
-      
-  
-  <div
-    className="container slide-in-form "
-    style={{
-      marginTop:"20px",
-      marginLeft:"85px",
-      position: "relative",
-      border:"#e11127 solid 10px" ,
-      width: "2000px",
-      borderRadius: 6,
-     
-      backgroundColor: "#fff",
-      boxShadow: "0 5px 10px rgba(0,0,0,0.1)"
-    }}
-  >
-    
-    <form
-      action="#"
-      className=""
-      id=""
-      style={{
-        position: "relative",
-        marginTop: 16,
-        minHeight: 580,
-        backgroundColor: "#fff",
-      
-      }}
-    >
-      <div className="form first">
-        <div className="details personal" style={{ marginTop: 30 }}>
-          <span
-            className="title"
+        <br />
+
+
+        <div
+          className="container slide-in-form "
+          style={{
+            marginTop: "20px",
+            marginLeft: "85px",
+            position: "relative",
+            border: "#e11127 solid 10px",
+            width: "2000px",
+            borderRadius: 6,
+
+            backgroundColor: "#fff",
+            boxShadow: "0 5px 10px rgba(0,0,0,0.1)"
+          }}
+        >
+
+          <form
+            action="#"
+            className=""
+            id=""
             style={{
-              display: "block",
-              marginBottom: 16,
-              fontSize: 16,
-              fontWeight: 500,
-              margin: "6px 0",
-              color: "#333",
-              textAlign:"center"
+              position: "relative",
+              marginTop: 16,
+              minHeight: 580,
+              backgroundColor: "#fff",
+
             }}
           >
-            <h2>Health data form</h2>
-          </span >
-          <div
-            className="fields"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              flexWrap: "wrap"
-            }}
-          >
-            
-            <div
-              className="input-field"
-              style={{
-                display: "flex",
-                width: "calc(100% / 3 - 50px)",
-                flexDirection: "column",
-                margin: "4px 0",
-                marginLeft:"80px"
-              }}
-            >
-              <label htmlFor="">Age</label>
-              <input onChange={Handle1}
-                type="text"
-                placeholder="Enter your age"
-                required=""
-                style={{
-                  outline: "none",
-                  borderRadius: 5,
-                  border: "1px solid #aaa",
-                  padding: "0 10px",
-                  height: 42,
-                  margin: "8px 0"
-                }}
-              />
+            <div className="form first">
+              <div className="details personal" style={{ marginTop: 30 }}>
+                <span
+                  className="title"
+                  style={{
+                    display: "block",
+                    marginBottom: 16,
+                    fontSize: 16,
+                    fontWeight: 500,
+                    margin: "6px 0",
+                    color: "#333",
+                    textAlign: "center"
+                  }}
+                >
+                  <h2>Health data form</h2>
+                </span >
+                <div
+                  className="fields"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    flexWrap: "wrap"
+                  }}
+                >
+
+                  <div
+                    className="input-field"
+                    style={{
+                      display: "flex",
+                      width: "calc(100% / 3 - 50px)",
+                      flexDirection: "column",
+                      margin: "4px 0",
+                      marginLeft: "80px"
+                    }}
+                  >
+                    <label htmlFor="">Age</label>
+                    <input onChange={Handle1}
+                      type="text"
+                      placeholder="Enter your age"
+                      required=""
+                      style={{
+                        outline: "none",
+                        borderRadius: 5,
+                        border: "1px solid #aaa",
+                        padding: "0 10px",
+                        height: 42,
+                        margin: "8px 0"
+                      }}
+                    />
+                  </div>
+                  <div
+                    className="input-field"
+                    style={{
+                      display: "flex",
+                      width:"300px",
+                      flexDirection: "column",
+                      margin: ""
+                    }}
+                  >
+                    <label htmlFor="">Gender</label>
+                    <select id="gender" 
+                    onChange={Handle2}
+                    type="text"
+                    placeholder="Enter your gender"
+                    required=""
+                    style={{
+                      outline: "none",
+                      borderRadius: 5,
+                      border: "1px solid #aaa",
+                      padding: "0 10px",
+                      height: 42,
+                      backgroundColor:"grey"
+                    }}>
+                      <option value="">Select</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </div>
+                  <div
+                    className="input-field"
+                    style={{
+                      display: "flex",
+                      width: "calc(100% / 3 - 50px)",
+                      flexDirection: "column",
+                      margin: "4px 0",
+                      marginLeft:"50px"
+                    }}
+                  >
+                    <label htmlFor="">CP</label>
+                    <input onChange={Handle3}
+                      type="text"
+                      placeholder="Enter your cp"
+                      required=""
+                      style={{
+                        outline: "none",
+                        borderRadius: 5,
+                        border: "1px solid #aaa",
+                        padding: "0 10px",
+                        height: 42,
+                        margin: "8px 0"
+                      }}
+                    />
+                  </div>
+                  <div
+                    className="input-field"
+                    style={{
+                      display: "flex",
+                      width: "calc(100% / 3 - 50px)",
+                      flexDirection: "column",
+                      margin: "4px 0",
+                      marginLeft: "80px"
+                    }}
+                  >
+                    <label htmlFor="">RBP</label>
+                    <input onChange={Handle4}
+                      type="text"
+                      placeholder="Enter your rbp"
+                      required=""
+                      style={{
+                        outline: "none",
+                        borderRadius: 5,
+                        border: "1px solid #aaa",
+                        padding: "0 10px",
+                        height: 42,
+                        margin: "8px 0"
+                      }}
+                    />
+                  </div>
+                  <div
+                    className="input-field"
+                    style={{
+                      display: "flex",
+                      width: "calc(100% / 3 - 50px)",
+                      flexDirection: "column",
+                      margin: "4px 0"
+                    }}
+                  >
+                    <label htmlFor="">SC</label>
+                    <input onChange={Handle5}
+                      type="text"
+                      placeholder="Enter your sc"
+                      required=""
+                      style={{
+                        outline: "none",
+                        borderRadius: 5,
+                        border: "1px solid #aaa",
+                        padding: "0 10px",
+                        height: 42,
+                        margin: "8px 0"
+                      }}
+                    />
+                  </div>
+                  <div
+                    className="input-field"
+                    style={{
+                      display: "flex",
+                      width: "calc(100% / 3 - 50px)",
+                      flexDirection: "column",
+                      margin: "4px 0"
+                    }}
+                  >
+                    <label htmlFor="">Fbs</label>
+                    <input onChange={Handle6}
+                      type="text"
+                      placeholder="Enter your fbs"
+                      required=""
+                      style={{
+                        outline: "none",
+                        borderRadius: 5,
+                        border: "1px solid #aaa",
+                        padding: "0 10px",
+                        height: 42,
+                        margin: "8px 0"
+                      }}
+                    />
+                  </div>
+                  <div
+                    className="input-field"
+                    style={{
+                      display: "flex",
+                      width: "calc(100% / 3 - 50px)",
+                      flexDirection: "column",
+                      margin: "4px 0"
+                    }}
+                  >
+                    <label htmlFor="" style={{ marginLeft: "80px" }}>Rer</label>
+                    <input onChange={Handle7}
+                      type="text"
+                      placeholder="Enter your rer"
+                      required=""
+                      style={{
+                        outline: "none",
+                        borderRadius: 5,
+                        border: "1px solid #aaa",
+                        padding: "0 10px",
+                        height: 42,
+                        margin: "8px 0",
+                        marginLeft: "80px"
+                      }}
+                    />
+                  </div>
+                  <div
+                    className="input-field"
+                    style={{
+                      display: "flex",
+                      width: "calc(100% / 3 - 50px)",
+                      flexDirection: "column",
+                      margin: "4px 0"
+                    }}
+                  >
+                    <label htmlFor="" style={{ marginLeft: "35px" }}>MHR</label>
+                    <input onChange={Handle8}
+                      type="text"
+                      placeholder="Enter your mhr"
+                      required=""
+                      style={{
+                        outline: "none",
+                        borderRadius: 5,
+                        border: "1px solid #aaa",
+                        padding: "0 10px",
+                        height: 42,
+                        margin: "8px 0",
+                        marginLeft: "35px"
+                      }}
+                    />
+                  </div>
+                  <div
+                    className="input-field"
+                    style={{
+                      display: "flex",
+                      width: "calc(100% / 3 - 50px)",
+                      flexDirection: "column",
+                      margin: "4px 0"
+                    }}
+                  >
+                    <label htmlFor="">Eia</label>
+                    <input onChange={Handle9}
+                      type="text"
+                      placeholder="Enter your eia"
+                      required=""
+                      style={{
+                        outline: "none",
+                        borderRadius: 5,
+                        border: "1px solid #aaa",
+                        padding: "0 10px",
+                        height: 42,
+                        margin: "8px 0"
+                      }}
+                    />
+                  </div>
+                  <div
+                    className="input-field"
+                    style={{
+                      display: "flex",
+                      width: "calc(100% / 3 - 50px)",
+                      flexDirection: "column",
+                      margin: "4px 0"
+                    }}
+                  >
+                    <label htmlFor="" style={{ marginLeft: "80px" }}>Olds</label>
+                    <input onChange={Handle10}
+                      type="text"
+                      placeholder="Enter your olds"
+                      required=""
+                      style={{
+                        outline: "none",
+                        borderRadius: 5,
+                        border: "1px solid #aaa",
+                        padding: "0 10px",
+                        height: 42,
+                        margin: "8px 0",
+                        marginLeft: "80px"
+                      }}
+                    />
+                  </div>
+                  <div
+                    className="input-field"
+                    style={{
+                      display: "flex",
+                      width: "calc(100% / 3 - 50px)",
+                      flexDirection: "column",
+                      margin: "4px 0"
+                    }}
+                  >
+                    <label htmlFor="" style={{ marginLeft: "35px" }}>ST</label>
+                    <input onChange={Handle11}
+                      type="text"
+                      placeholder="Enter your st"
+                      required=""
+                      style={{
+                        outline: "none",
+                        borderRadius: 5,
+                        border: "1px solid #aaa",
+                        padding: "0 10px",
+                        height: 42,
+                        margin: "8px 0",
+                        marginLeft: "35px"
+                      }}
+                    />
+                  </div>
+                  <div
+                    className="input-field"
+                    style={{
+                      display: "flex",
+                      width: "calc(100% / 3 - 50px)",
+                      flexDirection: "column",
+                      margin: "4px 0"
+                    }}
+                  >
+                    <label htmlFor="">MVS</label>
+                    <input onChange={Handle12}
+                      type="text"
+                      placeholder="Enter your mvs"
+                      required=""
+                      style={{
+                        outline: "none",
+                        borderRadius: 5,
+                        border: "1px solid #aaa",
+                        padding: "0 10px",
+                        height: 42,
+                        margin: "8px 0"
+                      }}
+                    />
+                  </div>
+                  <div
+                    className="input-field"
+                    style={{
+                      display: "flex",
+                      width: "calc(100% / 3 - 50px)",
+                      flexDirection: "column",
+                      margin: "4px 0"
+                    }}
+                  >
+                    <label htmlFor="" style={{ marginLeft: "480px" }}>Thal</label>
+                    <input onChange={Handle13}
+                      type="text"
+                      placeholder="Enter your st"
+                      required=""
+                      style={{
+                        outline: "none",
+                        borderRadius: 5,
+                        border: "1px solid #aaa",
+                        padding: "0 10px",
+                        height: 42,
+                        margin: "8px 0",
+                        marginLeft: "480px"
+                      }}
+                    />
+                  </div>
+                </div>
+
+              </div>
+
+              <button
+                className="btn btn-lg"
+                style={{ backgroundColor: "#e11127", color: "aliceblue", marginTop: "20px", marginLeft: "580px", borderRadius: "25px", fontSize: "1.1rem" }}
+                onClick={handleClick1}
+              >
+                Submit
+              </button>
+
             </div>
-            <div
-              className="input-field"
-              style={{
-                display: "flex",
-                width: "calc(100% / 3 - 50px)",
-                flexDirection: "column",
-                margin: "4px 0"
-              }}
-            >
-              <label htmlFor="">Gender</label>
-              <input onChange={Handle2}
-                type="text"
-                placeholder="Enter your gender"
-                required=""
-                style={{
-                  outline: "none",
-                  borderRadius: 5,
-                  border: "1px solid #aaa",
-                  padding: "0 10px",
-                  height: 42,
-                  margin: "8px 0"
-                }}
-              />
-            </div>
-            <div
-              className="input-field"
-              style={{
-                display: "flex",
-                width: "calc(100% / 3 - 50px)",
-                flexDirection: "column",
-                margin: "4px 0"
-              }}
-            >
-              <label htmlFor="">CP</label>
-              <input onChange={Handle3}
-                type="text"
-                placeholder="Enter your cp"
-                required=""
-                style={{
-                  outline: "none",
-                  borderRadius: 5,
-                  border: "1px solid #aaa",
-                  padding: "0 10px",
-                  height: 42,
-                  margin: "8px 0"
-                }}
-              />
-            </div>
-            <div
-              className="input-field"
-              style={{
-                display: "flex",
-                width: "calc(100% / 3 - 50px)",
-                flexDirection: "column",
-                margin: "4px 0",
-                marginLeft:"80px"
-              }}
-            >
-              <label htmlFor="">RBP</label>
-              <input onChange={Handle4}
-                type="text"
-                placeholder="Enter your rbp"
-                required=""
-                style={{
-                  outline: "none",
-                  borderRadius: 5,
-                  border: "1px solid #aaa",
-                  padding: "0 10px",
-                  height: 42,
-                  margin: "8px 0"
-                }}
-              />
-            </div>
-            <div
-              className="input-field"
-              style={{
-                display: "flex",
-                width: "calc(100% / 3 - 50px)",
-                flexDirection: "column",
-                margin: "4px 0"
-              }}
-            >
-              <label htmlFor="">SC</label>
-              <input onChange={Handle5}
-                type="text"
-                placeholder="Enter your sc"
-                required=""
-                style={{
-                  outline: "none",
-                  borderRadius: 5,
-                  border: "1px solid #aaa",
-                  padding: "0 10px",
-                  height: 42,
-                  margin: "8px 0"
-                }}
-              />
-            </div>
-            <div
-              className="input-field"
-              style={{
-                display: "flex",
-                width: "calc(100% / 3 - 50px)",
-                flexDirection: "column",
-                margin: "4px 0"
-              }}
-            >
-              <label htmlFor="">Fbs</label>
-              <input onChange={Handle6}
-                type="text"
-                placeholder="Enter your fbs"
-                required=""
-                style={{
-                  outline: "none",
-                  borderRadius: 5,
-                  border: "1px solid #aaa",
-                  padding: "0 10px",
-                  height: 42,
-                  margin: "8px 0"
-                }}
-              />
-            </div>
-            <div
-              className="input-field"
-              style={{
-                display: "flex",
-                width: "calc(100% / 3 - 50px)",
-                flexDirection: "column",
-                margin: "4px 0"
-              }}
-            >
-              <label htmlFor="" style={{marginLeft:"80px"}}>Rer</label>
-              <input onChange={Handle7}
-                type="text"
-                placeholder="Enter your rer"
-                required=""
-                style={{
-                  outline: "none",
-                  borderRadius: 5,
-                  border: "1px solid #aaa",
-                  padding: "0 10px",
-                  height: 42,
-                  margin: "8px 0",
-                  marginLeft:"80px"
-                }}
-              />
-            </div>
-            <div
-              className="input-field"
-              style={{
-                display: "flex",
-                width: "calc(100% / 3 - 50px)",
-                flexDirection: "column",
-                margin: "4px 0"
-              }}
-            >
-              <label htmlFor="" style={{marginLeft:"35px"}}>MHR</label>
-              <input onChange={Handle8}
-                type="text"
-                placeholder="Enter your mhr"
-                required=""
-                style={{
-                  outline: "none",
-                  borderRadius: 5,
-                  border: "1px solid #aaa",
-                  padding: "0 10px",
-                  height: 42,
-                  margin: "8px 0",
-                  marginLeft:"35px"
-                }}
-              />
-            </div>
-            <div
-              className="input-field"
-              style={{
-                display: "flex",
-                width: "calc(100% / 3 - 50px)",
-                flexDirection: "column",
-                margin: "4px 0"
-              }}
-            >
-              <label htmlFor="">Eia</label>
-              <input onChange={Handle9}
-                type="text"
-                placeholder="Enter your eia"
-                required=""
-                style={{
-                  outline: "none",
-                  borderRadius: 5,
-                  border: "1px solid #aaa",
-                  padding: "0 10px",
-                  height: 42,
-                  margin: "8px 0"
-                }}
-              />
-            </div>
-            <div
-              className="input-field"
-              style={{
-                display: "flex",
-                width: "calc(100% / 3 - 50px)",
-                flexDirection: "column",
-                margin: "4px 0"
-              }}
-            >
-              <label htmlFor="" style={{marginLeft:"80px"}}>Olds</label>
-              <input onChange={Handle10}
-                type="text"
-                placeholder="Enter your olds"
-                required=""
-                style={{
-                  outline: "none",
-                  borderRadius: 5,
-                  border: "1px solid #aaa",
-                  padding: "0 10px",
-                  height: 42,
-                  margin: "8px 0",
-                  marginLeft:"80px"
-                }}
-              />
-            </div>
-            <div
-              className="input-field"
-              style={{
-                display: "flex",
-                width: "calc(100% / 3 - 50px)",
-                flexDirection: "column",
-                margin: "4px 0"
-              }}
-            >
-              <label htmlFor="" style={{marginLeft:"35px"}}>ST</label>
-              <input onChange={Handle11}
-                type="text"
-                placeholder="Enter your st"
-                required=""
-                style={{
-                  outline: "none",
-                  borderRadius: 5,
-                  border: "1px solid #aaa",
-                  padding: "0 10px",
-                  height: 42,
-                  margin: "8px 0",
-                  marginLeft:"35px"
-                }}
-              />
-            </div>
-            <div
-              className="input-field"
-              style={{
-                display: "flex",
-                width: "calc(100% / 3 - 50px)",
-                flexDirection: "column",
-                margin: "4px 0"
-              }}
-            >
-              <label htmlFor="">MVS</label>
-              <input onChange={Handle12}
-                type="text"
-                placeholder="Enter your mvs"
-                required=""
-                style={{
-                  outline: "none",
-                  borderRadius: 5,
-                  border: "1px solid #aaa",
-                  padding: "0 10px",
-                  height: 42,
-                  margin: "8px 0"
-                }}
-              />
-            </div>
-            <div
-              className="input-field"
-              style={{
-                display: "flex",
-                width: "calc(100% / 3 - 50px)",
-                flexDirection: "column",
-                margin: "4px 0"
-              }}
-            >
-              <label htmlFor="" style={{marginLeft:"480px"}}>Thal</label>
-              <input onChange={Handle13}
-                type="text"
-                placeholder="Enter your st"
-                required=""
-                style={{
-                  outline: "none",
-                  borderRadius: 5,
-                  border: "1px solid #aaa",
-                  padding: "0 10px",
-                  height: 42,
-                  margin: "8px 0",
-                  marginLeft:"480px"
-                }}
-              />
-            </div>
-          </div>
-          
+          </form>
         </div>
-        
-        <button
-        className="btn btn-lg"
-        style={{ backgroundColor: "#e11127", color: "aliceblue",marginTop:"20px",marginLeft:"580px",borderRadius:"25px",fontSize:"1.1rem" }}
-        onClick={handleClick1}
-      >
-        Submit
-      </button>
-        
       </div>
-    </form>
-  </div>
-</div>
 
 
-      
-      
+
+
       <footer
         style={{
           width: "100%",
@@ -702,7 +714,7 @@ const Experiment = () => {
           backgroundColor: "#e11127",
           color: "aliceblue",
           textAlign: "center",
-          
+
           fontWeight: "200",
         }}
       >
