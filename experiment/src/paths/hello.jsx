@@ -127,7 +127,7 @@ function Home() {
         <button onClick={onC} style={{ fontWeight: '200', borderRadius: '50px', display: 'block', position: 'absolute', top: '350px', left: '650px', backgroundColor: '#e11127', color: 'aliceblue', width: '250px', height: '50px', fontSize: '1.5rem' }} className="btn" type="submit">Get your report</button>
       </div>
 
-      <div className="middle" style={{ height: '600px', width: '100%' }}>
+      <div className="middle" style={{ height: '600px', width: '100%' ,backgroundColor:"aliceblue"}}>
         <div className="middle1 shadow-lg" style={{ height: '500px', backgroundColor: 'aliceblue', width: '600px', position: 'absolute', left: '700px', marginTop: '60px' }}></div>
         <div className="shadow" style={{ height: '400px', width: '600px', backgroundColor: 'white', position: 'absolute', marginTop: '100px', left: '300px', borderBottom: '15px #e11127 solid' }}>
           <div className="text1" style={{ fontWeight: '400', fontSize: '3rem', display: 'inline-block', position: 'absolute', left: '20px', top: '30px' }}>
