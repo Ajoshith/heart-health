@@ -373,7 +373,7 @@ const Experiment = () => {
                       marginLeft: "80px"
                     }}
                   >
-                    <label htmlFor="">Age</label>
+                    <label htmlFor="" style={{marginLeft:"80px"}}>Age</label>
                     <input onChange={Handle1}
                       type="text"
                       placeholder="Enter your age"
@@ -384,7 +384,8 @@ const Experiment = () => {
                         border: "1px solid #aaa",
                         padding: "0 10px",
                         height: 42,
-                        margin: "8px 0"
+                        marginLeft:"80px"
+                        
                       }}
                     />
                   </div>
@@ -397,7 +398,7 @@ const Experiment = () => {
                       margin: ""
                     }}
                   >
-                    <label htmlFor="">Gender</label>
+                    <label htmlFor="" style={{marginLeft:"30px ",marginBottom:"8px"}}>Gender</label>
                     <select id="gender" 
                     onChange={Handle2}
                     type="text"
@@ -409,12 +410,18 @@ const Experiment = () => {
                       border: "1px solid #aaa",
                       padding: "0 10px",
                       height: 42,
-                      backgroundColor:"grey"
+                      backgroundColor:"rgba(244,248,247,255)",
+                      fontWeight:"100",
+                      color:"gray",
+                      marginLeft:"30px",
+                      width:"280px",
+                      
                     }}>
                       <option value="">Select</option>
                       <option value="male">Male</option>
                       <option value="female">Female</option>
                     </select>
+                    
                   </div>
                   <div
                     className="input-field"
@@ -437,7 +444,8 @@ const Experiment = () => {
                         border: "1px solid #aaa",
                         padding: "0 10px",
                         height: 42,
-                        margin: "8px 0"
+                        margin: "8px 0",
+                    
                       }}
                     />
                   </div>
