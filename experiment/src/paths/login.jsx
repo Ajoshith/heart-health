@@ -108,72 +108,50 @@ function Registrationform() {
 
   return (
     <>
-      {/* Container */}
+    <div>
       <div id="container">
         {/* Cover Box */}
-        <div id="cover">
+        <div id="cover" >
           {/* Sign Up Section */}
-          <h1 className="sign-up">Hello, Friend!</h1>
-          <p className="sign-up">Enter your personal details<br /> and start a journey with us</p>
-          <button className="button sign-up" >Sign Up</button>
+          <h1 className="sign-up">Welcome back</h1>
+          <p className="sign-up">Please enter your credentials to log in<br /></p>
+          <a className="button sign-up" href="#cover">Sign Up</a>
           {/* Sign In Section */}
-          <h1 className="sign-in">Welcome Back!</h1>
-          <p className="sign-in">To keep connected with us please<br /> login with your personal info</p>
+          <h1 className="sign-in">Hello Friend</h1>
+          <p className="sign-in">Please fill your personal credentials to <br /> start the journey with us</p>
           <br />
           <a className="button sub sign-in" href="#">Sign In</a>
         </div>
-
         {/* Login Box */}
         <div id="login">
           <h1>Sign In</h1>
-          <a href="#"><img className="social-login" src="https://image.flaticon.com/icons/png/128/59/59439.png" alt="Social Icon" /></a>
-          <a href="#"><img className="social-login" src="https://image.flaticon.com/icons/png/128/49/49026.png" alt="Social Icon" /></a>
-          <a href="#"><img className="social-login" src="https://image.flaticon.com/icons/png/128/34/34227.png" alt="Social Icon" /></a>
+          <a href="#"><img className="social-login" src="https://image.flaticon.com/icons/png/128/59/59439.png" alt="social login" /></a>
+          <a href="#"><img className="social-login" src="https://image.flaticon.com/icons/png/128/49/49026.png" alt="social login" /></a>
+          <a href="#"><img className="social-login" src="https://image.flaticon.com/icons/png/128/34/34227.png" alt="social login" /></a>
           <p>or use your email account:</p>
           <form>
-          <input onChange={handleChange} className="input1" placeholder="Username" /><br />
-            <input onChange={handleChangePassword} className="input1" placeholder="Password" /><br />
+            <input onChange={handleChange} type="email" placeholder="Email" autoComplete="off" /><br />
+            <input onChange={handleChangePassword} type="password" placeholder="Password" autoComplete="off" /><br />
             <a id="forgot-pass" href="#">Forgot your password?</a><br />
-            <button className="submit-btn" type="button" onClick={handleClick}>Sign In</button>
+            <input onClick={handleClick} className="submit-btn" type="submit" value="Sign In" />
           </form>
         </div>
-
         {/* Register Box */}
         <div id="register">
           <h1>Create Account</h1>
-          <a href="#"><img className="social-login" src="https://image.flaticon.com/icons/png/128/59/59439.png" alt="Social Icon" /></a>
-          <a href="#"><img className="social-login" src="https://image.flaticon.com/icons/png/128/49/49026.png" alt="Social Icon" /></a>
-          <a href="#"><img className="social-login" src="https://image.flaticon.com/icons/png/128/34/34227.png" alt="Social Icon" /></a>
+          <a href="#"><img className="social-login" src="https://image.flaticon.com/icons/png/128/59/59439.png" alt="social login" /></a>
+          <a href="#"><img className="social-login" src="https://image.flaticon.com/icons/png/128/49/49026.png" alt="social login" /></a>
+          <a href="#"><img className="social-login" src="https://image.flaticon.com/icons/png/128/34/34227.png" alt="social login" /></a>
           <p>or use your email for registration:</p>
           <form>
-            <input onChange={handleChange} placeholder="Name" autoComplete="off" /><br />
-            <input onChange={handleChange} placeholder="Email" autoComplete="off" /><br />
-            <input onChange={handleChangePassword} placeholder="Password" autoComplete="off" /><br />
-            <button className="submit-btn" type="button" onClick={handleClick}>Sign Up</button>
-            <button type="button" style={{width:"50px",height:"100px"}} onClick={handleClick}>
-          Login
-        </button>
+            <input onChange={handleChange} type="text" placeholder="Name" autoComplete="off" /><br />
+            <input type="email" placeholder="Email" autoComplete="off" /><br />
+            <input onChange={handleChangePassword} type="password" placeholder="Password" autoComplete="off" /><br />
+            <input onClick={handleClick1} className="submit-btn" type="submit" value="Sign Up" />
           </form>
         </div>
-      </div> {/* END Container */}
-
-      {/* Rest of your JSX */}
-      <form>
-        <input onChange={handleChange} className="input1" placeholder="Username" />
-        <input onChange={handleChangePassword} className="input1" placeholder="Password" />
-
-        <button type="button" onClick={handleClick}>
-          Login
-        </button>
-        <button type="button" onClick={handleClick1}>
-          Register
-        </button>
-        <button onClick={HandleClick2}>
-          Get data from /protected
-        </button>
-      </form>
-      <h1>{userData}</h1>
-      <h1></h1>
+      </div>
+    </div>
     </>
   );
 }
