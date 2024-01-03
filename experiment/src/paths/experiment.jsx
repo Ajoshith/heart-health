@@ -373,7 +373,7 @@ const Experiment = () => {
                       marginLeft: "80px"
                     }}
                   >
-                    <label htmlFor="" style={{marginLeft:"80px"}}>Age</label>
+                    <label htmlFor="" style={{marginLeft:"0px"}}>Age</label>
                     <input onChange={Handle1}
                       type="text"
                       placeholder="Enter your age"
@@ -384,7 +384,7 @@ const Experiment = () => {
                         border: "1px solid #aaa",
                         padding: "0 10px",
                         height: 42,
-                        marginLeft:"80px"
+                        marginLeft:"0px"
                         
                       }}
                     />
@@ -392,6 +392,7 @@ const Experiment = () => {
                   <div
                     className="input-field"
                     style={{
+                      
                       display: "flex",
                       width:"300px",
                       flexDirection: "column",
@@ -417,9 +418,9 @@ const Experiment = () => {
                       width:"280px",
                       
                     }}>
-                      <option value="">Select</option>
+                      <option value="" disabled>Enter your gender</option>
                       <option value="male">Male</option>
-                      <option value="female">Female</option>
+                      <option value="female" >Female</option>
                     </select>
                     
                   </div>
@@ -430,7 +431,7 @@ const Experiment = () => {
                       width: "calc(100% / 3 - 50px)",
                       flexDirection: "column",
                       margin: "4px 0",
-                      marginLeft:"50px"
+                      marginLeft:"130px"
                     }}
                   >
                     <label htmlFor="">CP</label>

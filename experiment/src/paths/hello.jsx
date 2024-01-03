@@ -124,7 +124,7 @@ function Home() {
         <h3 style={{ display: 'block', position: 'absolute', top: '300px', left: '530px', color: '#e11127', wordSpacing: '5px', fontWeight: '200' }}>
           Precaution: Safeguarding Your Future Health
         </h3>
-        <button onClick={onC} style={{ fontWeight: '200', borderRadius: '50px', display: 'block', position: 'absolute', top: '350px', left: '650px', backgroundColor: '#e11127', color: 'aliceblue', width: '250px', height: '50px', fontSize: '1.5rem' }} className="btn" type="submit">Get your report</button>
+        <button onClick={onC} style={{ fontWeight: '200', borderRadius: '50px', display: 'block', position: 'absolute', top: '350px', left: '650px', backgroundColor: '#e11127', color: 'aliceblue', width: '250px', height: '50px', fontSize: '1.5rem' }} className="btn" type="submit">Health data form</button>
       </div>
 
       <div className="middle" style={{ height: '600px', width: '100%' ,backgroundColor:"aliceblue"}}>

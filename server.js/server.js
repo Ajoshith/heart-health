@@ -9,6 +9,8 @@ const app = express();
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const API_KEY = require("dotenv").config();
 const secretKey = "hello world";
+const {PythonShell}=require("python-shell")
+const {spawn} = require("child_process")
 app.use(express.json());
 app.use(cookieParser());
 
@@ -226,6 +228,22 @@ app.post("/logout", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+app.get("/prediction",async(req,resp)=>{
+  try {
+  
+    const array=[57,1,0,130,131,0,1,115,1,1.2,1,1,0];
+    const child=spawn('python',['prediction.py',array]);
+    child.stdout.on("data",(data)=>{
+      const data1=data.toString();
+      resp.send(data1)
+    })
+
+
+  } catch (error) {
+    console.log(error)
+  }
+})
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

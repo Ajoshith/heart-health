@@ -19,7 +19,6 @@ function App() {
           <Route path="/exp" element={<Experiment1 />} />
           <Route path="/registration" element={<Registrationform />} />
           <Route path="/symptompage" element={<Symptom />} />
-
           <Route path="/doctorspage" element={<Doctorshomepage />} />
           <Route path="/docsearch" element={<Searchpage />} />
           <Route path="/consultation" element={<Consult />} />
