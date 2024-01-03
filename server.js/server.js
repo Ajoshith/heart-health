@@ -229,14 +229,16 @@ app.post("/logout", async (req, res) => {
   }
 });
 
-app.get("/prediction",async(req,resp)=>{
+app.post("/prediction",async(req,resp)=>{
   try {
   
-    const array=[57,1,0,130,131,0,1,115,1,1.2,1,1,0];
+    const data=req.body;
+    const array=data['data']
+    console.log(array)
     const child=spawn('python',['prediction.py',array]);
     child.stdout.on("data",(data)=>{
       const data1=data.toString();
-      resp.send(data1)
+      resp.json(data1)
     })
 
 
