@@ -124,7 +124,7 @@ const Experiment = () => {
         console.error("Registration passed");
       }
     } catch (error) {
-      console.error("Error during registration:", error);
+      console.error("Error during :", error);
     }
   }
   async function HandleClick2() {
