@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import logo from "../images/image.png";
 
 const Experiment = () => {
-  const [medicaldata,setMedicalData]=useState(false)
+  const [medicaldata,setMedicalData]=useState(false);
+  const [patientname,setPatientName]=useState(false);
   const [username, setUsername] = useState("");
   const [username1, setUsername1] = useState("");
   const [username2, setUsername2] = useState("");
@@ -98,7 +99,7 @@ const Experiment = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: username,
+          name: patientname,
           medicalHistory: {
             age: username1,
             sex: username2,
@@ -126,7 +127,7 @@ const Experiment = () => {
       console.error("Error during registration:", error);
     }
   }
-  async function HandleClick2(event) {
+  async function HandleClick2() {
     
     try {
       const res = await fetch("/about", {
@@ -135,14 +136,15 @@ const Experiment = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: "Hello",
-          password: "password",
+          name: patientname,
+          
         }),
       });
 
       if (res.ok) {
         const { name,medicalHistory } = await res.json();
         console.log(medicalHistory)
+        setPatientName(name)
         
       } else {
         console.error("Login pass");
@@ -158,8 +160,8 @@ const Experiment = () => {
         <nav className="navbar navbar-expand-lg">
           <div className="container-fluid">
             <Link
-              to="/afterlogin"
-              id="header "
+              to="/"
+              id="header"
               className="navbar-brand navbarcolorfont scale-in-center"
             >
               <img src={logo} style={{ height: "60px" }} alt="logo" />
@@ -185,7 +187,7 @@ const Experiment = () => {
                     className="nav-link"
                     style={{ color: "aliceblue" }}
                     aria-current="page"
-                    href="#"
+                    
                   >
                     Home
                   </a>
@@ -194,7 +196,7 @@ const Experiment = () => {
                   <a
                     className="nav-link"
                     style={{ color: "aliceblue" }}
-                    href="#"
+                    
                   >
                     About us
                   </a>
