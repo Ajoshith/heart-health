@@ -56,7 +56,7 @@ function Home() {
 
       if (res.ok) {
         const data=await res.json();
-        const {name}=data;
+        const {name,medicalHistory}=data;
         console.log(name)
         Setud(name);
         console.log("Hello")

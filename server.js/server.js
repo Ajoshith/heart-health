@@ -85,22 +85,24 @@ app.post("/login", async (req, resp) => {
   }
 });
 app.post("/genai", async (req, resp) => {
+  console.log("ai api")
   const data = req.body;
   const genAI = new GoogleGenerativeAI(process.env.API_KEY);
   const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-  const prompt = `age = 57
-    gender = 1
-    chest pain type (4 values)=0
-    resting blood pressure=130
-    serum cholestoral in mg/dl=131
-    fasting blood sugar > 120 mg/dl=0
-    resting electrocardiographic results (values 0,1,2)=1
-    maximum heart rate achieved=115
-    exercise induced angina=1
-    oldpeak = ST depression induced by exercise relative to rest=1.2 
-    the slope of the peak exercise ST segment=1
-    number of major vessels (0-3) colored by flourosopy=1
-    thalassemia = 0
+  const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=data;
+  const prompt = `age = ${age}
+    gender = ${sex}
+    chest pain type (4 values)=${cp}
+    resting blood pressure=${rbp}
+    serum cholestoral in mg/dl=${sc}
+    fasting blood sugar > 120 mg/dl=${fbs}
+    resting electrocardiographic results (values 0,1,2)=${rer}
+    maximum heart rate achieved=${mhr}
+    exercise induced angina=${eia}
+    oldpeak = ST depression induced by exercise relative to rest=${olds} 
+    the slope of the peak exercise ST segment=${st}
+    number of major vessels (0-3) colored by flourosopy=${mvs}
+    thalassemia = ${thal}
     explain what the values for each parameter means to the patient not a general explaintion of the parametersthemselves in 13 points one point for each value.At end just generate 8 keysword such high pressure and so according to the data above the whole generated message should be less than 500 words
     `;
   const result = await model.generateContent(prompt);
@@ -146,14 +148,15 @@ app.post("/about", Authentication, async (req, resp) => {
   try {
     const data = req.userId;
     const user = await User.findOne({ _id: data });
-    const { name } = user;
+    const { name,medicalHistory } = user;
     if (!user) {
       console.log("User not found");
       return resp.status(404).send("User not found");
     }
     console.log("Login successful");
-    console.log({ name });
-    resp.status(200).json({ name });
+    console.log({ name,medicalHistory });
+    
+    resp.status(200).json({ name,medicalHistory });
     console.log("Hello546");
   } catch (error) {
     console.error("Error during login:", error.message);

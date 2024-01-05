@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import logo from "../images/image.png";
 
 const Experiment = () => {
+  const [medicaldata,setMedicalData]=useState(false)
   const [username, setUsername] = useState("");
   const [username1, setUsername1] = useState("");
   const [username2, setUsername2] = useState("");
@@ -22,6 +23,7 @@ const Experiment = () => {
   const navigate = useNavigate();
   useEffect(() => {
     HandleClick2();
+
   }, []);
   function Handle(e) {
     setUsername(e.target.value);
@@ -86,7 +88,9 @@ const Experiment = () => {
     setUsername13(e.target.value);
     console.log(username13);
   }
-  async function handleClick1() {
+  
+  async function handleClick1(e) {
+    
     try {
       const res = await fetch("/filldata", {
         method: "POST",
@@ -123,6 +127,7 @@ const Experiment = () => {
     }
   }
   async function HandleClick2(event) {
+    
     try {
       const res = await fetch("/about", {
         method: "POST",
@@ -136,8 +141,9 @@ const Experiment = () => {
       });
 
       if (res.ok) {
-        const { name } = await res.json();
-        setUsername(name);
+        const { name,medicalHistory } = await res.json();
+        console.log(medicalHistory)
+        
       } else {
         console.error("Login pass");
         navigate("/");
