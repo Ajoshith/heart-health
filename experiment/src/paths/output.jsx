@@ -50,7 +50,7 @@ function Output() {
 
                 body: JSON.stringify({
                     
-                        age1:age,
+                        age:age,
                         sex:sex,
                         cp:cp,
                         rbp:rbp,
