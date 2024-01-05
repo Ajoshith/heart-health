@@ -10,6 +10,7 @@ import Searchpage from "./paths/docsea";
 import Consult from "./paths/consultation";
 import Registrationform from "./paths/login";
 import Experiment1 from "./paths/experiment1";
+import Output from "./paths/output";
 function App() {
   return (
     <>
@@ -23,6 +24,7 @@ function App() {
           <Route path="/docsearch" element={<Searchpage />} />
           <Route path="/consultation" element={<Consult />} />
           <Route path="/experiment" element={<Experiment />} />
+          <Route path="/output" element={<Output/>}/>
         </Routes>
       </Router>
     </>

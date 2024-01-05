@@ -5,7 +5,7 @@ const { spawn } = require("child_process");
 const array = [57, 1, 0, 130, 131, 0, 1, 115, 1, 1.2, 1, 1, 0];
 let data1;
 
-const child = spawn('python', ['prediction.py', array]);
+const child = spawn('python', ["-B",'prediction.py', array]);
 
 child.stdout.on("data", (data) => {
     data1 = data.toString();

@@ -238,6 +238,9 @@ app.post("/prediction",async(req,resp)=>{
     const child=spawn('python',['prediction.py',array]);
     child.stdout.on("data",(data)=>{
       const data1=data.toString();
+      console.log(data1)
+      console.log(typeof data1)
+      
       resp.json(data1)
     })
 
@@ -246,6 +249,8 @@ app.post("/prediction",async(req,resp)=>{
     console.log(error)
   }
 })
+
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
