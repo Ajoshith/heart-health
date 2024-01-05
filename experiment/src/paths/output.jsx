@@ -49,8 +49,8 @@ function Output() {
                 },
 
                 body: JSON.stringify({
-                    data:{
-                        age:age,
+                    
+                        age1:age,
                         sex:sex,
                         cp:cp,
                         rbp:rbp,
@@ -63,7 +63,7 @@ function Output() {
                         st:st,
                         mvs:mvs,
                         thal:thal
-                    },
+                    
                   }),
             })
             if (res.ok){

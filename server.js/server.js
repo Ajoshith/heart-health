@@ -89,7 +89,8 @@ app.post("/genai", async (req, resp) => {
   const data = req.body;
   const genAI = new GoogleGenerativeAI(process.env.API_KEY);
   const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-  const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=data;
+  const {age1,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=data;
+  console.log(age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal)
   const prompt = `age = ${age}
     gender = ${sex}
     chest pain type (4 values)=${cp}
@@ -168,7 +169,7 @@ app.post("/filldata", async (req, resp) => {
   try {
     const data = req.body;
     const existingUser = await User.findOne({ name: data.name });
-
+    const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=data;
     if (existingUser) {
 
       existingUser.medicalHistory = {
@@ -234,7 +235,8 @@ app.post("/prediction",async(req,resp)=>{
   try {
   
     const data=req.body;
-    const array=data['data']
+    const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=data;
+    
     console.log(array)
     const child=spawn('python',['prediction.py',array]);
     child.stdout.on("data",(data)=>{
