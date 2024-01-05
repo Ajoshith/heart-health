@@ -104,7 +104,7 @@ app.post("/genai", async (req, resp) => {
     the slope of the peak exercise ST segment=${st}
     number of major vessels (0-3) colored by flourosopy=${mvs}
     thalassemia = ${thal}
-    explain what the values for each parameter means to the patient not a general explaintion of the parametersthemselves in 13 points one point for each value.At end just generate 8 keysword such high pressure and so according to the data above the whole generated message should be less than 500 words
+    explain what the values for each parameter means to the patient not a general explaintion of the parameters themselves in 13 points one point for each value.At end just generate 8 keysword such high pressure and so according to the data above the whole generated message should be less than 500 words
     `;
   const result = await model.generateContent(prompt);
   const response = await result.response;
