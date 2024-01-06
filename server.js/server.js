@@ -92,7 +92,7 @@ app.post("/genai", async (req, resp) => {
   const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=data;
   console.log(age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal)
   const prompt = `age = ${age}
-    gender = ${sex}
+    gender = ${sex} 
     chest pain type (4 values)=${cp}
     resting blood pressure=${rbp}
     serum cholestoral in mg/dl=${sc}
