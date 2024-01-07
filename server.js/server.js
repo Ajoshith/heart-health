@@ -236,7 +236,7 @@ app.post("/prediction",async(req,resp)=>{
   
     const data=req.body;
     const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=data;
-    
+    const array =[age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal]
     console.log(array)
     const child=spawn('python',['prediction.py',array]);
     child.stdout.on("data",(data)=>{
