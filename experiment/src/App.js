@@ -11,6 +11,7 @@ import Consult from "./paths/consultation";
 import Registrationform from "./paths/login";
 import Experiment1 from "./paths/experiment1";
 import Output from "./paths/output";
+import MyNewsComponent from "./paths/experiment1";
 function App() {
   return (
     <>
@@ -23,8 +24,9 @@ function App() {
           <Route path="/doctorspage" element={<Doctorshomepage />} />
           <Route path="/docsearch" element={<Searchpage />} />
           <Route path="/consultation" element={<Consult />} />
-          <Route path="/experiment" element={<Experiment />} />
+          <Route path="/fillform" element={<Experiment />} />
           <Route path="/output" element={<Output/>}/>
+          <Route path="/experiment" element={<MyNewsComponent/>}/>
         </Routes>
       </Router>
     </>

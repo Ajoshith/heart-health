@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema({
 
     // Adjust the minimum length as needed
   },
+  risk:{},
   tokens: [
     {
       token: {
@@ -38,6 +39,7 @@ const userSchema = new mongoose.Schema({
     mvs: { type: Number },
     thal: { type: Number },
   },
+  
 });
 userSchema.pre("save", async function (next) {
   if (this.isModified("password")) {

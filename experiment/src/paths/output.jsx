@@ -6,6 +6,8 @@ function Output() {
     const [medicaldata,setMedicalData]=useState('')
     const [user,setUser]=useState('')
     const [data1,setData1]=useState('')
+    const [id,setId]=useState('')
+    
     useEffect(() => {
         HandleClick2();
     
@@ -25,11 +27,12 @@ function Output() {
           });
     
           if (res.ok) {
-            const { name,medicalHistory } = await res.json();
-            console.log(medicalHistory)
+            const { name,medicalHistory,data,risk } = await res.json();
+            console.log(medicalHistory,risk)
             setMedicalData(medicalHistory)
             const {age}=medicaldata
-            console.log(name)
+            console.log(name,data )
+            setId(data)
             
           } else {
             console.error("Login pass");
@@ -39,17 +42,18 @@ function Output() {
           console.error("Error during login:", error);
         }
       }
-    async function GetOutput(){
+      async function GetOutput(){
         try {
             const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=medicaldata;
+            console.log(id)
+            console.log("ladsjfo")
             const res=await fetch('/genai',{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json"
                 },
-
                 body: JSON.stringify({
-                    
+                        id:id,
                         age:age,
                         sex:sex,
                         cp:cp,
@@ -69,6 +73,59 @@ function Output() {
             if (res.ok){
                 const data=await res.json();
                 setData1(data)
+                console.log(typeof data)
+                const keywordsPattern = /Keywords:(.*?)(?=\d+\.)|Keywords:(.*)$/s;
+
+// Extract the content of the Keywords section
+               const match = data.match(keywordsPattern);
+              const keywordsContent = match ? match[1] || match[2] : null;
+              console.log(keywordsContent)
+            }
+            
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    async function GetOutput1(){
+        try {
+            const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=medicaldata;
+            console.log(id)
+            const res=await fetch('/prediction',{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+
+                body: JSON.stringify({
+
+                        age:age,
+                        id:id,
+                        sex:sex,
+                        cp:cp,
+                        rbp:rbp,
+                        sc:sc,
+                        fbs:fbs,
+                        rer:rer,
+                        mhr:mhr,
+                        eia:eia,
+                        olds:olds,
+                        st:st,
+                        mvs:mvs,
+                        thal:thal
+                    
+                  }),
+            })
+            if (res.ok){
+                const data=await res.json();
+                setData1(data)
+                console.log('Hllo')
+//                 const keywordsPattern = /Keywords:(.*?)(?=\d+\.)|Keywords:(.*)$/s;
+
+// // Extract the content of the Keywords section
+//                const match = data.match(keywordsPattern);
+//               const keywordsContent = match ? match[1] || match[2] : null;
+//               console.log(keywordsContent)
             }
             
             
@@ -80,7 +137,7 @@ function Output() {
     
     <>
     <div>Output</div>
-    <button onClick={GetOutput}>Click</button>
+    <button onClick={GetOutput1}>Click</button>
     <pre>{data1}</pre>
     <h1>{user}</h1>
     </>

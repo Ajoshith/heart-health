@@ -10,7 +10,8 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const API_KEY = require("dotenv").config();
 const secretKey = "hello world";
 const {PythonShell}=require("python-shell")
-const {spawn} = require("child_process")
+const {spawn} = require("child_process");
+const { exitCode } = require("process");
 app.use(express.json());
 app.use(cookieParser());
 
@@ -86,7 +87,13 @@ app.post("/login", async (req, resp) => {
 });
 app.post("/genai", async (req, resp) => {
   console.log("ai api")
+  
   const data = req.body;
+  const {id}=data;
+  console.log(id)
+  const user = await User.findOne({ _id: id });
+  const {name}=user;
+  console.log()
   const genAI = new GoogleGenerativeAI(process.env.API_KEY);
   const model = genAI.getGenerativeModel({ model: "gemini-pro" });
   const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=data;
@@ -149,15 +156,15 @@ app.post("/about", Authentication, async (req, resp) => {
   try {
     const data = req.userId;
     const user = await User.findOne({ _id: data });
-    const { name,medicalHistory } = user;
+    const { name,medicalHistory,risk } = user;
     if (!user) {
       console.log("User not found");
       return resp.status(404).send("User not found");
     }
     console.log("Login successful");
-    console.log({ name,medicalHistory });
+    console.log({ name,medicalHistory,data,risk });
     
-    resp.status(200).json({ name,medicalHistory });
+    resp.status(200).json({ name,medicalHistory,data,risk });
     console.log("Hello546");
   } catch (error) {
     console.error("Error during login:", error.message);
@@ -233,21 +240,22 @@ app.post("/logout", async (req, res) => {
 
 app.post("/prediction",async(req,resp)=>{
   try {
-  
     const data=req.body;
     const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=data;
-    
+    const array=[age,1,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal]
+    const existingUser = await User.findOne({ _id: data.id });
     console.log(array)
     const child=spawn('python',['prediction.py',array]);
-    child.stdout.on("data",(data)=>{
-      const data1=data.toString();
+    child.stdout.on("data",async(data)=>{
+      console.log("Hello")
+      let data1=data.toString();
       console.log(data1)
       console.log(typeof data1)
-      
+      data1=data1.slice(0,4) 
+      existingUser.risk=data1  
+      await existingUser.save();
       resp.json(data1)
     })
-
-
   } catch (error) {
     console.log(error)
   }

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import logo from "../images/image.png";
 
+
 const Experiment = () => {
   const [medicaldata,setMedicalData]=useState(false);
   const [patientname,setPatientName]=useState(false);
@@ -22,10 +23,30 @@ const Experiment = () => {
   const [username12, setUsername12] = useState("");
   const [username13, setUsername13] = useState("");
   const navigate = useNavigate();
+  const [k,setK]=useState(0)
   useEffect(() => {
-    HandleClick2();
-
+    
+    fetch("/about", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: patientname,
+      }),
+    },
+    )
+      .then(response => response.json())
+      .then(response => {
+        const { name,medicalHistory } = response;
+        setK(Object.keys(medicalHistory).length)
+        setMedicalData(medicalHistory)
+        console.log(name,medicalHistory);
+      });
   }, []);
+  useEffect(()=>{
+    HandleClick2();
+  },[])
   function Handle(e) {
     setUsername(e.target.value);
     console.log(username);
@@ -89,6 +110,9 @@ const Experiment = () => {
     setUsername13(e.target.value);
     console.log(username13);
   }
+  function Edit(){
+    setK(0)
+  }
   
   async function handleClick1(e) {
     
@@ -145,10 +169,10 @@ const Experiment = () => {
         const { name,medicalHistory } = await res.json();
         console.log(medicalHistory)
         setPatientName(name)
-        
+        setMedicalData(medicalHistory)
       } else {
         console.error("Login pass");
-        navigate("/");
+        navigate("/registration");
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -250,71 +274,7 @@ const Experiment = () => {
 
       <div className="" style={{ backgroundColor: "aliceblue", height: "710px" }}>
 
-        {/* <input
-        styl  e={{ border: "1px solid black" }}
-        type="text"
-        onChange={Handle1}
-      /></div>
-      <input
-        style={{ border: "1px solid black" }}
-        type="text"
-        onChange={Handle2}
-      />
-      <input
-        style={{ border: "1px solid black" }}
-        type="text"
-        onChange={Handle3}
-      />
-      <input
-        style={{ border: "1px solid black" }}
-        type="text"
-        onChange={Handle4}
-      />
-      <input
-        style={{ border: "1px solid black" }}
-        type="text"
-        onChange={Handle5}
-      />
-      <input
-        style={{ border: "1px solid black" }}
-        type="text"
-        onChange={Handle6}
-      />
-      <input
-        style={{ border: "1px solid black" }}
-        type="text"
-        onChange={Handle7}
-      />
-      <input
-        style={{ border: "1px solid black" }}
-        type="text"
-        onChange={Handle8}
-      />
-      <input
-        style={{ border: "1px solid black" }}
-        type="text"
-        onChange={Handle9}
-      />
-      <input
-        style={{ border: "1px solid black" }}
-        type="text"
-        onChange={Handle10}
-      />
-      <input
-        style={{ border: "1px solid black" }}
-        type="text"
-        onChange={Handle11}
-      />
-      <input
-        style={{ border: "1px solid black" }}
-        type="text"
-        onChange={Handle12}
-      />
-      <input
-        style={{ border: "1px solid black" }}
-        type="text"
-        onChange={Handle13}
-      /> */}
+        
         <br />
 
 
@@ -334,13 +294,14 @@ const Experiment = () => {
         >
 
           <form
-            action="#"
+            
             className=""
             id=""
             style={{
+              
               position: "relative",
               marginTop: 16,
-              minHeight: 580,
+              minHeight: 58,
               backgroundColor: "#fff",
 
             }}
@@ -382,7 +343,8 @@ const Experiment = () => {
                     }}
                   >
                     <label htmlFor="" style={{marginLeft:"0px"}}>Age</label>
-                    <input onChange={Handle1}
+                    {k===0?(
+                      <input onChange={Handle1}
                       type="text"
                       placeholder="Enter your age"
                       required=""
@@ -396,6 +358,9 @@ const Experiment = () => {
                         
                       }}
                     />
+                    ):(<div>
+                    {medicaldata.age}
+                    </div>)}
                   </div>
                   <div
                     className="input-field"
@@ -443,20 +408,28 @@ const Experiment = () => {
                     }}
                   >
                     <label htmlFor="">CP</label>
-                    <input onChange={Handle3}
-                      type="text"
-                      placeholder="Enter your cp"
-                      required=""
-                      style={{
-                        outline: "none",
-                        borderRadius: 5,
-                        border: "1px solid #aaa",
-                        padding: "0 10px",
-                        height: 42,
-                        margin: "8px 0",
-                    
-                      }}
-                    />
+                    {k === 0 ? (
+                      <>
+                        <input
+                          onChange={Handle3}
+                          type="text"
+                          placeholder="Enter your cp"
+                          required=""
+                          style={{
+                            outline: "none",
+                            borderRadius: 5,
+                            border: "1px solid #aaa",
+                            padding: "0 10px",
+                            height: 42,
+                            margin: "8px 0",
+                          }}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        {medicaldata.cp}
+                      </>
+                    )}
                   </div>
                   <div
                     className="input-field"
@@ -469,7 +442,8 @@ const Experiment = () => {
                     }}
                   >
                     <label htmlFor="">RBP</label>
-                    <input onChange={Handle4}
+                    {k===0?(
+                      <input onChange={Handle4}
                       type="text"
                       placeholder="Enter your rbp"
                       required=""
@@ -482,6 +456,11 @@ const Experiment = () => {
                         margin: "8px 0"
                       }}
                     />
+                    ):(
+                      <div>
+                        {medicaldata.rbp}
+                      </div>
+                    )}
                   </div>
                   <div
                     className="input-field"
@@ -493,7 +472,8 @@ const Experiment = () => {
                     }}
                   >
                     <label htmlFor="">SC</label>
-                    <input onChange={Handle5}
+                    {k===0?(
+                      <input onChange={Handle5}
                       type="text"
                       placeholder="Enter your sc"
                       required=""
@@ -506,6 +486,12 @@ const Experiment = () => {
                         margin: "8px 0"
                       }}
                     />
+                    ):(
+                      <div>
+                        {medicaldata.sc}
+                      </div>
+                    )}
+                    
                   </div>
                   <div
                     className="input-field"
@@ -517,7 +503,8 @@ const Experiment = () => {
                     }}
                   >
                     <label htmlFor="">Fbs</label>
-                    <input onChange={Handle6}
+                    {k===0?(
+                      <input onChange={Handle6}
                       type="text"
                       placeholder="Enter your fbs"
                       required=""
@@ -530,6 +517,11 @@ const Experiment = () => {
                         margin: "8px 0"
                       }}
                     />
+                    ):(
+                      <div>
+                        {medicaldata.fbs}
+                      </div>
+                    )}
                   </div>
                   <div
                     className="input-field"
@@ -541,7 +533,9 @@ const Experiment = () => {
                     }}
                   >
                     <label htmlFor="" style={{ marginLeft: "80px" }}>Rer</label>
-                    <input onChange={Handle7}
+                    {
+                      k===0?(
+                        <input onChange={Handle7}
                       type="text"
                       placeholder="Enter your rer"
                       required=""
@@ -555,6 +549,12 @@ const Experiment = () => {
                         marginLeft: "80px"
                       }}
                     />
+                      ):(
+                        <div style={{marginLeft:"80px"}}>
+                          {medicaldata.rer}
+                        </div>
+                      )
+                    }
                   </div>
                   <div
                     className="input-field"
@@ -566,20 +566,26 @@ const Experiment = () => {
                     }}
                   >
                     <label htmlFor="" style={{ marginLeft: "35px" }}>MHR</label>
-                    <input onChange={Handle8}
-                      type="text"
-                      placeholder="Enter your mhr"
-                      required=""
-                      style={{
-                        outline: "none",
-                        borderRadius: 5,
-                        border: "1px solid #aaa",
-                        padding: "0 10px",
-                        height: 42,
-                        margin: "8px 0",
-                        marginLeft: "35px"
-                      }}
-                    />
+                   {k===0?(
+                     <input onChange={Handle8}
+                     type="text"
+                     placeholder="Enter your mhr"
+                     required=""
+                     style={{
+                       outline: "none",
+                       borderRadius: 5,
+                       border: "1px solid #aaa",
+                       padding: "0 10px",
+                       height: 42,
+                       margin: "8px 0",
+                       marginLeft: "35px"
+                     }}
+                   />
+                   ):(
+                    <div style={{marginLeft:"35px"}}>
+                      {medicaldata.mhr}
+                    </div>
+                   )}
                   </div>
                   <div
                     className="input-field"
@@ -591,7 +597,8 @@ const Experiment = () => {
                     }}
                   >
                     <label htmlFor="">Eia</label>
-                    <input onChange={Handle9}
+                    {k===0?(
+                      <input onChange={Handle9}
                       type="text"
                       placeholder="Enter your eia"
                       required=""
@@ -604,6 +611,11 @@ const Experiment = () => {
                         margin: "8px 0"
                       }}
                     />
+                    ):(
+                      <div style={{}}>{
+                        medicaldata.eia}
+                      </div>
+                    )}
                   </div>
                   <div
                     className="input-field"
@@ -615,7 +627,8 @@ const Experiment = () => {
                     }}
                   >
                     <label htmlFor="" style={{ marginLeft: "80px" }}>Olds</label>
-                    <input onChange={Handle10}
+                    {k===0?(
+                      <input onChange={Handle10}
                       type="text"
                       placeholder="Enter your olds"
                       required=""
@@ -629,6 +642,11 @@ const Experiment = () => {
                         marginLeft: "80px"
                       }}
                     />
+                    ):(
+                      <div style={{marginLeft:"80px"}}>
+                        {medicaldata.olds}
+                      </div>
+                    )}
                   </div>
                   <div
                     className="input-field"
@@ -640,7 +658,8 @@ const Experiment = () => {
                     }}
                   >
                     <label htmlFor="" style={{ marginLeft: "35px" }}>ST</label>
-                    <input onChange={Handle11}
+                    {k===0?(
+                      <input onChange={Handle11}
                       type="text"
                       placeholder="Enter your st"
                       required=""
@@ -654,6 +673,11 @@ const Experiment = () => {
                         marginLeft: "35px"
                       }}
                     />
+                    ):(
+                      <div style={{marginLeft:"35px"}}>
+                        {medicaldata.st}
+                      </div>
+                    )}
                   </div>
                   <div
                     className="input-field"
@@ -665,7 +689,8 @@ const Experiment = () => {
                     }}
                   >
                     <label htmlFor="">MVS</label>
-                    <input onChange={Handle12}
+                    {k===0?(
+                      <input onChange={Handle12}
                       type="text"
                       placeholder="Enter your mvs"
                       required=""
@@ -678,6 +703,11 @@ const Experiment = () => {
                         margin: "8px 0"
                       }}
                     />
+                    ):(
+                      <div>
+                        {medicaldata.mvs}
+                      </div>
+                    )}
                   </div>
                   <div
                     className="input-field"
@@ -689,7 +719,8 @@ const Experiment = () => {
                     }}
                   >
                     <label htmlFor="" style={{ marginLeft: "480px" }}>Thal</label>
-                    <input onChange={Handle13}
+                    {k===0?(
+                      <input onChange={Handle13}
                       type="text"
                       placeholder="Enter your st"
                       required=""
@@ -703,18 +734,35 @@ const Experiment = () => {
                         marginLeft: "480px"
                       }}
                     />
+                    ):(
+                      <div style={{marginLeft:"480px"}}>
+                        {medicaldata.thal}
+                      </div>
+                    )}
                   </div>
                 </div>
 
               </div>
 
-              <button
+              {k===0?(
+                <button
                 className="btn btn-lg"
-                style={{ backgroundColor: "#e11127", color: "aliceblue", marginTop: "20px", marginLeft: "580px", borderRadius: "25px", fontSize: "1.1rem" }}
+                style={{ backgroundColor: "#e11127", color: "aliceblue", marginTop: "20px", marginLeft: "580px", borderRadius: "25px", fontSize: "1.1rem" ,marginBottom:"30px"}}
                 onClick={handleClick1}
               >
-                Submit
+              Submit
+                
               </button>
+              ):(
+                <div
+                className="btn btn-lg"
+                style={{ backgroundColor: "#e11127", color: "aliceblue", marginTop: "20px", marginLeft: "580px", borderRadius: "25px", fontSize: "1.1rem" ,marginBottom:"30px"}}
+                onClick={Edit}
+              >
+              Edit
+                
+              </div>
+              )}
 
             </div>
           </form>

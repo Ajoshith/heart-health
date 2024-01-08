@@ -1,56 +1,44 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-function Experiment1() {
-  const navigate = useNavigate();
-  const [userdata, setUserData] = useState("");
+import React, { useState, useEffect } from 'react';
+import Cards from './cards';
 
-  async function HandleClick2(event) {
-    try {
-      const res = await fetch("/genai", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          age: 63,
-          sex: 1,
-          cp: 3,
-          trestbps: 145,
-          chol: 233,
-          fbs: 1,
-          restecg: 0,
-          thalach: 150,
-          exang: 0,
-          oldpeak: 2.3,
-          slope: 0,
-          ca: 0,
-          thal: 1,
-        }),
-      });
+const MyNewsComponent = () => {
+  const [newsData, setNewsData] = useState([]);
+  const apiKey = '506e4c4bc0ebce07a5f14bfdc153919e';
 
-      if (res.ok) {
-        // Wait for the json() method to resolve
-        const data = await res.json();
-        setUserData(data);
-        console.log(data);
-      } else {
-        console.error("Login pass");
-        navigate("/registration");
+  useEffect(() => {
+    const fetchData = async (url) => {
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        // Check if data.articles is an array before updating state
+        if (Array.isArray(data.articles)) {
+          setNewsData((prevData) => [...prevData, ...data.articles]);
+        } else {
+          console.error('Invalid data format. Articles should be an array.');
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
-    } catch (error) {
-      console.error("Error during login:", error);
-    }
-  }
+    };
+
+    // Fetch data for the first URL
+    const url = `https://gnews.io/api/v4/search?category=health&q=diet for health&lang=en&country=in&max=2&apikey=${apiKey}`;
+    fetchData(url);
+
+    // Fetch data for the second URL
+    const url1 = `https://gnews.io/api/v4/search?category=health&q=exercise for heart health&lang=en&country=in&max=2&apikey=${apiKey}`;
+    fetchData(url1);
+  }, [apiKey]);
 
   return (
-    <>
-      <button onClick={HandleClick2}>Click me</button>
-      <pre style={{ fontFamily: "cursive", color: "red", fontSize: "1.25rem" }}>
-        {userdata}
-      </pre>
-    </>
+    <div>
+      <h1>News</h1>
+      {newsData.map((article, index) => (
+        <Cards key={index} title={article.title} description={article.description} />
+      ))}
+    </div>
   );
-}
+};
 
-export default Experiment1;
+export default MyNewsComponent;

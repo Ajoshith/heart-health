@@ -17,6 +17,7 @@ class predict:
     probabilities = logi.predict_proba(df)[:, 1]
     percentage = probabilities * 100
     prediction_result =  percentage[0]
+    
     return prediction_result
 
 # if __name__ == "__main__":
