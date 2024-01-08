@@ -99,7 +99,7 @@ app.post("/genai", async (req, resp) => {
   const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=data;
   console.log(age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal)
   const prompt = `age = ${age}
-    gender = ${sex}
+    gender = ${sex} 
     chest pain type (4 values)=${cp}
     resting blood pressure=${rbp}
     serum cholestoral in mg/dl=${sc}
@@ -242,8 +242,12 @@ app.post("/prediction",async(req,resp)=>{
   try {
     const data=req.body;
     const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=data;
+<<<<<<< HEAD
     const array=[age,1,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal]
     const existingUser = await User.findOne({ _id: data.id });
+=======
+    const array =[age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal]
+>>>>>>> 358e96a87bce682d0e0ffb6cdcdf97a5d1479ee3
     console.log(array)
     const child=spawn('python',['prediction.py',array]);
     child.stdout.on("data",async(data)=>{
