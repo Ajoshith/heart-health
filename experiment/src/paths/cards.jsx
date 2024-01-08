@@ -8,7 +8,7 @@ function Cards(props) {
     <>
       <div className="slit-in-vertical" style={{margin:"50px"}}>
         <div className="card shadow-lg slit-in-vertical" style={{height:"300px",width:"300px"}}>
-          <img className="card-img-top" alt="..." />
+          <img className="card-img-top" alt="..." src={props.image}/>
           <div className="card-body">
             <h5 className="card-title">{(props.title[0].toUpperCase()+props.title.slice(1,props.title.length))}</h5>
             <p className="card-text">{props.description}</p>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Cards from './cards';
 
+const apiKey = '506e4c4bc0ebce07a5f14bfdc153919e';
+
 const MyNewsComponent = () => {
   const [newsData, setNewsData] = useState([]);
-  const apiKey = '506e4c4bc0ebce07a5f14bfdc153919e';
 
   useEffect(() => {
     const fetchData = async (url) => {
@@ -11,9 +12,9 @@ const MyNewsComponent = () => {
         const response = await fetch(url);
         const data = await response.json();
 
-        // Check if data.articles is an array before updating state
         if (Array.isArray(data.articles)) {
           setNewsData((prevData) => [...prevData, ...data.articles]);
+          console.log(newsData)
         } else {
           console.error('Invalid data format. Articles should be an array.');
         }
@@ -29,13 +30,13 @@ const MyNewsComponent = () => {
     // Fetch data for the second URL
     const url1 = `https://gnews.io/api/v4/search?category=health&q=exercise for heart health&lang=en&country=in&max=2&apikey=${apiKey}`;
     fetchData(url1);
-  }, [apiKey]);
+  }, []); // Dependency array is empty as apiKey is constant
 
   return (
     <div>
       <h1>News</h1>
       {newsData.map((article, index) => (
-        <Cards key={index} title={article.title} description={article.description} />
+        <Cards key={index} title={article.title} description={article.description} image={article.image} />
       ))}
     </div>
   );
