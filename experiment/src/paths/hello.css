@@ -368,3 +368,13 @@
     opacity: 1;
   }
 }
+
+@media screen and (max-width: 768px) {
+  /* Styles for screens up to 768px wide */
+  /* Adjust styles as needed */
+}
+
+@media screen and (max-width: 576px) {
+  /* Styles for screens up to 576px wide */
+  /* Adjust styles as needed */
+}

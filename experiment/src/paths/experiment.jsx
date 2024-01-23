@@ -741,7 +741,6 @@ const Experiment = () => {
                     )}
                   </div>
                 </div>
-
               </div>
 
               {k===0?(

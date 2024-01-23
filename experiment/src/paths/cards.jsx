@@ -3,12 +3,13 @@ import Pf from "../images/profile1.jpg"
 import "./hello.css"
 function Cards(props) {
   
-  
+  console.log(typeof props.url)
   return (
     <>
+    {props.url}
       <div className="slit-in-vertical" style={{margin:"50px"}}>
         <div className="card shadow-lg slit-in-vertical" style={{height:"300px",width:"300px"}}>
-          <img className="card-img-top" alt="..." src={props.image}/>
+        <img src="http://st1.thehealthsite.com/wp-content/uploads/2024/01/pexels-moe-magners-6671781.jpg" className="card-img-top" alt="..." style={{width:"500px",height:"50px"}}/>
           <div className="card-body">
             <h5 className="card-title">{(props.title[0].toUpperCase()+props.title.slice(1,props.title.length))}</h5>
             <p className="card-text">{props.description}</p>
@@ -22,4 +23,3 @@ function Cards(props) {
 }
 
 export default Cards
-// style={{height:"200px",width:"200px"}}

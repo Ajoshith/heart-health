@@ -8,8 +8,9 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useUserData } from './confirmation';
 import Registrationform from './login';
+import backp from "../images/backprofile.png"
 function Home() {
-  function onC(){
+  function onC() {
     navigate("/experiment")
   }
   async function handleClick1() {
@@ -20,11 +21,11 @@ function Home() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          
-          
+
+
         }),
       });
-  
+
       if (res.ok) {
         navigate('/registration')
       } else {
@@ -34,20 +35,21 @@ function Home() {
       console.error("Error during registration:", error);
     }
   }
-  const [ud,Setud]=useState('')
-  const navigate=useNavigate()
-  useEffect(()=>{
+  const [ud, Setud] = useState('')
+  const navigate = useNavigate()
+  const [med,setMed]=useState('')
+  useEffect(() => {
     HandleClick2();
-  },[])
+  }, [])
 
   async function HandleClick2(event) {
-  
+
     try {
       const res = await fetch("/about", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-        },  
+        },
         body: JSON.stringify({
           name: 'Hello',
           password: 'password',
@@ -55,12 +57,15 @@ function Home() {
       });
 
       if (res.ok) {
-        const data=await res.json();
-        const {name,medicalHistory}=data;
+        const data = await res.json();
+        const { name, medicalHistory,risk } = data;
         console.log(name)
         Setud(name);
+        setMed(risk)
         console.log("Hello")
-        
+        console.log(med)
+      
+
       } else {
         console.error("Login pass");
         navigate("/registration")
@@ -89,32 +94,68 @@ function Home() {
                   <a className="nav-link" style={{ color: '#e11127' }} href="#">About us</a>
                 </li>
                 <Link to="/docsearch" style={{ paddingTop: "9px", paddingLeft: "10px", color: "#e11127", textDecoration: "none" }}>Search <i style={{ color: '#e11127' }} className="bi bi-search"></i></Link>
-                <a style={{ position: 'absolute', left: '1400px', top: '17px', fontSize: '25px', fontWeight: '100', color: '#e11127' }} data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                  <i className="bi bi-person-circle"></i>
-                </a>
+                <div style={{ position: 'absolute', left: '1300px', top: '17px', fontSize: '25px', fontWeight: '100', color: '#e11127' }} data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                  <i className="bi bi-person-circle"></i><a style={{ fontSize: "1.2rem", marginLeft: "10px" }}>{ud}</a>
+                   
+                </div>
+
               </ul>
             </div>
           </div>
         </nav>
       </header>
 
-      <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+      <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style={{backgroundColor:"aliceblue"}}>
         <div className="offcanvas-header">
-          <h1 style={{ color: '#e11127' }}>Profile</h1>
-          <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          <Link to="/" id="header" className="navbar-brand navbarcolorfont scale-in-center" style={{marginLeft:"150px"}}>
+            <img className='imagezoomer' src={pjLogo} style={{ height: '60px' }} alt="logo" />
+          </Link>
+          
         </div>
         <div className="offcanvas-body">
           <div className="details">
-            <h3 style={{ display: 'block' }}>Patients details</h3>
             <div className="details1">
-             
-             {ud} <br />
-              Name, age, blood group, etc .......
+
+              <div style={{ height: "70px", width: "70px", border: "solid 5px #e11127 ", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                <img src={backp} style={{ height: "50px", width: "50px" }} alt="..." />
+              </div>
+              <div style={{ position: "absolute", top: "130px", right: "1", left: "100px", fontSize: "1.5rem", fontWeight: "400" }}>Hello</div>
+            </div>
+          <button className='btn btn-lg' style={{ color: "#e11127", backgroundColor: 'aliceblue', borderRadius: "50px", position:"absolute",left:250,top:125}} onClick={handleClick1}><i class="bi bi-box-arrow-right"></i> Logout</button>
+
+            <div style={{height:"200px",width:"200px",borderRadius:"50% ",border:"7px solid red",marginTop:"50px",marginLeft:"80px",display:'flex',alignItems:"center",justifyContent:"center",fontSize:'2 rem'}}>
+              <div style={{fontSize:"2.2rem",marginLeft:"10px"}} >{med[2]}{med[3]}%</div>
+              <div style={{position:"absolute",top:"340px"}}>at risk  </div>
+            </div>
+            <div style={{marginTop:"20px",marginLeft:"60px",fontSize:"1.2rem"}}>Navigate throught our tools</div>
+            <div style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"20px"}}>
+            <div style={{height:"100px",borderRadius:"25px",width:"100px",backgroundColor:"#D7ECFF",display:"flex",justifyContent:"center",alignItems:"center"}}>
+            <i class="bi bi-archive-fill" style={{fontSize:"1.7rem",color:"#e11127"}}></i>
+            </div>
+            <Link to="/output" style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",marginLeft:"10px",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
+            <i class="bi bi-bandaid" style={{fontSize:"1.7rem",color:"#e11127"}}></i>
+            </Link>
+            <Link to="/map" style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",marginLeft:"10px",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
+            <i class="bi bi-compass" style={{fontSize:"1.7rem",color:"#e11127"}}></i>
+            </Link>
             
             </div>
-          </div>
-          <button className='btn btn-lg' style={{backgroundColor:"#e11127",color:'aliceblue'}}  onClick={handleClick1}>Logout</button>
+            <div style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"20px"}}>
+            <Link to="/fillform" style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
+            <i class="bi bi-file-earmark-medical" style={{fontSize:"1.7rem",color:"#e11127"}}></i>
+            </Link>
+            <div style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",marginLeft:"10px",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
+            <i class="bi bi-files" style={{fontSize:"1.7rem",color:"#e11127"}}></i>
+            </div>
+            <div style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",marginLeft:"10px",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
+            <i class="bi bi-universal-access" style={{fontSize:"1.7rem",color:"#e11127"}}></i>
+            </div>
+            
+            </div>
+            </div>
         </div>
+        <footer style={{width:"100%",backgroundColor:"#e11127",height:"15px"}}></footer>
+
       </div>
 
       <div className="body1" style={{ height: '400px', width: '100%', backgroundColor: 'aliceblue' }}>
@@ -127,7 +168,7 @@ function Home() {
         <button onClick={onC} style={{ fontWeight: '200', borderRadius: '50px', display: 'block', position: 'absolute', top: '350px', left: '650px', backgroundColor: '#e11127', color: 'aliceblue', width: '250px', height: '50px', fontSize: '1.5rem' }} className="btn" type="submit">Health data form</button>
       </div>
 
-      <div className="middle" style={{ height: '600px', width: '100%' ,backgroundColor:"aliceblue"}}>
+      <div className="middle" style={{ height: '600px', width: '100%', backgroundColor: "aliceblue" }}>
         <div className="middle1 shadow-lg" style={{ height: '500px', backgroundColor: 'aliceblue', width: '600px', position: 'absolute', left: '700px', marginTop: '60px' }}></div>
         <div className="shadow" style={{ height: '400px', width: '600px', backgroundColor: 'white', position: 'absolute', marginTop: '100px', left: '300px', borderBottom: '15px #e11127 solid' }}>
           <div className="text1" style={{ fontWeight: '400', fontSize: '3rem', display: 'inline-block', position: 'absolute', left: '20px', top: '30px' }}>
@@ -137,7 +178,7 @@ function Home() {
             High blood pressure often has no signs. That's why it's called the silent killer. Help stop the silent killer and other causes of heart disease with your gift now.
           </div>
           <Link to="/symptompage">
-          <button style={{ position: 'absolute', top: '270px', backgroundColor: '#e11127', width: '240px', color: 'aliceblue', left: '150px', borderRadius: '50px' }} className="btn btn-lg">Check your symptoms</button>
+            <button style={{ position: 'absolute', top: '270px', backgroundColor: '#e11127', width: '240px', color: 'aliceblue', left: '150px', borderRadius: '50px' }} className="btn btn-lg">Check your symptoms</button>
           </Link>
         </div>
       </div>

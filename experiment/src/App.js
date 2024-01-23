@@ -12,6 +12,7 @@ import Registrationform from "./paths/login";
 import Experiment1 from "./paths/experiment1";
 import Output from "./paths/output";
 import MyNewsComponent from "./paths/experiment1";
+import NearbyHospitalsMap from "./paths/map";
 function App() {
   return (
     <>
@@ -27,6 +28,7 @@ function App() {
           <Route path="/fillform" element={<Experiment />} />
           <Route path="/output" element={<Output/>}/>
           <Route path="/experiment" element={<MyNewsComponent/>}/>
+          <Route path="/map" element={<NearbyHospitalsMap />}/>
         </Routes>
       </Router>
     </>

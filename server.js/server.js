@@ -12,6 +12,7 @@ const secretKey = "hello world";
 const {PythonShell}=require("python-shell")
 const {spawn} = require("child_process");
 const { exitCode } = require("process");
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -260,7 +261,6 @@ app.post("/prediction",async(req,resp)=>{
     console.log(error)
   }
 })
-
 
 
 const PORT = process.env.PORT || 5000;
