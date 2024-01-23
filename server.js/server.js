@@ -98,7 +98,91 @@ app.post("/genai", async (req, resp) => {
   const model = genAI.getGenerativeModel({ model: "gemini-pro" });
   const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=data;
   console.log(age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal)
-  const prompt = `age = ${age}
+  const prompt = `
+  context:Age: Age is a significant risk factor for cardiovascular disease (CVD). The risk of developing CVD
+  increases with age, but the rate at which it increases can vary depending on the individual's other
+  risk factors. Here's how age correlates to heart disease risk for various ranges of ages:
+  Under 50 Years Old: The risk of developing CVD is relatively low, especially if the individual leads a
+  healthy lifestyle. However, certain risk factors such as obesity, smoking, and family history of heart
+  disease can increase the risk.
+  50-64 Years Old: The risk of CVD begins to rise gradually with age. Regular physical activity,
+  maintaining a healthy weight, and managing blood pressure and cholesterol can help reduce this risk.
+  65-74 Years Old: This is the age range where the risk of CVD starts to become more significant. Even
+  if an individual leads a healthy lifestyle, the risk of CVD is higher in this age group compared to
+  younger adults. Regular exercise, a balanced diet, and regular medical check-ups are crucial for
+  managing the risk of CVD.
+  Over 75 Years Old: The risk of CVD continues to rise rapidly with age. However, the risk can be
+  reduced by managing existing risk factors and adopting a healthier lifestyle. Regular exercise, a
+  balanced diet, and regular medical check-ups are essential.
+  #
+  Sex: 1 for male and 0 for female.
+  #
+  Chest Pain Type: This parameter has four possible values, each corresponding to a different type of
+  chest pain:
+  1: Typical Angina: Characterized by crushing or squeezing chest pain, often radiating to the left arm,
+  jaw, or back. Suggests potential narrowing of coronary arteries and increased risk of heart attack.
+  2: Atypical Angina: Has varied pain characteristics like sharp, stabbing, aching, or burning. May not
+  radiate and doesn't always worsen with exertion. Can indicate heart-related issues or other
+  conditions.
+  3: Non-Anginal Pain: Characterized by sharp, stabbing, or burning pain unrelated to exertion. Could
+  indicate problems with lungs, pleura, esophagus, or musculoskeletal system.
+  4: Asymptomatic: No chest pain experienced. Doesn't rule out the possibility of heart disease.
+  #
+  Oldpeak: This parameter represents the ST depression induced by exercise relative to rest. It has two
+  possible values:
+  0: Indicates that the ST depression did not increase significantly after exercise.
+  Greater than 0: Indicates that the ST depression increased significantly after exercise.
+  #
+  Slope of the Peak Exercise ST Segment: This parameter describes the shape of the ST segment of the
+  heart's electrical activity during exercise. It has three possible values:
+  1: Upsloping (May indicate ischemia, or reduced blood flow)
+  2: Flat (Generally considered normal)
+  3: Downsloping (Usually normal)
+  #
+  Resting Blood Pressure: This parameter measures the force of blood against the walls of your
+  arteries when your heart is at rest.
+  A reading of less than 120/80 mmHg is considered within the normal range, indicating that your
+  blood pressure is neither too high nor too low.
+  A reading of 120/80 mmHg or higher is considered high blood pressure, also known as hypertension.
+  High blood pressure can lead to damage to your arteries and heart over time, increasing your risk of
+  heart disease, stroke, and kidney failure.
+  A reading of less than 90/60 mmHg is considered low blood pressure, also known as hypotension.
+  While low blood pressure itself is not dangerous, it can be a sign of a serious underlying health
+  problem, such as a heart valve disorder or kidney disease.
+  #
+  Serum Cholesterol: The optimal level is less than 100 mg/dl. Higher values, particularly LDL, increase
+  plaque buildup and heart disease risk.
+  #
+  Fasting Blood Sugar: A value of 1 indicates blood sugar > 120 mg/dl (abnormal), suggesting a
+  significant risk factor for heart disease. A value of 0 indicates blood sugar ≤ 120 mg/dl (normal).
+  Resting Electrocardiographic Results: Values range from 0 (Normal) to 2 (Potential problems
+  requiring further investigation). Higher values indicate more severe conditions.
+  #
+  Maximum Heart Rate Achieved: You can estimate your maximum heart rate based on your age.
+  Subtract your age from 220. For example, for a 50-year-old person, the predicted maximum heart
+  rate would be 220 - 50 = 170 beats per minute (bpm). The optimal range for this parameter is
+  typically between 50% and 85% of the predicted maximum heart rate. Therefore, the optimal range
+  for the Maximum Heart Rate Achieved would be:
+  Lower limit: 50% of the predicted maximum heart rate (e.g., 85 bpm for a 170 bpm max heart rate)
+  Upper limit: 85% of the predicted maximum heart rate (e.g., 148.5 bpm for a 170 bpm max heart
+  rate)
+  Values below the lower limit may indicate reduced fitness and increased risk, while values above the
+  upper limit generally suggest better cardiovascular fitness.
+  #
+  Exercise-Induced Angina: A value of 1 indicates chest pain during exercise (present), which is a
+  significant indicator of coronary artery disease and increased heart attack risk. A value of 0 indicates
+  no chest pain during exercise (absent).
+  #
+  Number of Major Vessels (0-3) Colored by Fluoroscopy: Values range from 0 (No blockages) to 3
+  (Increasing severity of blockages in major coronary arteries). Higher values indicate a higher
+  likelihood of having a heart attack.
+  #
+  Thallium (Thal): Values range from 0 (Normal) to 2 (Potentially reversible defects that may improve
+  with treatment). Values of 1 or 2 indicate a more serious heart condition. Specifically, a value of 1
+  suggests a fixed defect, which means there's a structural abnormality in the heart wall that can't be
+  repaired. A value of 2 suggests a reversible defect, which means there's a temporary issue that could
+  potentially be resolved with treatment 4.
+  age = ${age}
     gender = ${sex} 
     chest pain type (4 values)=${cp}
     resting blood pressure=${rbp}
