@@ -74,7 +74,7 @@ const NearbyHospitalsMap = () => {
 
   return (
     <>
-      <div style={{ }}>
+      <div style={{ backgroundColor:"rgba(66,77,92,255)"}}>
         <header className="header1" style={{ backgroundColor: "rgba(93,117,126,255)" }}>
           <nav className="navbar navbar-expand-lg">
             <div className="container-fluid">
