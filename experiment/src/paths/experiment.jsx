@@ -180,96 +180,96 @@ const Experiment = () => {
   }
   return (
     <>
-      <header className="header1" style={{ backgroundColor: "#e11127" }}>
-        <nav className="navbar navbar-expand-lg">
-          <div className="container-fluid">
-            <Link
-              to="/"
-              id="header"
-              className="navbar-brand navbarcolorfont scale-in-center"
-            >
-              <img src={logo} style={{ height: "60px" }} alt="logo" />
-            </Link>
+        <header className="header1" style={{ backgroundColor: "#e11127" }}>
+          <nav className="navbar navbar-expand-lg">
+            <div className="container-fluid">
+              <Link
+                to="/"
+                id="header"
+                className="navbar-brand navbarcolorfont scale-in-center"
+              >
+                <img src={logo} style={{ height: "60px" }} alt="logo" />
+              </Link>
+              <button
+                className="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span className="navbar-toggler-icon"></span>
+              </button>
+              <div
+                className="collapse navbar-collapse"
+                id="navbarSupportedContent"
+              >
+                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li className="nav-item">
+                    <a
+                      className="nav-link"
+                      style={{ color: "aliceblue" }}
+                      aria-current="page"
+                      
+                    >
+                      Home
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a
+                      className="nav-link"
+                      style={{ color: "aliceblue" }}
+                      
+                    >
+                      About us
+                    </a>
+                  </li>
+                  <a
+                    style={{
+                      paddingTop: "9px",
+                      paddingLeft: "7px",
+                      position: "absolute",
+                      left: "1430px",
+                      top: "17px",
+                      fontSize: "25px",
+                      fontWeight: "100",
+                      color: "aliceblue",
+                    }}
+                    data-bs-toggle="offcanvas"
+                    href="#offcanvasExample"
+                    role="button"
+                    aria-controls="offcanvasExample"
+                  >
+                    <i className="bi bi-person-circle"></i>
+                  </a>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </header>
+        <div
+          className="offcanvas offcanvas-end"
+          tabIndex="-1"
+          id="offcanvasExample"
+          aria-labelledby="offcanvasExampleLabel"
+        >
+          <div className="offcanvas-header">
+            <h1 style={{ color: "#e11127" }}>Profile</h1>
             <button
-              className="navbar-toggler"
               type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div
-              className="collapse navbar-collapse"
-              id="navbarSupportedContent"
-            >
-              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    style={{ color: "aliceblue" }}
-                    aria-current="page"
-                    
-                  >
-                    Home
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    style={{ color: "aliceblue" }}
-                    
-                  >
-                    About us
-                  </a>
-                </li>
-                <a
-                  style={{
-                    paddingTop: "9px",
-                    paddingLeft: "7px",
-                    position: "absolute",
-                    left: "1430px",
-                    top: "17px",
-                    fontSize: "25px",
-                    fontWeight: "100",
-                    color: "aliceblue",
-                  }}
-                  data-bs-toggle="offcanvas"
-                  href="#offcanvasExample"
-                  role="button"
-                  aria-controls="offcanvasExample"
-                >
-                  <i className="bi bi-person-circle"></i>
-                </a>
-              </ul>
+              className="btn-close"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div className="offcanvas-body">
+            <div className="details">
+              <h3 style={{ display: "block" }}>Patients details</h3>
+              <div className="details1">Name, age, blood group, etc .......</div>
             </div>
           </div>
-        </nav>
-      </header>
-      <div
-        className="offcanvas offcanvas-end"
-        tabIndex="-1"
-        id="offcanvasExample"
-        aria-labelledby="offcanvasExampleLabel"
-      >
-        <div className="offcanvas-header">
-          <h1 style={{ color: "#e11127" }}>Profile</h1>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="offcanvas"
-            aria-label="Close"
-          ></button>
         </div>
-        <div className="offcanvas-body">
-          <div className="details">
-            <h3 style={{ display: "block" }}>Patients details</h3>
-            <div className="details1">Name, age, blood group, etc .......</div>
-          </div>
-        </div>
-      </div>
 
 
       <div className="" style={{ backgroundColor: "aliceblue", height: "710px" }}>

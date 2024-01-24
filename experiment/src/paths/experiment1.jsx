@@ -35,8 +35,8 @@ const MyNewsComponent = () => {
   };
 
   const urls = {
-    url1: `https://gnews.io/api/v4/search?category=health&q=diet for health&lang=en&country=uk&max=2&apikey=${apiKey}`,
-    url2: `https://gnews.io/api/v4/search?category=health&q=exercise for heart health&lang=us&country=in&max=2&apikey=${apiKey}`,
+    url1: `https://gnews.io/api/v4/search?category=health&q=diet for health&lang=en&country=us&max=2&apikey=${apiKey}`,
+    url2: `https://gnews.io/api/v4/search?category=health&q=exercise for heart health&lang=en&country=us&max=2&apikey=${apiKey}`,
   };
 
   useEffect(() => {
@@ -167,7 +167,7 @@ const MyNewsComponent = () => {
         ))}
       </div>
       <footer style={{ width: '100%', height: '30px', backgroundColor: '#e11127', color: 'aliceblue', textAlign: 'center', marginTop: '40px', fontWeight: '200' }}>Copyright belongs to American Heart Association</footer>
-
+      
     </div>
     
   );

@@ -91,7 +91,7 @@ function Output() {
         try {
             const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=medicaldata;
             console.log(id)
-            const res=await fetch('/prediction',{
+            const res=await fetch('/genai',{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json"
