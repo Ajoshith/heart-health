@@ -30,7 +30,7 @@ def predict():
      return jsonify(prediction_result)
      
 @app.route("/summary",methods=["GET","POST"])
-def get_user():
+def summary():
     data = request.get_json()
     data = data['data']
     print(data)
