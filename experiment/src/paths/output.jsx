@@ -48,7 +48,7 @@ function Output() {
             const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=medicaldata;
             console.log(id)
             console.log("ladsjfo")
-            const res=await fetch('/genai',{
+            const res=await fetch('/prediction',{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json"
@@ -74,6 +74,7 @@ function Output() {
             if (res.ok){
                 const data=await res.json();
                 setData1(data)
+                console.log(data)
                 console.log(typeof data)
                 const keywordsPattern = /Keywords:(.*?)(?=\d+\.)|Keywords:(.*)$/s;
 
@@ -100,7 +101,7 @@ function Output() {
 
                 body: JSON.stringify({
 
-                        age:age,
+                        age:96,
                         id:id,
                         sex:sex,
                         cp:cp,
@@ -135,17 +136,11 @@ function Output() {
         }
     }
     return (
-    
-   <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-    <div style={{height:"700px",width:"700px",backgroundColor:"aqua",display:"flex",justifyContent:"center",alignItems:"center"}}>
-      <div style={{backgroundColor:"aliceblue",height:"500px",width:"500px",borderRadius:"50%",display:"flex",justifyContent:"center",alignItems:"center"}}>
-        <div style={{fontSize:"3rem",fontFamily:"fantasy"}}>Output</div>
-      </div>
-
-    </div>
-
-   </div>
-    
+    <>
+      <button onClick={GetOutput}>Click</button>
+      <div>{data1}</div>
+      
+      </>
   )
 }
 

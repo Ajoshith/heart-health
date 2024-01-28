@@ -345,7 +345,33 @@ app.post("/prediction",async(req,resp)=>{
     console.log(error)
   }
 })
+app.post("/prediction1", async (req, resp) => {
+  try {
+    console.log("dasf");
+    const data = req.body;
+    const { age, sex, cp, rbp, sc, fbs, rer, mhr, eia, olds, st, mvs, thal } = data;
+    const array = [age, sex, cp, rbp, sc, fbs, rer, mhr, eia, olds, st, mvs, thal];
 
+    // Assuming your User model has a 'name' field, change the query accordingly
+    const existingUser = await User.findOne({ name: "Hello" });
+
+    console.log(existingUser);
+    console.log(array);
+    console.log("checkpoint");
+
+    const child = spawn('python', ['prediction1.py', ...array]); // Spread the 'array'
+    child.stdout.on("data", async (data) => {
+      console.log("Hello");
+      let data1 = data.toString();
+      console.log(data1);
+      console.log(typeof data1);
+      resp.json(data1);
+    });
+  } catch (error) {
+    console.log(error);
+    resp.status(500).json({ error: 'Internal Server Error' }); // Return a meaningful error response
+  }
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

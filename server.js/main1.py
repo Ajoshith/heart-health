@@ -68,7 +68,7 @@ class predict:
           retriever = db1.as_retriever()
      retrieval_chain = create_retrieval_chain(retriever, document_chain)
      response = retrieval_chain.invoke({'input': "start generating",'d1':data[1],'d2':data[2],'d3':data[3],'d4':data[4],'d5':data[5],'d6':data[6],'d7':data[7],'d8':data[8],'d9':data[9],'d11':data[11],'d12':data[12],'d0':data[0],'d10':data[10]})
-     return response["answer"]
+     return "abcd"
 
 
      
