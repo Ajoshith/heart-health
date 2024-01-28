@@ -3,14 +3,14 @@ import React from 'react';
 function Flasktester() {
     async function handleClick2(event) {
         try {
-            const res = await fetch("http://localhost:8000/hello", {
+            const res = await fetch("http://localhost:8000/summary", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    name: 'Hello',
-                    password: 'password',
+                    "data":[56,1,3,125,233,1,0,180,0,2.3,0,0,5]
+
                 }),
             });
 

@@ -10,7 +10,6 @@ if "GOOGLE_API_KEY" not in os.environ:
 from langchain_google_genai import ChatGoogleGenerativeAI
 llm = ChatGoogleGenerativeAI(model="gemini-pro")
 from langchain.chains import create_retrieval_chain
-from sklearn.linear_model import LogisticRegression 
 logi = pickle.load(open("finalized_model (1).sav", 'rb'))
 class predict:
   def prediction(array):

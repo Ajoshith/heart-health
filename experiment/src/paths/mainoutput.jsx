@@ -12,6 +12,7 @@ import pjLogo from '../images/pjlogo.png';
 import backp from "../images/backprofile.png"
 
 const Jpp = () => {
+  
   const [first, setfirst] = useState(`1. **Age**: At 50 years old, you are entering an age range where the risk of heart disease starts to rise gradually.
 
   2. **Gender**: Being female (gender = 0) may provide some protection against heart disease compared to males, but it's important to note that heart disease can still affect women.
@@ -106,6 +107,84 @@ const Jpp = () => {
           console.error("Error during login:", error);
         }
       }
+    const [medicaldata,setMedicalData]=useState('')
+    const [user,setUser]=useState('')
+    const [data1,setData1]=useState('')
+    const [id,setId]=useState('')
+    const [data2,setData2]=useState("")
+    useEffect(() => {
+        HandleClick2();
+    
+      }, []);
+      
+   
+      async function GetOutput(){
+        try {
+            const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=medicaldata;
+            console.log(id)
+            console.log("ladsjfo")
+            const res=await fetch('http://localhost:8000/predict',{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body: JSON.stringify({
+                        
+                        data:[age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal]
+                    
+                  }),
+            })
+            if (res.ok){
+                const data=await res.json();
+                setData1(data)
+                console.log(data)
+                console.log(typeof data)
+                const keywordsPattern = /Keywords:(.*?)(?=\d+\.)|Keywords:(.*)$/s;
+
+// Extract the content of the Keywords section
+               const match = data.match(keywordsPattern);
+              const keywordsContent = match ? match[1] || match[2] : null;
+              console.log(keywordsContent)
+            }
+            
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    async function GetOutput1(){
+        try {
+            const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=medicaldata;
+            console.log(id)
+            const res=await fetch('http://localhost:8000/summary',{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+
+                body: JSON.stringify({
+
+                        data:[age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal]
+                    
+                  }),
+            })
+            if (res.ok){
+                const data=await res.json();
+                setData1(data)
+                console.log('Hllo')
+//                 const keywordsPattern = /Keywords:(.*?)(?=\d+\.)|Keywords:(.*)$/s;
+
+// // Extract the content of the Keywords section
+//                const match = data.match(keywordsPattern);
+//               const keywordsContent = match ? match[1] || match[2] : null;
+//               console.log(keywordsContent)
+            }
+            
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
   const [k,setK]=useState(70)
   const getCircleStyles = () => {
     // Adjust this function based on your circle positioning requirements
