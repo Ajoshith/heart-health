@@ -309,7 +309,7 @@ const Experiment = () => {
             <div className="form first">
               <div className="details personal" style={{ marginTop: 30 }}>
                 <span
-                  className="title"
+                  className=""
                   style={{
                     display: "block",
                     marginBottom: 16,
