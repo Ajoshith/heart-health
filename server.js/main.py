@@ -50,16 +50,16 @@ class predict:
           2. Summary,NOTE FOR LMM:generate this section in simple sentences that can by understood by the not medically trained 
           3. Conditions Found
           4. Recommended Diagnosticss(not actual medical diagnostics recommended by doctors)
-          5. Risk Keywords
+          5. Risk Keywords,NOTE FOR LLM:Use only the risk keywords provided in the context under risk keywords:,please do not generate keywords on ur own.
 
           The following conditions are to be followed:                                  
           1.Please limit each section to five bullet points, except for the summary and medical data.
           2.Use only the risk keywords provided in the context under risk keywords:,please do not generate keywords on ur own.
           3.Please do not use the symbols * and ** for highlighting.
-          4.Answer must be in uppercase letters,all points must by marked with -
+          4.all the section title must be in uppercase letters,all points must by marked with - and in small case.
           5.display this at the start:"DISCLIAMER: "THIS REPORT IS NOT APPROVED BY TRAINED MEDICAL PROFESSIONALS."
           6.display this at the end : "NOTE: "AI-GENERATED REPORT BASED ON MEDICAL DATA GIVEN BY THE DEVELOPERS."
-          7.Each generated line should not contain more than 18 words per line
+          7.Each generated line should not contain more than 18 words per line.
                                                     
               {input} """)
      document_chain = create_stuff_documents_chain(llm, prompt)
