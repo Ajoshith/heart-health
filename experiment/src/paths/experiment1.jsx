@@ -54,7 +54,7 @@ const MyNewsComponent = () => {
               <Link
                 to="/"
                 id="header"
-                className="navbar-brand navbarcolorfont scale-in-center"
+                className="navbar-brand navbarcolorfont scale-up-center"
               >
                 <img src={logo} style={{ height: "60px" }} alt="logo" />
               </Link>
@@ -140,30 +140,50 @@ const MyNewsComponent = () => {
         </div>
 
 
-      <div className="row row-cols-1 row-cols-md-6 g-4">
+      <div style={{marginTop:"40px"}}>
         {newsData.map((article, index) => (
-          <div key={index} className="slit-in-vertical" style={{ margin: "50px" }}>
-            <div className="card shadow-lg slit-in-vertical" style={{ height: "400px", width: "300px" }}>
-              <div className="card-body">
-                <img src={article.image} className="card-img-top" alt={`Article ${index}`} style={{ height: "200px", width: "265px" }} />
-                <h5 className="card-title">{article.title.substring(0,20) }..</h5>
-                <p className="card-text">{article.description.substring(0,50)}</p>
-                <a href="#" className="btn" style={{ textDecoration: "none", border: "none", borderRadius: "50px", color: "aliceblue", backgroundColor: "#e11127" }}>Go somewhere</a>
-              </div>
-            </div>
-          </div>
+          // <div key={index} className="slit-in-vertical" style={{ margin: "50px" }}>
+          //   <div className="card shadow-lg slit-in-vertical" style={{ height: "400px", width: "300px" }}>
+          //     <div className="card-body">
+          //       <img src={article.image} className="card-img-top" alt={`Article ${index}`} style={{ height: "200px", width: "265px" }} />
+          //       <h5 className="card-title">{article.title.substring(0,20) }..</h5>
+          //       <p className="card-text">{article.description.substring(0,50)}</p>
+          //       <a href="#" className="btn" style={{ textDecoration: "none", border: "none", borderRadius: "50px", color: "aliceblue", backgroundColor: "#e11127" }}>Go somewhere</a>
+          //     </div>
+          //   </div>
+          // </div>
+
+<div className="card mb-3 shadow-lg slit-in-vertical" style={{ maxWidth: '1100px',marginLeft:"150px",marginTop:"30px" }}>
+<div className="row g-0">
+  <div className="col-md-4">
+    <img src={article.image} className="img-fluid rounded-start" alt="..." />
+  </div>
+  <div className="col-md-8">
+    <div className="card-body">
+      <h5 className="card-title">{article.title }</h5>
+      <p className="card-text">{article.description}</p>
+      <p className="card-text"><small className="text-body-secondary">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+</div>
+</div>
         ))}
         {newsData1.map((article, index) => (
-          <div key={index} className="slit-in-vertical" style={{ margin: "50px" }}>
-            <div className="card shadow-lg slit-in-vertical" style={{ height: "400px", width: "300px" }}>
+          <div className="card mb-3 shadow-lg slit-in-vertical" style={{ maxWidth: '1100px',marginLeft:"150px",marginTop:"30px" }}>
+          <div className="row g-0">
+            <div className="col-md-4">
+              <img src={article.image} className="img-fluid rounded-start" alt="..." />
+            </div>
+            <div className="col-md-8">
               <div className="card-body">
-                <img src={article.image} className="card-img-top" alt={`Article ${index}`} style={{ height: "200px", width: "265px" }} />
-                <h5 className="card-title">{article.title.substring(0,20)}..</h5>
-                <p className="card-text">{article.description.substring(0,50)}</p>
-                <a href="#" className="btn" style={{ textDecoration: "none", border: "none", borderRadius: "50px", color: "aliceblue", backgroundColor: "#e11127" }}>Go somewhere</a>
+                <h5 className="card-title">{article.title }</h5>
+                <p className="card-text">{article.description}</p>
+                <p className="card-text"><small className="text-body-secondary">Last updated 3 mins ago</small></p>
               </div>
             </div>
           </div>
+          </div>
+          
         ))}
       </div>
       <footer style={{ width: '100%', height: '30px', backgroundColor: '#e11127', color: 'aliceblue', textAlign: 'center', marginTop: '40px', fontWeight: '200' }}>Copyright belongs to American Heart Association</footer>

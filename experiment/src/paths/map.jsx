@@ -78,7 +78,7 @@ const NearbyHospitalsMap = () => {
         <header className="header1" style={{ backgroundColor: "rgba(93,117,126,255)" }}>
           <nav className="navbar navbar-expand-lg">
             <div className="container-fluid">
-              <Link to="/" id="header " className="navbar-brand navbarcolorfont scale-in-center" >
+              <Link to="/" id="header " className="navbar-brand navbarcolorfont scale-up-center" >
                 <img src={pjlogo} style={{ height: '60px' }} alt="logo" />
               </Link>
               <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

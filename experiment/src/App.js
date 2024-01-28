@@ -13,6 +13,7 @@ import Experiment1 from "./paths/experiment1";
 import Output from "./paths/output";
 import MyNewsComponent from "./paths/experiment1";
 import NearbyHospitalsMap from "./paths/map";
+import Jpp from "./paths/mainoutput";
 function App() {
   return (
     <>
@@ -29,6 +30,7 @@ function App() {
           <Route path="/output" element={<Output/>}/>
           <Route path="/experiment" element={<MyNewsComponent/>}/>
           <Route path="/map" element={<NearbyHospitalsMap />}/>
+          <Route path="/waterfilloutput" element={<Jpp/>}/>
         </Routes>
       </Router>
     </>

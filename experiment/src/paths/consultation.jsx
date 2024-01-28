@@ -69,7 +69,7 @@ function Consult() {
                 <header style={{ backgroundColor: "aliceblue" }} >
                     <nav className="navbar navbar-expand-lg ">
                         <div className="container-fluid">
-                            <Link to="/" id="header" className="navbar-brand navbarcolorfont scale-in-center" ><img src={pjLogo} style={{ height: '60px' }} alt="logo" /></Link>
+                            <Link to="/" id="header" className="navbar-brand navbarcolorfont scale-up-center" ><img src={pjLogo} style={{ height: '60px' }} alt="logo" /></Link>
                             <button
                                 className="navbar-toggler"
                                 type="button"

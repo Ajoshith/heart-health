@@ -12,6 +12,7 @@ function Output() {
         HandleClick2();
     
       }, []);
+      
     async function HandleClick2(event) {
     
         try {
@@ -135,12 +136,15 @@ function Output() {
     }
     return (
     
-    <>
-    <div>Output</div>
-    <button onClick={GetOutput1}>Click</button>
-    <pre>{data1}</pre>
-    <h1>{user}</h1>
-    </>
+   <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+    <div style={{height:"700px",width:"700px",backgroundColor:"aqua",display:"flex",justifyContent:"center",alignItems:"center"}}>
+      <div style={{backgroundColor:"aliceblue",height:"500px",width:"500px",borderRadius:"50%",display:"flex",justifyContent:"center",alignItems:"center"}}>
+        <div style={{fontSize:"3rem",fontFamily:"fantasy"}}>Output</div>
+      </div>
+
+    </div>
+
+   </div>
     
   )
 }

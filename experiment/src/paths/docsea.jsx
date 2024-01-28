@@ -63,7 +63,7 @@ function Searchpage() {
                 <header className="header1">
                     <nav className="navbar navbar-expand-lg">
                         <div className="container-fluid">
-                            <Link to="/" id="header" className="navbar-brand navbarcolorfont scale-in-center" >
+                            <Link to="/" id="header" className="navbar-brand navbarcolorfont scale-up-center" >
                                 <img src={pjLogo} style={{ height: '60px' }} alt="logo" />
                             </Link>
                             <button

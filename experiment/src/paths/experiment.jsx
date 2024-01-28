@@ -186,7 +186,7 @@ const Experiment = () => {
               <Link
                 to="/"
                 id="header"
-                className="navbar-brand navbarcolorfont scale-in-center"
+                className="navbar-brand navbarcolorfont scale-up-center"
               >
                 <img src={logo} style={{ height: "60px" }} alt="logo" />
               </Link>

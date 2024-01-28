@@ -79,7 +79,7 @@ function Home() {
       <header className="header1">
         <nav className="navbar navbar-expand-lg">
           <div className="container-fluid">
-            <Link to="/" id="header" className="navbar-brand navbarcolorfont scale-in-center">
+            <Link to="/" id="header" className="navbar-brand navbarcolorfont scale-up-center">
               <img className='imagezoomer' src={pjLogo} style={{ height: '60px' }} alt="logo" />
             </Link>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -132,7 +132,7 @@ function Home() {
             <div style={{height:"100px",borderRadius:"25px",width:"100px",backgroundColor:"#D7ECFF",display:"flex",justifyContent:"center",alignItems:"center"}}>
             <i class="bi bi-archive-fill" style={{fontSize:"1.7rem",color:"#e11127"}}></i>
             </div>
-            <Link to="/output" style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",marginLeft:"10px",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
+            <Link to="/waterfilloutput" style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",marginLeft:"10px",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
             <i class="bi bi-bandaid" style={{fontSize:"1.7rem",color:"#e11127"}}></i>
             </Link>
             <Link to="/map" style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",marginLeft:"10px",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
@@ -144,9 +144,9 @@ function Home() {
             <Link to="/fillform" style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
             <i class="bi bi-file-earmark-medical" style={{fontSize:"1.7rem",color:"#e11127"}}></i>
             </Link>
-            <div style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",marginLeft:"10px",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
+            <Link to="/experiment" style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",marginLeft:"10px",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
             <i class="bi bi-files" style={{fontSize:"1.7rem",color:"#e11127"}}></i>
-            </div>
+            </Link>
             <div style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",marginLeft:"10px",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
             <i class="bi bi-universal-access" style={{fontSize:"1.7rem",color:"#e11127"}}></i>
             </div>
