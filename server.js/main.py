@@ -39,51 +39,60 @@ def summary():
     data = request.get_json()
     data = data['data']
     print(data)
-    prompt = ChatPromptTemplate.from_template("""you are a nurse explaining to patients who dont understand medical terms Answer the following question based only on the provided context:
-                                          
-          <context>
-          {context}
-          </context>
-          I'm a patient who recently had a medical test. Here are my results:
-          -Age :{d0}
-          -sex: {d1}
-          - Chest pain type: {d2}
-          - Resting blood pressure: {d3} mmHg
-          - Serum cholesterol: {d4} mg/dl
-          - Fasting blood sugar: {d5}
-          - Resting ECG results: {d6}
-          - Maximum heart rate: {d7}
-          - Exercise induced angina: {d8}
-          - Oldpeak: {d9} mm
-          - Slope of peak exercise ST segment: {d10}
-          - Number of major vessels colored by flouroscopy: {d11}
-          - Thallium: {d12}
+    prompt = ChatPromptTemplate.from_template("""Answer the following question based only on the provided context:
 
-          Could you provide a report with these sections(ONLY BASED ON THE CONTEXT GIVEN):
-          1. Medical Data,NOTE FOR LLM :this section should all the parameters given patient.they are 13 in total 
-          2. Summary
-          3. conditions Found
-          4. Recommended Diagnosticss(not actual medical diagnostics recommended by doctors)
-          5. references used,NOTE FOR LLM:display the context used for generating the reports
+        <context>
+        {context}
+        </context>
 
-          The following conditions are to be followed:                                  
-          1.Please limit each section to five bullet points, except for the summary and medical data.
-          2.Please do not use the symbols * and ** for highlighting.
-          3.all letters in uppercase letters,all points must by marked with - .
-          4.display this at the start:"DISCLIAMER: "THIS REPORT IS NOT APPROVED BY TRAINED MEDICAL PROFESSIONALS."
-          5.display this at the end : "NOTE: "AI-GENERATED REPORT BASED ON MEDICAL DATA GIVEN BY THE DEVELOPERS."
-          6.Each generated line should not contain more than 18 words per line.
-                                                    
-              {input} """)
+        Here is an extended template for a medical report that includes sections for medical data, a summary, conditions found, and explanations of those conditions. Use this template for generation, try to only use the context given as much as possible:
+
+        Rules to be followed:
+
+        1. Each section except Medical Test Results should not contain more than 5 bullet points.
+        2. Total report should not exceed 130 lines.
+        3. Do not generate * and **.
+        4. each point must not have more 20 words(200 whitespaces)
+
+        Template:
+
+        Personal Information:
+        - Age: {d0}
+        - Sex: {d1}
+
+        Medical Test parameters:
+        - Chest Pain Type: {d2}
+        - Resting Blood Pressure: {d3} mmHg
+        - Serum Cholesterol: {d4} mg/dl
+        - Fasting Blood Sugar: {d5}
+        - Resting ECG Results: {d6}
+        - Maximum Heart Rate: {d7}
+        - Exercise Induced Angina: {d8}
+        - Oldpeak: {d9} mm
+        - Slope of Peak Exercise ST Segment: {d10}
+        - Number of Major Vessels Colored by Fluoroscopy: {d11}
+        - Thallium: {d12}
+
+        Summary:
+        - This section will provide a brief overview of the patient's health status based on the medical test results. Do not exceed 5 points. Each point should not exceed 13 words.
+
+        Conditions Found:
+        - This section will list any specific conditions that were identified based on the test results. Do not exceed 5 points.
+
+        Risk keywords:
+        - Here, flag the according keywords per data given found in the risk keywords: in the context.just the most important 5 risk keywords do not display similar risk keywords
+        {input}
+""")
+
     document_chain = create_stuff_documents_chain(llm, prompt)
     with open("my_faiss_index.pkl", "rb") as f:
         db1 = pickle.load(f)
     retriever = db1.as_retriever()
     retrieval_chain = create_retrieval_chain(retriever, document_chain)
-    response = retrieval_chain.invoke({'input': "start generating",'d1':data[1],'d2':data[2],'d3':data[3],'d4':data[4],'d5':data[5],'d6':data[6],'d7':data[7],'d8':data[8],'d9':data[9],'d11':data[11],'d12':data[12],'d0':data[0],'d10':data[10]})
-    print(response["answer"])
-    return jsonify(response["answer"])
+    response = retrieval_chain.invoke({'input': "craft the report according",'d1':data[1],'d2':data[2],'d3':data[3],'d4':data[4],'d5':data[5],'d6':data[6],'d7':data[7],'d8':data[8],'d9':data[9],'d11':data[11],'d12':data[12],'d0':data[0],'d10':data[10]})
+    preprocessed_text = response["answer"].replace('\n', '<br/>')
+    return jsonify(preprocessed_text)
 
 if  __name__ == "__main__":
-    app.run(port=int(os.environ.get("PORT", 8000)))
-    debug = True
+    app.run(port=int(os.environ.get("PORT", 8000)),debug=True)
+    

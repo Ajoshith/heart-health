@@ -16,34 +16,7 @@ const Jpp = () => {
   const [data1,setData1]=useState('')
   const [data,setData]=useState('')
   const [loading,setLoading]=useState(true)
-  const [first, setfirst] = useState(`1. **Age**: At 50 years old, you are entering an age range where the risk of heart disease starts to rise gradually.
-
-  2. **Gender**: Being female (gender = 0) may provide some protection against heart disease compared to males, but it's important to note that heart disease can still affect women.
   
-  3. **Chest Pain Type**: The value of 4 indicates "asymptomatic," meaning you have not experienced chest pain. This doesn't rule out the possibility of heart disease, so it's essential to continue monitoring your heart health.
-  
-  4. **Resting Blood Pressure**: With a value of 7, your resting blood pressure appears to be within the normal range, which is less than 120/80 mmHg. Maintaining a healthy blood pressure is crucial for reducing heart disease risk.
-  
-  5. **Serum Cholesterol**: Your serum cholesterol level of 8 mg/dl is considered desirable. Maintaining healthy cholesterol levels, particularly low LDL cholesterol, is important for preventing plaque buildup in your arteries.
-  
-  6. **Fasting Blood Sugar**: The value of 5 indicates that your fasting blood sugar is greater than 120 mg/dl, suggesting a significant risk factor for heart disease. Managing your blood sugar levels is crucial to reduce this risk.
-  
-  7. **Resting Electrocardiographic Results**: The value of 4 indicates potential problems requiring further investigation. It's important to consult with your doctor to determine the underlying cause and receive appropriate treatment.
-  
-  8. **Maximum Heart Rate Achieved**: Your maximum heart rate achieved during exercise is not provided, but it should typically be within the range of 50% to 85% of your predicted maximum heart rate, which is approximately 170 beats per minute (bpm) for a 50-year-old person.
-  
-    9. **Exercise-Induced Angina**: The value of 4 indicates the absence of chest pain during exercise. This is a positive sign, as chest pain during exercise is a significant indicator of coronary artery disease.
-    
-    10. **Oldpeak**: The value of 5 suggests that your ST depression increased significantly after exercise. This indicates a potential issue with blood flow to the heart and warrants further evaluation.
-    
-    11. **Slope of the Peak Exercise ST Segment**: The value of 1 indicates an upsloping ST segment during exercise, which may indicate ischemia or reduced blood flow to the heart.
-    
-    12. **Number of Major Vessels (0-3) Colored by Fluoroscopy**: The value of 5 suggests that you may have blockages in your major coronary arteries. The severity of these blockages should be further assessed and managed to reduce the risk of heart attack.
-    
-    13. **Thallium (Thal)**: The value of 4 indicates potentially reversible defects in your heart that may improve with treatment. This suggests that your heart condition may be treatable, and further evaluation and management are necessary.
-    
-    **Keywords**: high blood pressure, high cholesterol, diabetes, smoking, obesity, physical inactivity, family history of heart disease, chest pain, breathlessness, fatigue, sweating, nausea, vomiting.`
-  )
 const [medicaldata,
   setMedicalData]=useState('')
   useEffect(() => {
@@ -134,6 +107,7 @@ async function GetOutput1(medicalHistory){
       console.log(error)
   }
 }
+
     function onC() {
         navigate("/experiment")
       }
@@ -426,16 +400,31 @@ async function GetOutput1(medicalHistory){
         
   
       </main>
-      <div className='  shadow-lg' style={{height:"1000px",width:"650px",backgroundColor:"red",marginLeft:"80px",marginTop:"50px",color:"aliceblue",display:"flex",paddingRight:"20px"}}>
-        
-          <div className='text-focus-in title ' style={{position:"absolute",top:"640px",left:"100px",color:"aliceblue"}}>    <div style={{marginLeft:"10px",color:"aliceblue"}}>Report</div>
-          
-          </div>
-          <p className='text-focus-in' style={{marginTop:"100px",marginLeft:"20px",fontSize:"1rem"}}>
-            <pre>{data1}
-            </pre>
-          </p>
-       </div>
+      <div className='shadow-lg' style={{ 
+    width: "650px", 
+    backgroundColor: "red", 
+    marginLeft: "80px", 
+    marginTop: "50px", 
+    color: "aliceblue", 
+    display: "flex", 
+    paddingRight: "20px", 
+    whiteSpace: "normal",
+    wordWrap: "break-word",
+    overflowWrap: "break-word"
+}}>
+ <div className='text-focus-in title' style={{ position: "absolute", top: "640px", left: "100px", color: "aliceblue" }}>
+ <div style={{ marginLeft: "10px", color: "aliceblue", textDecoration: "underline",paddingLeft: "25px" }}>MEDICAL  SUMMARY  REPORT</div>
+
+ </div>
+ <p className='text-focus-in' style={{ marginTop: "100px", marginLeft: "20px", fontSize: "1rem", paddingBottom: "10px", paddingRight: "15px" }} dangerouslySetInnerHTML={{__html: data1}}></p>
+
+</div>
+
+
+
+
+
+
          <div className='text-focus-in' style={{height:"350px",width:"670px",position:"absolute",top:"700px",left:"780px",border:"9px red solid"}}>
          <h2 style={{marginLeft:"180px",marginTop:"30px"}}>Life expantansy</h2>
           <div style={{display:"flex",alignItems:"center",justifyContent:"center",backgroundColor:"transparent",height:"150px",width:"150px",borderRadius:"50%",border:"7px solid forestgreen",marginLeft:"20px",marginTop:"30px"}}>
