@@ -12,7 +12,10 @@ import pjLogo from '../images/pjlogo.png';
 import backp from "../images/backprofile.png"
 
 const Jpp = () => {
-  
+  const[id,setId]=useState('')
+  const [data1,setData1]=useState('')
+  const [data,setData]=useState('')
+  const [loading,setLoading]=useState(true)
   const [first, setfirst] = useState(`1. **Age**: At 50 years old, you are entering an age range where the risk of heart disease starts to rise gradually.
 
   2. **Gender**: Being female (gender = 0) may provide some protection against heart disease compared to males, but it's important to note that heart disease can still affect women.
@@ -29,19 +32,108 @@ const Jpp = () => {
   
   8. **Maximum Heart Rate Achieved**: Your maximum heart rate achieved during exercise is not provided, but it should typically be within the range of 50% to 85% of your predicted maximum heart rate, which is approximately 170 beats per minute (bpm) for a 50-year-old person.
   
-  9. **Exercise-Induced Angina**: The value of 4 indicates the absence of chest pain during exercise. This is a positive sign, as chest pain during exercise is a significant indicator of coronary artery disease.
-  
-  10. **Oldpeak**: The value of 5 suggests that your ST depression increased significantly after exercise. This indicates a potential issue with blood flow to the heart and warrants further evaluation.
-  
-  11. **Slope of the Peak Exercise ST Segment**: The value of 1 indicates an upsloping ST segment during exercise, which may indicate ischemia or reduced blood flow to the heart.
-  
-  12. **Number of Major Vessels (0-3) Colored by Fluoroscopy**: The value of 5 suggests that you may have blockages in your major coronary arteries. The severity of these blockages should be further assessed and managed to reduce the risk of heart attack.
-  
-  13. **Thallium (Thal)**: The value of 4 indicates potentially reversible defects in your heart that may improve with treatment. This suggests that your heart condition may be treatable, and further evaluation and management are necessary.
-  
-  **Keywords**: high blood pressure, high cholesterol, diabetes, smoking, obesity, physical inactivity, family history of heart disease, chest pain, breathlessness, fatigue, sweating, nausea, vomiting.`
-)
+    9. **Exercise-Induced Angina**: The value of 4 indicates the absence of chest pain during exercise. This is a positive sign, as chest pain during exercise is a significant indicator of coronary artery disease.
+    
+    10. **Oldpeak**: The value of 5 suggests that your ST depression increased significantly after exercise. This indicates a potential issue with blood flow to the heart and warrants further evaluation.
+    
+    11. **Slope of the Peak Exercise ST Segment**: The value of 1 indicates an upsloping ST segment during exercise, which may indicate ischemia or reduced blood flow to the heart.
+    
+    12. **Number of Major Vessels (0-3) Colored by Fluoroscopy**: The value of 5 suggests that you may have blockages in your major coronary arteries. The severity of these blockages should be further assessed and managed to reduce the risk of heart attack.
+    
+    13. **Thallium (Thal)**: The value of 4 indicates potentially reversible defects in your heart that may improve with treatment. This suggests that your heart condition may be treatable, and further evaluation and management are necessary.
+    
+    **Keywords**: high blood pressure, high cholesterol, diabetes, smoking, obesity, physical inactivity, family history of heart disease, chest pain, breathlessness, fatigue, sweating, nausea, vomiting.`
+  )
+const [medicaldata,
+  setMedicalData]=useState('')
+  useEffect(() => {
+    fetch("/about", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: "Hello",
+      }),
+    },
+    )
+      .then(response => response.json())
+      .then(response => {
+        const { name,medicalHistory } = response;
+        setMedicalData(medicalHistory)
+        console.log(name,medicalHistory);
+        GetOutput(medicalHistory).then(GetOutput1(medicalHistory))
+      });
+  }, []);
+async function GetOutput(medicalHistory){
+  try {
+      const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=medicalHistory;
+      console.log(id)
+      console.log("ladsjfo")
+      const res=await fetch('http://localhost:8000/predict',{
+          method:"POST",
+          headers:{
+              "Content-Type":"application/json"
+          },
+          body: JSON.stringify({
+                  
+                  data:[age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal]
+              
+            }),
+      })
+      if (res.ok){
+          const data=await res.json();
+          setData(data)
+          console.log(data)
+          console.log(typeof data)
+          const keywordsPattern = /Keywords:(.*?)(?=\d+\.)|Keywords:(.*)$/s;
 
+// Extract the content of the Keywords section
+         const match = data.match(keywordsPattern);
+        const keywordsContent = match ? match[1] || match[2] : null;
+        console.log(keywordsContent)
+      }
+      
+      
+  } catch (error) {
+      console.log(error)
+  }
+}
+async function GetOutput1(medicalHistory){
+  try {
+      const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=medicalHistory;
+      console.log(id)
+      const res=await fetch('http://localhost:8000/summary',{
+          method:"POST",
+          headers:{
+              "Content-Type":"application/json"
+          },
+
+          body: JSON.stringify({
+
+                  data:[age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal]
+              
+            }),
+      })
+      if (res.ok){
+          const data=await res.json();
+          setData1(data)
+          console.log('Hllo')
+          console.log(data1)
+          setLoading(false)
+//                 const keywordsPattern = /Keywords:(.*?)(?=\d+\.)|Keywords:(.*)$/s;
+
+// // Extract the content of the Keywords section
+//                const match = data.match(keywordsPattern);
+//               const keywordsContent = match ? match[1] || match[2] : null;
+//               console.log(keywordsContent)
+      }
+      
+      
+  } catch (error) {
+      console.log(error)
+  }
+}
     function onC() {
         navigate("/experiment")
       }
@@ -71,9 +163,7 @@ const Jpp = () => {
       const navigate = useNavigate()
       const [med,setMed]=useState('')
       
-      useEffect(() => {
-        HandleClick2();
-      }, [])
+      
     
       async function HandleClick2(event) {
     
@@ -90,14 +180,16 @@ const Jpp = () => {
           });
     
           if (res.ok) {
-            const data = await res.json();
-            const { name, medicalHistory,risk } = data;
+            const data1 = await res.json();
+            const { name, medicalHistory,risk,data } = data1;
             console.log(name)
             Setud(name);
-            setMed(risk)
+            setMed(risk);
+            setMedicalData(medicalHistory)
             console.log("Hello")
+            setId(data)
             console.log(med)
-          
+            
     
           } else {
             console.error("Login pass");
@@ -107,84 +199,6 @@ const Jpp = () => {
           console.error("Error during login:", error);
         }
       }
-    const [medicaldata,setMedicalData]=useState('')
-    const [user,setUser]=useState('')
-    const [data1,setData1]=useState('')
-    const [id,setId]=useState('')
-    const [data2,setData2]=useState("")
-    useEffect(() => {
-        HandleClick2();
-    
-      }, []);
-      
-   
-      async function GetOutput(){
-        try {
-            const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=medicaldata;
-            console.log(id)
-            console.log("ladsjfo")
-            const res=await fetch('http://localhost:8000/predict',{
-                method:"POST",
-                headers:{
-                    "Content-Type":"application/json"
-                },
-                body: JSON.stringify({
-                        
-                        data:[age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal]
-                    
-                  }),
-            })
-            if (res.ok){
-                const data=await res.json();
-                setData1(data)
-                console.log(data)
-                console.log(typeof data)
-                const keywordsPattern = /Keywords:(.*?)(?=\d+\.)|Keywords:(.*)$/s;
-
-// Extract the content of the Keywords section
-               const match = data.match(keywordsPattern);
-              const keywordsContent = match ? match[1] || match[2] : null;
-              console.log(keywordsContent)
-            }
-            
-            
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    async function GetOutput1(){
-        try {
-            const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=medicaldata;
-            console.log(id)
-            const res=await fetch('http://localhost:8000/summary',{
-                method:"POST",
-                headers:{
-                    "Content-Type":"application/json"
-                },
-
-                body: JSON.stringify({
-
-                        data:[age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal]
-                    
-                  }),
-            })
-            if (res.ok){
-                const data=await res.json();
-                setData1(data)
-                console.log('Hllo')
-//                 const keywordsPattern = /Keywords:(.*?)(?=\d+\.)|Keywords:(.*)$/s;
-
-// // Extract the content of the Keywords section
-//                const match = data.match(keywordsPattern);
-//               const keywordsContent = match ? match[1] || match[2] : null;
-//               console.log(keywordsContent)
-            }
-            
-            
-        } catch (error) {
-            console.log(error)
-        }
-    }
   const [k,setK]=useState(70)
   const getCircleStyles = () => {
     // Adjust this function based on your circle positioning requirements
@@ -197,7 +211,7 @@ const Jpp = () => {
   };
 
   function K(){
-    console.log(k)
+    
     if (k<30 && k>20){
       return (
         <>
@@ -311,8 +325,14 @@ const Jpp = () => {
   }
   return (
     <>
-    
-    <header className="header1">
+    {loading?(
+      <>
+      <div>Loaing</div>
+      </>
+    ):
+    (
+      <>
+      <header className="header1">
         <nav className="navbar navbar-expand-lg">
           <div className="container-fluid">
             <Link to="/" id="header" className="navbar-brand navbarcolorfont scale-up-center">
@@ -412,7 +432,8 @@ const Jpp = () => {
           
           </div>
           <p className='text-focus-in' style={{marginTop:"100px",marginLeft:"20px",fontSize:"1rem"}}>
-            {first}
+            <pre>{data1}
+            </pre>
           </p>
        </div>
          <div className='text-focus-in' style={{height:"350px",width:"670px",position:"absolute",top:"700px",left:"780px",border:"9px red solid"}}>
@@ -433,6 +454,9 @@ const Jpp = () => {
     </div>
     <footer style={{ width: '100%', height: '30px', backgroundColor: '#e11127', color: 'aliceblue', textAlign: 'center', marginTop: '40px', fontWeight: '200' }}>Copyright belongs to American Heart Association</footer>
 
+      </>
+    )}
+    
     </>
   );
 };

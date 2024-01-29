@@ -64,16 +64,15 @@ def summary():
           2. Summary
           3. conditions Found
           4. Recommended Diagnosticss(not actual medical diagnostics recommended by doctors)
-          5. Risk Keywords,NOTE FOR LLM:Use only the risk keywords provided in the context under risk keywords:,please do not generate keywords on ur own.
+          5. references used,NOTE FOR LLM:display the context used for generating the reports
 
           The following conditions are to be followed:                                  
           1.Please limit each section to five bullet points, except for the summary and medical data.
-          2.Use only the risk keywords provided in the context under risk keywords:,please do not generate keywords on ur own.
-          3.Please do not use the symbols * and ** for highlighting.
-          4.all letters in uppercase letters,all points must by marked with - .
-          5.display this at the start:"DISCLIAMER: "THIS REPORT IS NOT APPROVED BY TRAINED MEDICAL PROFESSIONALS."
-          6.display this at the end : "NOTE: "AI-GENERATED REPORT BASED ON MEDICAL DATA GIVEN BY THE DEVELOPERS."
-          7.Each generated line should not contain more than 18 words per line.
+          2.Please do not use the symbols * and ** for highlighting.
+          3.all letters in uppercase letters,all points must by marked with - .
+          4.display this at the start:"DISCLIAMER: "THIS REPORT IS NOT APPROVED BY TRAINED MEDICAL PROFESSIONALS."
+          5.display this at the end : "NOTE: "AI-GENERATED REPORT BASED ON MEDICAL DATA GIVEN BY THE DEVELOPERS."
+          6.Each generated line should not contain more than 18 words per line.
                                                     
               {input} """)
     document_chain = create_stuff_documents_chain(llm, prompt)
@@ -82,6 +81,7 @@ def summary():
     retriever = db1.as_retriever()
     retrieval_chain = create_retrieval_chain(retriever, document_chain)
     response = retrieval_chain.invoke({'input': "start generating",'d1':data[1],'d2':data[2],'d3':data[3],'d4':data[4],'d5':data[5],'d6':data[6],'d7':data[7],'d8':data[8],'d9':data[9],'d11':data[11],'d12':data[12],'d0':data[0],'d10':data[10]})
+    print(response["answer"])
     return jsonify(response["answer"])
 
 if  __name__ == "__main__":
