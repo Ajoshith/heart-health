@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify
-
+from datetime import datetime
 import pickle
 import getpass
+from pymongo import MongoClient
 import pandas as pd
 import os
 from langchain.chains.combine_documents import create_stuff_documents_chain
@@ -21,25 +22,32 @@ CORS(app)  # Enable CORS for all routes
 def home():
     return "home"
 
-@app.route("/predict", methods=["POST"])
+@app.route("/predict/", methods=["POST"])
 def predict():
     logi = pickle.load(open("random_forest_model (1).sav", 'rb'))
-    data = request.get_json()
-    data = data['data']
+    info = request.get_json()
+    name = info.get('name')
+    data = info.get('data')
     series_data = pd.Series(data, index=['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak', 'slope', 'ca', 'thal'])
     df = pd.DataFrame([series_data])
     predictions = logi.predict(df)
     probabilities = logi.predict_proba(df)[:, 1]
     percentage = probabilities * 100
     prediction_result =  percentage[0]
+    client = MongoClient("mongodb+srv://bunnypowers26:pepjkeljIEfn5zgN@cluster01.egs7npg.mongodb.net/?retryWrites=true&w=majority")
+    db = client.test
+    collection = db.articles
+    print(name)
+    collection.update_one({"name": name}, {"$set": {"risk":prediction_result }})
     return jsonify(prediction_result)
 
 @app.route("/summary", methods=["GET", "POST"])
 def summary():
-    data = request.get_json()
-    data = data['data']
+    info = request.get_json()
+    data = info['data']
+
     print(data)
-    prompt = ChatPromptTemplate.from_template("""Answer the following question based only on the provided context:
+    prompt = ChatPromptTemplate.from_template("""generate a medical report based only on the provided context:
 
         <context>
         {context}
@@ -52,15 +60,18 @@ def summary():
         1. Each section except Medical Test Results should not contain more than 5 bullet points.
         2. Total report should not exceed 130 lines.
         3. Do not generate * and **.
-        4. each point must not have more 20 words(200 whitespaces)
-
+        4. each point must not have more 20 words(200 whitespaces) and no empty lines between a section and its contents
+        5.please refer the context carefully for every section
+        6.do not change the sections titles(GENERATED ON,TEST RESULTS,SUMMARY,RISK KEYWORDS) anddo not include any new sections on ur own
         Template:
-
-        Personal Information:
+                                              
+        GENERATED ON:{dt}
+                                              
+        PERSONAL INFORMATION:
         - Age: {d0}
         - Sex: {d1}
 
-        Medical Test parameters:
+        TEST RESULTS: 
         - Chest Pain Type: {d2}
         - Resting Blood Pressure: {d3} mmHg
         - Serum Cholesterol: {d4} mg/dl
@@ -73,14 +84,11 @@ def summary():
         - Number of Major Vessels Colored by Fluoroscopy: {d11}
         - Thallium: {d12}
 
-        Summary:
+        SUMMARY:
         - This section will provide a brief overview of the patient's health status based on the medical test results. Do not exceed 5 points. Each point should not exceed 13 words.
 
-        Conditions Found:
-        - This section will list any specific conditions that were identified based on the test results. Do not exceed 5 points.
-
-        Risk keywords:
-        - Here, flag the according keywords per data given found in the risk keywords: in the context.just the most important 5 risk keywords do not display similar risk keywords
+        RISK KEYWORDS:
+        - Here, flag the according keywords per data given found in the risk keywords: in the context.just the most important 8 risk keywords do not display similar risk keywords
         {input}
 """)
 
@@ -89,7 +97,9 @@ def summary():
         db1 = pickle.load(f)
     retriever = db1.as_retriever()
     retrieval_chain = create_retrieval_chain(retriever, document_chain)
-    response = retrieval_chain.invoke({'input': "craft the report according",'d1':data[1],'d2':data[2],'d3':data[3],'d4':data[4],'d5':data[5],'d6':data[6],'d7':data[7],'d8':data[8],'d9':data[9],'d11':data[11],'d12':data[12],'d0':data[0],'d10':data[10]})
+    current_datetime = datetime.now()
+    formatted_datetime = current_datetime.strftime("%d-%m-%y %I:%M %p")
+    response = retrieval_chain.invoke({'input': "craft the report according",'dt':formatted_datetime,'d1':data[1],'d2':data[2],'d3':data[3],'d4':data[4],'d5':data[5],'d6':data[6],'d7':data[7],'d8':data[8],'d9':data[9],'d11':data[11],'d12':data[12],'d0':data[0],'d10':data[10]})
     preprocessed_text = response["answer"].replace('\n', '<br/>')
     return jsonify(preprocessed_text)
 

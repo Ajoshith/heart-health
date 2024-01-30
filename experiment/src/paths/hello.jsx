@@ -61,7 +61,10 @@ function Home() {
         const { name, medicalHistory,risk } = data;
         console.log(name)
         Setud(name);
-        setMed(risk)
+        if(risk){
+          setMed(risk)
+        }
+       
         console.log("Hello")
         console.log(med)
       
@@ -124,7 +127,7 @@ function Home() {
           <button className='btn btn-lg' style={{ color: "#e11127", backgroundColor: 'aliceblue', borderRadius: "50px", position:"absolute",left:250,top:125}} onClick={handleClick1}><i class="bi bi-box-arrow-right"></i> Logout</button>
 
             <div style={{height:"200px",width:"200px",borderRadius:"50% ",border:"7px solid red",marginTop:"50px",marginLeft:"80px",display:'flex',alignItems:"center",justifyContent:"center",fontSize:'2 rem'}}>
-              <div style={{fontSize:"2.2rem",marginLeft:"10px"}} >{med[2]}{med[3]}%</div>
+              <div style={{fontSize:"2.2rem",marginLeft:"10px"}} >{med}%</div>
               <div style={{position:"absolute",top:"340px"}}>at risk  </div>
             </div>
             <div style={{marginTop:"20px",marginLeft:"60px",fontSize:"1.2rem"}}>Navigate throught our tools</div>

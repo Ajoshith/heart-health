@@ -57,14 +57,9 @@ const Experiment = () => {
     console.log(username1);
   }
   function Handle2(e) {
-    const k=e.target.value;
-    if (k=="Male")
-    {setUsername2(1);}
-    else{
-      setUsername2(0)
-    }
-
-    console.log(username2);
+    setUsername2(e.target.value);
+    console.log(username2)
+    
   }
   function Handle3(e) {
     setUsername3(e.target.value);
@@ -373,7 +368,7 @@ const Experiment = () => {
                     }}
                   >
                     <label htmlFor="" style={{marginLeft:"30px ",marginBottom:"8px"}}>Gender</label>
-                    <select id="gender" 
+                    <input id="gender" 
                     onChange={Handle2}
                     type="text"
                     placeholder="Enter your gender"
@@ -390,11 +385,9 @@ const Experiment = () => {
                       marginLeft:"30px",
                       width:"280px",
                       
-                    }}>
-                      <option value="" disabled>Enter your gender</option>
-                      <option value="male">Male</option>
-                      <option value="female" >Female</option>
-                    </select>
+                    }}/>
+                     
+                
                     
                   </div>
                   <div

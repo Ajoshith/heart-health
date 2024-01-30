@@ -12,102 +12,100 @@ import pjLogo from '../images/pjlogo.png';
 import backp from "../images/backprofile.png"
 
 const Jpp = () => {
-  const[id,setId]=useState('')
-  const [data1,setData1]=useState('')
-  const [data,setData]=useState('')
-  const [loading,setLoading]=useState(true)
-  
-const [medicaldata,
-  setMedicalData]=useState('')
+  const [data1, setData1] = useState('');
+  const [data, setData] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [name1, setName] = useState("");
+  const [medicaldata, setMedicalData] = useState('');
+  const [k, setK] = useState();
+  const [id,setId]=useState();
+  const navigate = useNavigate();
+
   useEffect(() => {
-    fetch("/about", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: "Hello",
-      }),
-    },
-    )
-      .then(response => response.json())
-      .then(response => {
-        const { name,medicalHistory } = response;
-        setMedicalData(medicalHistory)
-        console.log(name,medicalHistory);
-        GetOutput(medicalHistory).then(GetOutput1(medicalHistory))
-      });
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/about", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: "Hello",
+          }),
+        });
+
+        if (response.ok) {
+          const { name, medicalHistory } = await response.json();
+          setName(name);
+          setMedicalData(medicalHistory);
+          GetOutput(medicalHistory, name);
+          GetOutput1(medicalHistory);
+        } else {
+          console.error("Error fetching data");
+        }
+      } catch (error) {
+        console.error("Error during fetch:", error);
+      }
+    };
+
+    fetchData();
   }, []);
-async function GetOutput(medicalHistory){
-  try {
-      const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=medicalHistory;
-      console.log(id)
-      console.log("ladsjfo")
-      const res=await fetch('http://localhost:8000/predict',{
-          method:"POST",
-          headers:{
-              "Content-Type":"application/json"
-          },
-          body: JSON.stringify({
-                  
-                  data:[age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal]
-              
-            }),
-      })
-      if (res.ok){
-          const data=await res.json();
-          setData(data)
-          console.log(data)
-          console.log(typeof data)
-          const keywordsPattern = /Keywords:(.*?)(?=\d+\.)|Keywords:(.*)$/s;
 
-// Extract the content of the Keywords section
-         const match = data.match(keywordsPattern);
+  const GetOutput = async (medicalHistory, name) => {
+    try {
+      const { age, sex, cp, rbp, sc, fbs, rer, mhr, eia, olds, st, mvs, thal } = medicalHistory;
+      const res = await fetch(`http://localhost:8000/predict/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          data: [age, sex, cp, rbp, sc, fbs, rer, mhr, eia, olds, st, mvs, thal],
+          name: name
+        }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setData(data);
+        setK(data);
+        const keywordsPattern = /Keywords:(.*?)(?=\d+\.)|Keywords:(.*)$/s;
+        const match = data.match(keywordsPattern);
         const keywordsContent = match ? match[1] || match[2] : null;
-        console.log(keywordsContent)
+        console.log(keywordsContent);
+      } else {
+        console.error("Error fetching data");
       }
-      
-      
-  } catch (error) {
-      console.log(error)
-  }
-}
-async function GetOutput1(medicalHistory){
-  try {
-      const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=medicalHistory;
-      console.log(id)
-      const res=await fetch('http://localhost:8000/summary',{
-          method:"POST",
-          headers:{
-              "Content-Type":"application/json"
-          },
+    } catch (error) {
+      console.error("Error during fetch:", error);
+    }
+  };
 
-          body: JSON.stringify({
+  const GetOutput1 = async (medicalHistory,name) => {
+    try {
+      const { age, sex, cp, rbp, sc, fbs, rer, mhr, eia, olds, st, mvs, thal } = medicalHistory;
+      const res = await fetch('http://localhost:8000/summary', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          data: [age, sex, cp, rbp, sc, fbs, rer, mhr, eia, olds, st, mvs, thal],
 
-                  data:[age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal]
-              
-            }),
-      })
-      if (res.ok){
-          const data=await res.json();
-          setData1(data)
-          console.log('Hllo')
-          console.log(data1)
-          setLoading(false)
-//                 const keywordsPattern = /Keywords:(.*?)(?=\d+\.)|Keywords:(.*)$/s;
+        }),
+      });
 
-// // Extract the content of the Keywords section
-//                const match = data.match(keywordsPattern);
-//               const keywordsContent = match ? match[1] || match[2] : null;
-//               console.log(keywordsContent)
+      if (res.ok) {
+        const data = await res.json();
+        setData1(data);
+        setLoading(false);
+      } else {
+        console.error("Error fetching data");
       }
-      
-      
-  } catch (error) {
-      console.log(error)
-  }
-}
-
+    } catch (error) {
+      console.error("Error during fetch:", error);
+    }
+  };
     function onC() {
         navigate("/experiment")
       }
@@ -134,7 +132,6 @@ async function GetOutput1(medicalHistory){
         }
       }
       const [ud, Setud] = useState('')
-      const navigate = useNavigate()
       const [med,setMed]=useState('')
       
       
@@ -173,7 +170,6 @@ async function GetOutput1(medicalHistory){
           console.error("Error during login:", error);
         }
       }
-  const [k,setK]=useState(70)
   const getCircleStyles = () => {
     // Adjust this function based on your circle positioning requirements
     return {
@@ -185,12 +181,13 @@ async function GetOutput1(medicalHistory){
   };
 
   function K(){
-    
+    console.log(k)
     if (k<30 && k>20){
       return (
         <>
-        <div className="circle-container  " style={{display:"flex",justifyContent:"center",alignItems:"center",textAlign:"center"}}>
-          <div className='scale-in-center1 ' style={{borderRadius:"50%",backgroundColor:"red",height:"400px",width:"400px",position:"relative",left:"20px",top:"20px"}} ></div>
+        
+<div className="circle-container  " style={{display:"flex",justifyContent:"center",alignItems:"center",textAlign:"center"}}>
+          <div className='scale-in-center ' style={{borderRadius:"50%",backgroundColor:"red",height:"400px",width:"400px",position:"relative",left:"20px",top:"20px"}} ></div>
           
           <div className="circle" style={{borderRadius:"50%",backgroundColor:"aliceblue",backgroundColor:"white",marginLeft:"30px",marginTop:"30px"}}></div>
           <div className="wave _25 " style={{marginLeft:"30px",marginTop:"30px",}} ></div>
@@ -199,10 +196,11 @@ async function GetOutput1(medicalHistory){
           <div className="wave-below _25"  style={{marginLeft:"30px",marginTop:"30px"}}></div>
           <div style={{border:"5px red solid",borderRadius:"50%",backgroundColor:"transparent",height:"400px",width:"400px",position:"absolute",left:"20px",top:"20px"}}></div>
 
-          <div className="desc _0" style={{marginLeft:"40px",marginTop:"20px"}}>
-            <h2>Today</h2>
+          <div className="desc _0" style={{marginLeft:"40px",marginTop:"20px",fontFamily:"initial",color:"aliceblue"}}>
+
+            <h2 style={{fontFamily:"initial",color:"aliceblue"}}>Risk level:</h2>
             <p>
-              <b style={{color:"aliceblue"}}>{k}<span>%</span></b>
+              <b style={{color:"aliceblue",color:"aliceblue"}}>{k}<span>%</span></b>
             </p>
           </div>
         </div>
@@ -211,7 +209,8 @@ async function GetOutput1(medicalHistory){
     }
     else if(k<20 ){
       return (
-        <div className="circle-container  " style={{display:"flex",justifyContent:"center",alignItems:"center",textAlign:"center"}}>
+       
+<div className="circle-container  " style={{display:"flex",justifyContent:"center",alignItems:"center",textAlign:"center"}}>
           <div className='scale-in-center ' style={{borderRadius:"50%",backgroundColor:"red",height:"400px",width:"400px",position:"relative",left:"20px",top:"20px"}} ></div>
           
           <div className="circle" style={{borderRadius:"50%",backgroundColor:"aliceblue",backgroundColor:"white",marginLeft:"30px",marginTop:"30px"}}></div>
@@ -221,32 +220,34 @@ async function GetOutput1(medicalHistory){
           <div className="wave-below _0"  style={{marginLeft:"30px",marginTop:"30px"}}></div>
           <div style={{border:"5px red solid",borderRadius:"50%",backgroundColor:"transparent",height:"400px",width:"400px",position:"absolute",left:"20px",top:"20px"}}></div>
 
-          <div className="desc _0" style={{marginLeft:"40px",marginTop:"20px"}}>
-            <h2>Today</h2>
+          <div className="desc _0" style={{marginLeft:"40px",marginTop:"20px",fontFamily:"initial",color:"aliceblue"}}>
+
+            <h2 style={{fontFamily:"initial",color:"aliceblue"}}>Risk level:</h2>
             <p>
-              <b style={{color:"aliceblue"}}>{k}<span>%</span></b>
+              <b style={{color:"aliceblue",color:"aliceblue"}}>{k}<span>%</span></b>
             </p>
           </div>
         </div>
       )
     }
-    else if (k>40 && k<60){
+    else if (k>30 && k<60){
       return (
     
-        <div className="circle-container  " style={{display:"flex",justifyContent:"center",alignItems:"center",textAlign:"center"}}>
+<div className="circle-container  " style={{display:"flex",justifyContent:"center",alignItems:"center",textAlign:"center"}}>
           <div className='scale-in-center ' style={{borderRadius:"50%",backgroundColor:"red",height:"400px",width:"400px",position:"relative",left:"20px",top:"20px"}} ></div>
           
-          <div className="circle" style={{borderRadius:"50%",backgroundColor:"aliceblue",marginLeft:"30px",marginTop:"30px"}}></div>
-          <div className="wave _50 " style={{marginLeft:"30px",marginTop:"30px",}} ></div>
+          <div className="circle" style={{borderRadius:"50%",backgroundColor:"aliceblue",backgroundColor:"white",marginLeft:"30px",marginTop:"30px"}}></div>
+          <div className="wave _50" style={{marginLeft:"30px",marginTop:"30px",}} ></div>
           <div className="wave _50"  style={{marginLeft:"30px",marginTop:"30px" }}></div>
           <div className="wave _50" style={{marginLeft:"30px",marginTop:"30px",}} ></div>
           <div className="wave-below _50"  style={{marginLeft:"30px",marginTop:"30px"}}></div>
           <div style={{border:"5px red solid",borderRadius:"50%",backgroundColor:"transparent",height:"400px",width:"400px",position:"absolute",left:"20px",top:"20px"}}></div>
 
-          <div className="desc _0" style={{marginLeft:"40px",marginTop:"20px"}}>
-            <h2>Today</h2>
+          <div className="desc _0" style={{marginLeft:"40px",marginTop:"20px",fontFamily:"initial",color:"aliceblue"}}>
+
+            <h2 style={{fontFamily:"initial",color:"aliceblue"}}>Risk level:</h2>
             <p>
-              <b style={{color:"aliceblue"}}>{k}<span>%</span></b>
+              <b style={{color:"aliceblue",color:"aliceblue"}}>{k}<span>%</span></b>
             </p>
           </div>
         </div>
@@ -277,23 +278,25 @@ async function GetOutput1(medicalHistory){
  
     else {
       return (
-        <div className="circle-container  " style={{display:"flex",justifyContent:"center",alignItems:"center",textAlign:"center"}}>
-        <div className='scale-in-center ' style={{borderRadius:"50%",backgroundColor:"red",height:"400px",width:"400px",position:"relative",left:"20px",top:"20px"}} ></div>
-        
-        <div className="circle" style={{borderRadius:"50%",backgroundColor:"aliceblue",backgroundColor:"white",marginLeft:"30px",marginTop:"30px"}}></div>
-        <div className="wave _100 " style={{marginLeft:"30px",marginTop:"30px",}} ></div>
-        <div className="wave _100"  style={{marginLeft:"30px",marginTop:"30px" }}></div>
-        <div className="wave _100" style={{marginLeft:"30px",marginTop:"30px",}} ></div>
-        <div className="wave-below _100"  style={{marginLeft:"30px",marginTop:"30px"}}></div>
-        <div style={{border:"5px red solid",borderRadius:"50%",backgroundColor:"transparent",height:"400px",width:"400px",position:"absolute",left:"20px",top:"20px"}}></div>
+       
+<div className="circle-container  " style={{display:"flex",justifyContent:"center",alignItems:"center",textAlign:"center"}}>
+          <div className='scale-in-center ' style={{borderRadius:"50%",backgroundColor:"red",height:"400px",width:"400px",position:"relative",left:"20px",top:"20px"}} ></div>
+          
+          <div className="circle" style={{borderRadius:"50%",backgroundColor:"aliceblue",backgroundColor:"white",marginLeft:"30px",marginTop:"30px"}}></div>
+          <div className="wave _100 " style={{marginLeft:"30px",marginTop:"30px",}} ></div>
+          <div className="wave _100"  style={{marginLeft:"30px",marginTop:"30px" }}></div>
+          <div className="wave _100" style={{marginLeft:"30px",marginTop:"30px",}} ></div>
+          <div className="wave-below _100"  style={{marginLeft:"30px",marginTop:"30px"}}></div>
+          <div style={{border:"5px red solid",borderRadius:"50%",backgroundColor:"transparent",height:"400px",width:"400px",position:"absolute",left:"20px",top:"20px"}}></div>
 
-        <div className="desc _0" style={{marginLeft:"35px",marginTop:"40px"}}>
-          <h2 style={{color:"aliceblue"}}>Today</h2>
-          <p>
-            <b style={{color:"aliceblue"}}>{k}<span>%</span></b>
-          </p>
+          <div className="desc _0" style={{marginLeft:"40px",marginTop:"20px",fontFamily:"initial",color:"aliceblue"}}>
+
+            <h2 style={{fontFamily:"initial",color:"aliceblue"}}>Risk level:</h2>
+            <p>
+              <b style={{color:"aliceblue",color:"aliceblue"}}>{k}<span>%</span></b>
+            </p>
+          </div>
         </div>
-      </div>
               )
     }
   }
@@ -301,7 +304,18 @@ async function GetOutput1(medicalHistory){
     <>
     {loading?(
       <>
-      <div>Loaing</div>
+       <div className="loader" style={{height:"600px",width:"100%",display:"flex",justifyContent:"center",alignItems:"center"}}>
+      <svg width="400" height="150" viewBox="0 0 818 498" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="strokeGradient">
+            <stop offset="5%" stopColor="#191919" />
+            <stop offset="60%" stopColor="#ff0000" />
+            <stop offset="100%" stopColor="#920000" />
+          </linearGradient>
+        </defs>
+        <path className="pulse" d="M0 305.5H266L295.5 229.5L384 496L460 1.5L502.5 377.5L553 305.5H818" strokeWidth="8" />
+      </svg>
+    </div>
       </>
     ):
     (
