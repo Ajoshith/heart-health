@@ -1,82 +1,111 @@
 from flask import Flask, request, jsonify
-from sklearn.linear_model import LogisticRegression 
+from datetime import datetime
 import pickle
 import getpass
-import faiss
+from pymongo import MongoClient
 import pandas as pd
 import os
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.prompts import ChatPromptTemplate
 from dotenv import load_dotenv
+from flask_cors import CORS  # Import the CORS module
+
 load_dotenv() 
 from langchain_google_genai import ChatGoogleGenerativeAI
 llm = ChatGoogleGenerativeAI(model="gemini-pro")
 from langchain.chains import create_retrieval_chain
+
 app = Flask(__name__)
-@app.route("/")
+CORS(app)  # Enable CORS for all routes
+
+@app.route("/",methods=["GET","POST"])
 def home():
     return "home"
-@app.route("/predict",methods = ["GET","POST"])
+
+@app.route("/predict/", methods=["POST"])
 def predict():
-     logi = pickle.load(open("finalized_model (1).sav", 'rb'))
-     data = request.get_json()
-     data = data['data']
-     series_data = pd.Series(data, index=['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak', 'slope', 'ca', 'thal'])
-     df = pd.DataFrame([series_data])
-     predictions = logi.predict(df)
-     probabilities = logi.predict_proba(df)[:, 1]
-     percentage = probabilities * 100
-     prediction_result =  percentage[0]
-     return jsonify(prediction_result)
-     
-@app.route("/summary",methods=["GET","POST"])
+    logi = pickle.load(open("random_forest_model (1).sav", 'rb'))
+    info = request.get_json()
+    name = info.get('name')
+    data = info.get('data')
+    series_data = pd.Series(data, index=['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak', 'slope', 'ca', 'thal'])
+    df = pd.DataFrame([series_data])
+    predictions = logi.predict(df)
+    probabilities = logi.predict_proba(df)[:, 1]
+    percentage = probabilities * 100
+    prediction_result =  percentage[0]
+    client = MongoClient("mongodb+srv://bunnypowers26:pepjkeljIEfn5zgN@cluster01.egs7npg.mongodb.net/?retryWrites=true&w=majority")
+    db = client.test
+    collection = db.articles
+    print(name)
+    collection.update_one({"name": name}, {"$set": {"risk":prediction_result }})
+    return jsonify(prediction_result)
+
+@app.route("/summary", methods=["GET", "POST"])
 def summary():
-    data = request.get_json()
-    data = data['data']
+    info = request.get_json()
+    data = info['data']
+
     print(data)
-    prompt = ChatPromptTemplate.from_template("""you are a nurse explaining to patients who dont understand medical terms Answer the following question based only on the provided context:
-                                          
-          <context>
-          {context}
-          </context>
-          I'm a patient who recently had a medical test. Here are my results:
-          -Age :{d0}
-          -sex: {d1}
-          - Chest pain type: {d2}
-          - Resting blood pressure: {d3} mmHg
-          - Serum cholesterol: {d4} mg/dl
-          - Fasting blood sugar: {d5}
-          - Resting ECG results: {d6}
-          - Maximum heart rate: {d7}
-          - Exercise induced angina: {d8}
-          - Oldpeak: {d9} mm
-          - Slope of peak exercise ST segment: {d10}
-          - Number of major vessels colored by flouroscopy: {d11}
-          - Thallium: {d12}
+    prompt = ChatPromptTemplate.from_template("""generate a medical report based only on the provided context:
 
-          Could you provide a report with these sections(ONLY BASED ON THE CONTEXT GIVEN):
-          1. Medical Data,NOTE FOR LLM :this section should all the parameters given patient.they are 13 in total 
-          2. Summary,NOTE FOR LMM:generate this section in simple sentences that can by understood by the not medically trained 
-          3. Conditions Found
-          4. Recommended Diagnosticss(not actual medical diagnostics recommended by doctors)
-          5. Risk Keywords,NOTE FOR LLM:Use only the risk keywords provided in the context under risk keywords:,please do not generate keywords on ur own.
+        <context>
+        {context}
+        </context>
 
-          The following conditions are to be followed:                                  
-          1.Please limit each section to five bullet points, except for the summary and medical data.
-          2.Use only the risk keywords provided in the context under risk keywords:,please do not generate keywords on ur own.
-          3.Please do not use the symbols * and ** for highlighting.
-          4.all the section title must be in uppercase letters,all points must by marked with - and in small case.
-          5.display this at the start:"DISCLIAMER: "THIS REPORT IS NOT APPROVED BY TRAINED MEDICAL PROFESSIONALS."
-          6.display this at the end : "NOTE: "AI-GENERATED REPORT BASED ON MEDICAL DATA GIVEN BY THE DEVELOPERS."
-          7.Each generated line should not contain more than 18 words per line.
-                                                    
-              {input} """)
+        Here is an extended template for a medical report that includes sections for medical data, a summary, conditions found, and explanations of those conditions. Use this template for generation, try to only use the context given as much as possible:
+
+        Rules to be followed:
+
+        1. Each section except Medical Test Results should not contain more than 5 bullet points.
+        2. Total report should not exceed 130 lines.
+        3. Do not generate * and **.
+        4. each point must not have more 20 words(200 whitespaces) and no empty lines between a section and its contents
+        5.please refer the context carefully for every section
+        6.do not change the sections titles(GENERATED ON,TEST RESULTS,SUMMARY,RISK KEYWORDS) anddo not include any new sections on ur own
+        Template:
+                                              
+        GENERATED ON:{dt}
+                                              
+        PERSONAL INFORMATION:
+        - Age: {d0}
+        - Sex: {d1}
+
+        TEST RESULTS: 
+        - Chest Pain Type: {d2}
+        - Resting Blood Pressure: {d3} mmHg
+        - Serum Cholesterol: {d4} mg/dl
+        - Fasting Blood Sugar: {d5}
+        - Resting ECG Results: {d6}
+        - Maximum Heart Rate: {d7}
+        - Exercise Induced Angina: {d8}
+        - Oldpeak: {d9} mm
+        - Slope of Peak Exercise ST Segment: {d10}
+        - Number of Major Vessels Colored by Fluoroscopy: {d11}
+        - Thallium: {d12}
+
+        SUMMARY:
+        - This section will provide a brief overview of the patient's health status based on the medical test results. Do not exceed 5 points. Each point should not exceed 13 words.
+
+        RISK KEYWORDS:
+        - Here, flag the according keywords per data given found in the risk keywords: in the context.just the most important 8 risk keywords do not display similar risk keywords
+
+        DISCLAIMER:" AI-generated report not endorsed by trained professtionals"                                                                          
+
+        {input}
+""")
+
     document_chain = create_stuff_documents_chain(llm, prompt)
     with open("my_faiss_index.pkl", "rb") as f:
-          db1 = pickle.load(f)
+        db1 = pickle.load(f)
     retriever = db1.as_retriever()
     retrieval_chain = create_retrieval_chain(retriever, document_chain)
-    response = retrieval_chain.invoke({'input': "start generating",'d1':data[1],'d2':data[2],'d3':data[3],'d4':data[4],'d5':data[5],'d6':data[6],'d7':data[7],'d8':data[8],'d9':data[9],'d11':data[11],'d12':data[12],'d0':data[0],'d10':data[10]})
-    return jsonify(response["answer"])
+    current_datetime = datetime.now()
+    formatted_datetime = current_datetime.strftime("%d-%m-%y %I:%M %p")
+    response = retrieval_chain.invoke({'input': "craft the report according",'dt':formatted_datetime,'d1':data[1],'d2':data[2],'d3':data[3],'d4':data[4],'d5':data[5],'d6':data[6],'d7':data[7],'d8':data[8],'d9':data[9],'d11':data[11],'d12':data[12],'d0':data[0],'d10':data[10]})
+    preprocessed_text = response["answer"].replace('\n', '<br/>')
+    return jsonify(preprocessed_text)
+
 if  __name__ == "__main__":
-    app.run(port=int(os.environ.get("PORT", 5000)))
+    app.run(port=int(os.environ.get("PORT", 8000)),debug=True)
+    

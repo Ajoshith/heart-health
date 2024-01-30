@@ -435,3 +435,25 @@ main {
     opacity: 1;
   }
 }
+.pulse {
+  stroke-dasharray: 1840;
+  stroke-dashoffset: 3680;
+  animation: dash 2s ease-out infinite;
+  stroke: url(#strokeGradient);
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+
+@keyframes blink {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

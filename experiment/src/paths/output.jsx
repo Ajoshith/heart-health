@@ -7,7 +7,7 @@ function Output() {
     const [user,setUser]=useState('')
     const [data1,setData1]=useState('')
     const [id,setId]=useState('')
-    
+    const [data2,setData2]=useState("")
     useEffect(() => {
         HandleClick2();
     
@@ -48,26 +48,14 @@ function Output() {
             const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=medicaldata;
             console.log(id)
             console.log("ladsjfo")
-            const res=await fetch('/prediction',{
+            const res=await fetch('http://localhost:8000/predict',{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json"
                 },
                 body: JSON.stringify({
-                        id:id,
-                        age:age,
-                        sex:sex,
-                        cp:cp,
-                        rbp:rbp,
-                        sc:sc,
-                        fbs:fbs,
-                        rer:rer,
-                        mhr:mhr,
-                        eia:eia,
-                        olds:olds,
-                        st:st,
-                        mvs:mvs,
-                        thal:thal
+                        
+                        data:[age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal]
                     
                   }),
             })
@@ -93,7 +81,7 @@ function Output() {
         try {
             const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=medicaldata;
             console.log(id)
-            const res=await fetch('/genai',{
+            const res=await fetch('http://localhost:8000/summary',{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json"
@@ -101,20 +89,7 @@ function Output() {
 
                 body: JSON.stringify({
 
-                        age:96,
-                        id:id,
-                        sex:sex,
-                        cp:cp,
-                        rbp:rbp,
-                        sc:sc,
-                        fbs:fbs,
-                        rer:rer,
-                        mhr:mhr,
-                        eia:eia,
-                        olds:olds,
-                        st:st,
-                        mvs:mvs,
-                        thal:thal
+                        data:[age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal]
                     
                   }),
             })
@@ -138,7 +113,10 @@ function Output() {
     return (
     <>
       <button onClick={GetOutput}>Click</button>
+      <button onClick={GetOutput1}>Click</button>
+
       <div>{data1}</div>
+      <div>{data2}</div>
       
       </>
   )

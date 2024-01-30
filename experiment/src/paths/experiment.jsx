@@ -57,14 +57,9 @@ const Experiment = () => {
     console.log(username1);
   }
   function Handle2(e) {
-    const k=e.target.value;
-    if (k=="Male")
-    {setUsername2(1);}
-    else{
-      setUsername2(0)
-    }
-
-    console.log(username2);
+    setUsername2(e.target.value);
+    console.log(username2)
+    
   }
   function Handle3(e) {
     setUsername3(e.target.value);
@@ -372,7 +367,7 @@ const Experiment = () => {
                       margin: ""
                     }}
                   >
-                    <label htmlFor="" style={{marginLeft:"27px ",marginBottom:"8px"}}>Gender</label>
+                    <label htmlFor="" style={{marginLeft:"25px ",marginBottom:"8px"}}>Gender</label>
                     <select id="gender" 
                     onChange={Handle2}
                     type="text"
@@ -390,11 +385,9 @@ const Experiment = () => {
                       marginLeft:"30px",
                       width:"280px",
                       
-                    }}>
-                      <option value="" disabled>Enter your gender</option>
-                      <option value="male">Male</option>
-                      <option value="female" >Female</option>
-                    </select>
+                    }}/>
+                     
+                
                     
                   </div>
                   <div
@@ -565,7 +558,7 @@ const Experiment = () => {
                       margin: "4px 0"
                     }}
                   >
-                    <label htmlFor="" style={{ marginLeft: "40px" }}>MHR</label>
+                    <label htmlFor="" style={{ marginLeft: "38px" }}>MHR</label>
                    {k===0?(
                      <input onChange={Handle8}
                      type="text"
@@ -578,7 +571,7 @@ const Experiment = () => {
                        padding: "0 10px",
                        height: 42,
                        margin: "8px 0",
-                       marginLeft: "35px"
+                       marginLeft: "37px"
                      }}
                    />
                    ):(
@@ -718,7 +711,7 @@ const Experiment = () => {
                       margin: "4px 0"
                     }}
                   >
-                    <label htmlFor="" style={{ marginLeft: "490px" }}>Thal</label>
+                    <label htmlFor="" style={{ marginLeft: "489px" }}>Thal</label>
                     {k===0?(
                       <input onChange={Handle13}
                       type="text"
@@ -731,7 +724,7 @@ const Experiment = () => {
                         padding: "0 10px",
                         height: 42,
                         margin: "8px 0",
-                        marginLeft: "480px"
+                        marginLeft: "485px"
                       }}
                     />
                     ):(

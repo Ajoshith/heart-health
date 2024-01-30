@@ -12,35 +12,100 @@ import pjLogo from '../images/pjlogo.png';
 import backp from "../images/backprofile.png"
 
 const Jpp = () => {
-  const [first, setfirst] = useState(`1. **Age**: At 50 years old, you are entering an age range where the risk of heart disease starts to rise gradually.
+  const [data1, setData1] = useState('');
+  const [data, setData] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [name1, setName] = useState("");
+  const [medicaldata, setMedicalData] = useState('');
+  const [k, setK] = useState();
+  const [id,setId]=useState();
+  const navigate = useNavigate();
 
-  2. **Gender**: Being female (gender = 0) may provide some protection against heart disease compared to males, but it's important to note that heart disease can still affect women.
-  
-  3. **Chest Pain Type**: The value of 4 indicates "asymptomatic," meaning you have not experienced chest pain. This doesn't rule out the possibility of heart disease, so it's essential to continue monitoring your heart health.
-  
-  4. **Resting Blood Pressure**: With a value of 7, your resting blood pressure appears to be within the normal range, which is less than 120/80 mmHg. Maintaining a healthy blood pressure is crucial for reducing heart disease risk.
-  
-  5. **Serum Cholesterol**: Your serum cholesterol level of 8 mg/dl is considered desirable. Maintaining healthy cholesterol levels, particularly low LDL cholesterol, is important for preventing plaque buildup in your arteries.
-  
-  6. **Fasting Blood Sugar**: The value of 5 indicates that your fasting blood sugar is greater than 120 mg/dl, suggesting a significant risk factor for heart disease. Managing your blood sugar levels is crucial to reduce this risk.
-  
-  7. **Resting Electrocardiographic Results**: The value of 4 indicates potential problems requiring further investigation. It's important to consult with your doctor to determine the underlying cause and receive appropriate treatment.
-  
-  8. **Maximum Heart Rate Achieved**: Your maximum heart rate achieved during exercise is not provided, but it should typically be within the range of 50% to 85% of your predicted maximum heart rate, which is approximately 170 beats per minute (bpm) for a 50-year-old person.
-  
-  9. **Exercise-Induced Angina**: The value of 4 indicates the absence of chest pain during exercise. This is a positive sign, as chest pain during exercise is a significant indicator of coronary artery disease.
-  
-  10. **Oldpeak**: The value of 5 suggests that your ST depression increased significantly after exercise. This indicates a potential issue with blood flow to the heart and warrants further evaluation.
-  
-  11. **Slope of the Peak Exercise ST Segment**: The value of 1 indicates an upsloping ST segment during exercise, which may indicate ischemia or reduced blood flow to the heart.
-  
-  12. **Number of Major Vessels (0-3) Colored by Fluoroscopy**: The value of 5 suggests that you may have blockages in your major coronary arteries. The severity of these blockages should be further assessed and managed to reduce the risk of heart attack.
-  
-  13. **Thallium (Thal)**: The value of 4 indicates potentially reversible defects in your heart that may improve with treatment. This suggests that your heart condition may be treatable, and further evaluation and management are necessary.
-  
-  **Keywords**: high blood pressure, high cholesterol, diabetes, smoking, obesity, physical inactivity, family history of heart disease, chest pain, breathlessness, fatigue, sweating, nausea, vomiting.`
-)
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/about", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: "Hello",
+          }),
+        });
 
+        if (response.ok) {
+          const { name, medicalHistory } = await response.json();
+          setName(name);
+          setMedicalData(medicalHistory);
+          GetOutput(medicalHistory, name);
+          GetOutput1(medicalHistory);
+        } else {
+          console.error("Error fetching data");
+        }
+      } catch (error) {
+        console.error("Error during fetch:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const GetOutput = async (medicalHistory, name) => {
+    try {
+      const { age, sex, cp, rbp, sc, fbs, rer, mhr, eia, olds, st, mvs, thal } = medicalHistory;
+      const res = await fetch(`http://localhost:8000/predict/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          data: [age, sex, cp, rbp, sc, fbs, rer, mhr, eia, olds, st, mvs, thal],
+          name: name
+        }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setData(data);
+        setK(data);
+        const keywordsPattern = /Keywords:(.*?)(?=\d+\.)|Keywords:(.*)$/s;
+        const match = data.match(keywordsPattern);
+        const keywordsContent = match ? match[1] || match[2] : null;
+        console.log(keywordsContent);
+      } else {
+        console.error("Error fetching data");
+      }
+    } catch (error) {
+      console.error("Error during fetch:", error);
+    }
+  };
+
+  const GetOutput1 = async (medicalHistory,name) => {
+    try {
+      const { age, sex, cp, rbp, sc, fbs, rer, mhr, eia, olds, st, mvs, thal } = medicalHistory;
+      const res = await fetch('http://localhost:8000/summary', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          data: [age, sex, cp, rbp, sc, fbs, rer, mhr, eia, olds, st, mvs, thal],
+
+        }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setData1(data);
+        setLoading(false);
+      } else {
+        console.error("Error fetching data");
+      }
+    } catch (error) {
+      console.error("Error during fetch:", error);
+    }
+  };
     function onC() {
         navigate("/experiment")
       }
@@ -67,12 +132,9 @@ const Jpp = () => {
         }
       }
       const [ud, Setud] = useState('')
-      const navigate = useNavigate()
       const [med,setMed]=useState('')
       
-      useEffect(() => {
-        HandleClick2();
-      }, [])
+      
     
       async function HandleClick2(event) {
     
@@ -89,14 +151,16 @@ const Jpp = () => {
           });
     
           if (res.ok) {
-            const data = await res.json();
-            const { name, medicalHistory,risk } = data;
+            const data1 = await res.json();
+            const { name, medicalHistory,risk,data } = data1;
             console.log(name)
             Setud(name);
-            setMed(risk)
+            setMed(risk);
+            setMedicalData(medicalHistory)
             console.log("Hello")
+            setId(data)
             console.log(med)
-          
+            
     
           } else {
             console.error("Login pass");
@@ -106,7 +170,6 @@ const Jpp = () => {
           console.error("Error during login:", error);
         }
       }
-  const [k,setK]=useState(70)
   const getCircleStyles = () => {
     // Adjust this function based on your circle positioning requirements
     return {
@@ -122,8 +185,9 @@ const Jpp = () => {
     if (k<30 && k>20){
       return (
         <>
-        <div className="circle-container  " style={{display:"flex",justifyContent:"center",alignItems:"center",textAlign:"center"}}>
-          <div className='scale-in-center1 ' style={{borderRadius:"50%",backgroundColor:"red",height:"400px",width:"400px",position:"relative",left:"20px",top:"20px"}} ></div>
+        
+<div className="circle-container  " style={{display:"flex",justifyContent:"center",alignItems:"center",textAlign:"center"}}>
+          <div className='scale-in-center ' style={{borderRadius:"50%",backgroundColor:"red",height:"400px",width:"400px",position:"relative",left:"20px",top:"20px"}} ></div>
           
           <div className="circle" style={{borderRadius:"50%",backgroundColor:"aliceblue",backgroundColor:"white",marginLeft:"30px",marginTop:"30px"}}></div>
           <div className="wave _25 " style={{marginLeft:"30px",marginTop:"30px",}} ></div>
@@ -132,10 +196,11 @@ const Jpp = () => {
           <div className="wave-below _25"  style={{marginLeft:"30px",marginTop:"30px"}}></div>
           <div style={{border:"5px red solid",borderRadius:"50%",backgroundColor:"transparent",height:"400px",width:"400px",position:"absolute",left:"20px",top:"20px"}}></div>
 
-          <div className="desc _0" style={{marginLeft:"40px",marginTop:"20px"}}>
-            <h2>Today</h2>
+          <div className="desc _0" style={{marginLeft:"40px",marginTop:"20px",fontFamily:"initial",color:"aliceblue"}}>
+
+            <h2 style={{fontFamily:"initial",color:"aliceblue"}}>Risk level:</h2>
             <p>
-              <b style={{color:"aliceblue"}}>{k}<span>%</span></b>
+              <b style={{color:"aliceblue",color:"aliceblue"}}>{k}<span>%</span></b>
             </p>
           </div>
         </div>
@@ -144,7 +209,8 @@ const Jpp = () => {
     }
     else if(k<20 ){
       return (
-        <div className="circle-container  " style={{display:"flex",justifyContent:"center",alignItems:"center",textAlign:"center"}}>
+       
+<div className="circle-container  " style={{display:"flex",justifyContent:"center",alignItems:"center",textAlign:"center"}}>
           <div className='scale-in-center ' style={{borderRadius:"50%",backgroundColor:"red",height:"400px",width:"400px",position:"relative",left:"20px",top:"20px"}} ></div>
           
           <div className="circle" style={{borderRadius:"50%",backgroundColor:"aliceblue",backgroundColor:"white",marginLeft:"30px",marginTop:"30px"}}></div>
@@ -154,32 +220,34 @@ const Jpp = () => {
           <div className="wave-below _0"  style={{marginLeft:"30px",marginTop:"30px"}}></div>
           <div style={{border:"5px red solid",borderRadius:"50%",backgroundColor:"transparent",height:"400px",width:"400px",position:"absolute",left:"20px",top:"20px"}}></div>
 
-          <div className="desc _0" style={{marginLeft:"40px",marginTop:"20px"}}>
-            <h2>Today</h2>
+          <div className="desc _0" style={{marginLeft:"40px",marginTop:"20px",fontFamily:"initial",color:"aliceblue"}}>
+
+            <h2 style={{fontFamily:"initial",color:"aliceblue"}}>Risk level:</h2>
             <p>
-              <b style={{color:"aliceblue"}}>{k}<span>%</span></b>
+              <b style={{color:"aliceblue",color:"aliceblue"}}>{k}<span>%</span></b>
             </p>
           </div>
         </div>
       )
     }
-    else if (k>40 && k<60){
+    else if (k>30 && k<60){
       return (
     
-        <div className="circle-container  " style={{display:"flex",justifyContent:"center",alignItems:"center",textAlign:"center"}}>
+<div className="circle-container  " style={{display:"flex",justifyContent:"center",alignItems:"center",textAlign:"center"}}>
           <div className='scale-in-center ' style={{borderRadius:"50%",backgroundColor:"red",height:"400px",width:"400px",position:"relative",left:"20px",top:"20px"}} ></div>
           
-          <div className="circle" style={{borderRadius:"50%",backgroundColor:"aliceblue",marginLeft:"30px",marginTop:"30px"}}></div>
-          <div className="wave _50 " style={{marginLeft:"30px",marginTop:"30px",}} ></div>
+          <div className="circle" style={{borderRadius:"50%",backgroundColor:"aliceblue",backgroundColor:"white",marginLeft:"30px",marginTop:"30px"}}></div>
+          <div className="wave _50" style={{marginLeft:"30px",marginTop:"30px",}} ></div>
           <div className="wave _50"  style={{marginLeft:"30px",marginTop:"30px" }}></div>
           <div className="wave _50" style={{marginLeft:"30px",marginTop:"30px",}} ></div>
           <div className="wave-below _50"  style={{marginLeft:"30px",marginTop:"30px"}}></div>
           <div style={{border:"5px red solid",borderRadius:"50%",backgroundColor:"transparent",height:"400px",width:"400px",position:"absolute",left:"20px",top:"20px"}}></div>
 
-          <div className="desc _0" style={{marginLeft:"40px",marginTop:"20px"}}>
-            <h2>Today</h2>
+          <div className="desc _0" style={{marginLeft:"40px",marginTop:"20px",fontFamily:"initial",color:"aliceblue"}}>
+
+            <h2 style={{fontFamily:"initial",color:"aliceblue"}}>Risk level:</h2>
             <p>
-              <b style={{color:"aliceblue"}}>{k}<span>%</span></b>
+              <b style={{color:"aliceblue",color:"aliceblue"}}>{k}<span>%</span></b>
             </p>
           </div>
         </div>
@@ -210,30 +278,49 @@ const Jpp = () => {
  
     else {
       return (
-        <div className="circle-container  " style={{display:"flex",justifyContent:"center",alignItems:"center",textAlign:"center"}}>
-        <div className='scale-in-center ' style={{borderRadius:"50%",backgroundColor:"red",height:"400px",width:"400px",position:"relative",left:"20px",top:"20px"}} ></div>
-        
-        <div className="circle" style={{borderRadius:"50%",backgroundColor:"aliceblue",backgroundColor:"white",marginLeft:"30px",marginTop:"30px"}}></div>
-        <div className="wave _100 " style={{marginLeft:"30px",marginTop:"30px",}} ></div>
-        <div className="wave _100"  style={{marginLeft:"30px",marginTop:"30px" }}></div>
-        <div className="wave _100" style={{marginLeft:"30px",marginTop:"30px",}} ></div>
-        <div className="wave-below _100"  style={{marginLeft:"30px",marginTop:"30px"}}></div>
-        <div style={{border:"5px red solid",borderRadius:"50%",backgroundColor:"transparent",height:"400px",width:"400px",position:"absolute",left:"20px",top:"20px"}}></div>
+       
+<div className="circle-container  " style={{display:"flex",justifyContent:"center",alignItems:"center",textAlign:"center"}}>
+          <div className='scale-in-center ' style={{borderRadius:"50%",backgroundColor:"red",height:"400px",width:"400px",position:"relative",left:"20px",top:"20px"}} ></div>
+          
+          <div className="circle" style={{borderRadius:"50%",backgroundColor:"aliceblue",backgroundColor:"white",marginLeft:"30px",marginTop:"30px"}}></div>
+          <div className="wave _100 " style={{marginLeft:"30px",marginTop:"30px",}} ></div>
+          <div className="wave _100"  style={{marginLeft:"30px",marginTop:"30px" }}></div>
+          <div className="wave _100" style={{marginLeft:"30px",marginTop:"30px",}} ></div>
+          <div className="wave-below _100"  style={{marginLeft:"30px",marginTop:"30px"}}></div>
+          <div style={{border:"5px red solid",borderRadius:"50%",backgroundColor:"transparent",height:"400px",width:"400px",position:"absolute",left:"20px",top:"20px"}}></div>
 
-        <div className="desc _0" style={{marginLeft:"35px",marginTop:"40px"}}>
-          <h2 style={{color:"aliceblue"}}>Today</h2>
-          <p>
-            <b style={{color:"aliceblue"}}>{k}<span>%</span></b>
-          </p>
+          <div className="desc _0" style={{marginLeft:"40px",marginTop:"20px",fontFamily:"initial",color:"aliceblue"}}>
+
+            <h2 style={{fontFamily:"initial",color:"aliceblue"}}>Risk level:</h2>
+            <p>
+              <b style={{color:"aliceblue",color:"aliceblue"}}>{k}<span>%</span></b>
+            </p>
+          </div>
         </div>
-      </div>
               )
     }
   }
   return (
     <>
-    
-    <header className="header1">
+    {loading?(
+      <>
+       <div className="loader" style={{height:"600px",width:"100%",display:"flex",justifyContent:"center",alignItems:"center"}}>
+      <svg width="400" height="150" viewBox="0 0 818 498" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="strokeGradient">
+            <stop offset="5%" stopColor="#191919" />
+            <stop offset="60%" stopColor="#ff0000" />
+            <stop offset="100%" stopColor="#920000" />
+          </linearGradient>
+        </defs>
+        <path className="pulse" d="M0 305.5H266L295.5 229.5L384 496L460 1.5L502.5 377.5L553 305.5H818" strokeWidth="8" />
+      </svg>
+    </div>
+      </>
+    ):
+    (
+      <>
+      <header className="header1">
         <nav className="navbar navbar-expand-lg">
           <div className="container-fluid">
             <Link to="/" id="header" className="navbar-brand navbarcolorfont scale-up-center">
@@ -327,15 +414,31 @@ const Jpp = () => {
         
   
       </main>
-      <div className='  shadow-lg' style={{height:"1000px",width:"650px",backgroundColor:"red",marginLeft:"80px",marginTop:"50px",color:"aliceblue",display:"flex",paddingRight:"20px"}}>
-        
-          <div className='text-focus-in title ' style={{position:"absolute",top:"640px",left:"100px",color:"aliceblue"}}>    <div style={{marginLeft:"10px",color:"aliceblue"}}>Report</div>
-          
-          </div>
-          <p className='text-focus-in' style={{marginTop:"100px",marginLeft:"20px",fontSize:"1rem"}}>
-            {first}
-          </p>
-       </div>
+      <div className='shadow-lg' style={{ 
+    width: "650px", 
+    backgroundColor: "red", 
+    marginLeft: "80px", 
+    marginTop: "50px", 
+    color: "aliceblue", 
+    display: "flex", 
+    paddingRight: "20px", 
+    whiteSpace: "normal",
+    wordWrap: "break-word",
+    overflowWrap: "break-word"
+}}>
+ <div className='text-focus-in title' style={{ position: "absolute", top: "640px", left: "100px", color: "aliceblue" }}>
+ <div style={{ marginLeft: "10px", color: "aliceblue", textDecoration: "underline",paddingLeft: "25px" }}>MEDICAL  SUMMARY  REPORT</div>
+
+ </div>
+ <p className='text-focus-in' style={{ marginTop: "100px", marginLeft: "20px", fontSize: "1rem", paddingBottom: "10px", paddingRight: "15px" }} dangerouslySetInnerHTML={{__html: data1}}></p>
+
+</div>
+
+
+
+
+
+
          <div className='text-focus-in' style={{height:"350px",width:"670px",position:"absolute",top:"700px",left:"780px",border:"9px red solid"}}>
          <h2 style={{marginLeft:"180px",marginTop:"30px"}}>Life expantansy</h2>
           <div style={{display:"flex",alignItems:"center",justifyContent:"center",backgroundColor:"transparent",height:"150px",width:"150px",borderRadius:"50%",border:"7px solid forestgreen",marginLeft:"20px",marginTop:"30px"}}>
@@ -354,6 +457,9 @@ const Jpp = () => {
     </div>
     <footer style={{ width: '100%', height: '30px', backgroundColor: '#e11127', color: 'aliceblue', textAlign: 'center', marginTop: '40px', fontWeight: '200' }}>Copyright belongs to American Heart Association</footer>
 
+      </>
+    )}
+    
     </>
   );
 };
