@@ -390,7 +390,7 @@ const Experiment = () => {
                  ):(
                   <>
                   <div style={{marginLeft:"25px",padding:"0"}}>
-                    {medicaldata.sex===1?<div>Male</div>:<div>Female</div>}
+                    {medicaldata.sex===1?<div style={{}}>Male</div>:<div>Female</div>}
                   </div>
                   </>
                  )}   
