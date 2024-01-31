@@ -85,7 +85,7 @@ def summary():
         - Thallium: {d12}
 
         SUMMARY:
-        - This section will provide a brief overview of the patient's health status based on the medical test results. Do not exceed 5 points. Each point should not exceed 13 words.
+        - This section will provide a brief overview of the patient's health status based on the medical test results in simple words. a short paragragh.
 
         RISK KEYWORDS:
         - Here, flag the according keywords per data given found in the risk keywords: in the context.just the most important 8 risk keywords do not display similar risk keywords
