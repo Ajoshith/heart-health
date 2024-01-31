@@ -121,7 +121,7 @@ const Experiment = () => {
           name: patientname,
           medicalHistory: {
             age: username1,
-            sex: username2==="male"?(0):(1),
+            sex: username2==="male"?(1):(0),
             cp: username3,
             rbp: username4,
             sc: username5,
@@ -390,7 +390,7 @@ const Experiment = () => {
                  ):(
                   <>
                   <div style={{marginLeft:"25px",padding:"0"}}>
-                    {medicaldata.sex===0?<div>Male</div>:<div>Female</div>}
+                    {medicaldata.sex===1?<div>Male</div>:<div>Female</div>}
                   </div>
                   </>
                  )}   
