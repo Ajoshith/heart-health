@@ -121,7 +121,7 @@ const Experiment = () => {
           name: patientname,
           medicalHistory: {
             age: username1,
-            sex: username2,
+            sex: username2==="male"?(0):(1),
             cp: username3,
             rbp: username4,
             sc: username5,
@@ -367,25 +367,33 @@ const Experiment = () => {
                       margin: ""
                     }}
                   >
-                    <label htmlFor="" style={{marginLeft:"25px ",marginBottom:"8px"}}>Gender</label>
-                    <select id="gender" 
-                    onChange={Handle2}
-                    type="text"
-                    placeholder="Enter your gender"
-                    required=""
-                    style={{
-                      outline: "none",
-                      borderRadius: 5,
-                      border: "1px solid #aaa",
-                      padding: "0 10px",
-                      height: 42,
-                      backgroundColor:"rgba(244,248,247,255)",
-                      fontWeight:"100",
-                      color:"gray",
-                      marginLeft:"30px",
-                      width:"280px",
-                      
-                    }}/>
+                    <label htmlFor="" style={{marginLeft:"25px ",marginBottom:"0px"}}>Gender</label>
+                 {k===0?(
+                  <input id="gender" 
+                  onChange={Handle2}
+                  type="text"
+                  placeholder="Enter your gender"
+                  required=""
+                  style={{
+                    outline: "none",
+                    borderRadius: 5,
+                    border: "1px solid #aaa",
+                    padding: "0 10px",
+                    height: 42,
+                    backgroundColor:"rgba(244,248,247,255)",
+                    fontWeight:"100",
+                    color:"gray",
+                    marginLeft:"30px",
+                    width:"280px",
+                    
+                  }}/>
+                 ):(
+                  <>
+                  <div style={{marginLeft:"25px",padding:"0"}}>
+                    {medicaldata.sex===0?<div>Male</div>:<div>Female</div>}
+                  </div>
+                  </>
+                 )}   
                      
                 
                     

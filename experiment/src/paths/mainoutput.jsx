@@ -427,7 +427,7 @@ const Jpp = () => {
     overflowWrap: "break-word"
 }}>
  <div className='text-focus-in title' style={{ position: "absolute", top: "640px", left: "100px", color: "aliceblue" }}>
- <div style={{ marginLeft: "10px", color: "aliceblue", textDecoration: "underline",paddingLeft: "25px" }}>MEDICAL  SUMMARY  REPORT</div>
+ <div style={{ marginLeft: "10px", color: "aliceblue", textDecoration: "underline",paddingLeft: "0px" }}>MEDICAL  SUMMARY  REPORT</div>
 
  </div>
  <p className='text-focus-in' style={{ marginTop: "100px", marginLeft: "20px", fontSize: "1rem", paddingBottom: "10px", paddingRight: "15px" }} dangerouslySetInnerHTML={{__html: data1}}></p>
