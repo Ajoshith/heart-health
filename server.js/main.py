@@ -45,7 +45,7 @@ def predict():
 def summary():
     info = request.get_json()
     data = info['data']
-
+    name = info.get('name')
     print(data)
     prompt = ChatPromptTemplate.from_template("""generate a medical report based only on the provided context:
 
@@ -104,7 +104,18 @@ def summary():
     formatted_datetime = current_datetime.strftime("%d-%m-%y %I:%M %p")
     response = retrieval_chain.invoke({'input': "craft the report according",'dt':formatted_datetime,'d1':data[1],'d2':data[2],'d3':data[3],'d4':data[4],'d5':data[5],'d6':data[6],'d7':data[7],'d8':data[8],'d9':data[9],'d11':data[11],'d12':data[12],'d0':data[0],'d10':data[10]})
     preprocessed_text = response["answer"].replace('\n', '<br/>')
-    return jsonify(preprocessed_text)
+    preprocessed_text1=response["answer"].replace('\n',' ')
+    start_index = preprocessed_text1.find("RISK KEYWORDS:")
+    end_index = preprocessed_text1.find("DISCLAIMER:", start_index + len("RISK KEYWORDS:"))
+    content="p"
+    content = preprocessed_text1[start_index + len("RISK KEYWORDS:"):end_index].strip()
+    client = MongoClient("mongodb+srv://bunnypowers26:pepjkeljIEfn5zgN@cluster01.egs7npg.mongodb.net/?retryWrites=true&w=majority")
+    db = client.test
+    collection = db.articles
+    print(name)
+    collection.update_one({"name": name}, {"$set": {"riskfactors":content }})
+    print(content)
+    return jsonify(preprocessed_text,content)
 @app.route('/diet',methods = ["POST","GET"])
 def diet():
     info =  request.get_json()

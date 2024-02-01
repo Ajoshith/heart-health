@@ -457,3 +457,7 @@ main {
     opacity: 1;
   }
 }
+body, html {
+  width: 100vw;
+  overflow: auto; /* Make sure it allows scrolling */
+}

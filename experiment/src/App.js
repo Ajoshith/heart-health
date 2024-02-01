@@ -15,6 +15,7 @@ import MyNewsComponent from "./paths/experiment1";
 import NearbyHospitalsMap from "./paths/map";
 import Jpp from "./paths/mainoutput";
 import Flasktester from "./paths/flasktester";
+import DietPlan from "./paths/dietpan";
 function App() {
   return (
     <>
@@ -33,6 +34,7 @@ function App() {
           <Route path="/map" element={<NearbyHospitalsMap />}/>
           <Route path="/waterfilloutput" element={<Jpp/>}/>
           <Route path="/flasktester" element={<Flasktester/>}/>
+          <Route path="/dietplan" element={<DietPlan/>}/>
         </Routes>
       </Router>
     </>

@@ -6,10 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState,useEffect } from 'react';
 function Symptom() {
   const navigate=useNavigate()
-  useEffect(()=>{
-    window.scrollTo(0, 0);
-    HandleClick2();
-  },[])
+
 
   async function HandleClick2(event) {
   

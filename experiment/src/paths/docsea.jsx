@@ -37,10 +37,7 @@ function Searchpage() {
       console.error("Error during login:", error);
     }
   }
-    useEffect(() => {
-        // Scroll to the top of the page when the component is mounted
-        window.scrollTo(0, 0);
-      }, []);
+    
     const Search = [
         { id: 1, title: 'urahara', description: "Cardiologist . Works in SOandSo hospital ." },
         { id: 2, title: 'yor', description: "Cardiologist . Works in WellandSo hospital ." },

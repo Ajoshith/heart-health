@@ -49,6 +49,7 @@ const Jpp = () => {
     };
 
     fetchData();
+    
   }, []);
 
   const GetOutput = async (medicalHistory, name) => {
@@ -69,10 +70,7 @@ const Jpp = () => {
         const data = await res.json();
         setData(data);
         setK(data);
-        const keywordsPattern = /Keywords:(.*?)(?=\d+\.)|Keywords:(.*)$/s;
-        const match = data.match(keywordsPattern);
-        const keywordsContent = match ? match[1] || match[2] : null;
-        console.log(keywordsContent);
+        
       } else {
         console.error("Error fetching data");
       }
@@ -220,11 +218,11 @@ const Jpp = () => {
           <div className="wave-below _0"  style={{marginLeft:"30px",marginTop:"30px"}}></div>
           <div style={{border:"5px red solid",borderRadius:"50%",backgroundColor:"transparent",height:"400px",width:"400px",position:"absolute",left:"20px",top:"20px"}}></div>
 
-          <div className="desc _0" style={{marginLeft:"40px",marginTop:"20px",fontFamily:"initial",color:"aliceblue"}}>
+          <div className="desc _0" style={{marginLeft:"40px",marginTop:"20px",fontFamily:"initial",color:"rgb(230, 233, 245)"}}>
 
-            <h2 style={{fontFamily:"initial",color:"aliceblue"}}>Risk level:</h2>
+            <h2 style={{fontFamily:"initial",color:"black"}}>Risk level:</h2>
             <p>
-              <b style={{color:"aliceblue",color:"aliceblue"}}>{k}<span>%</span></b>
+              <b style={{color:"aliceblue",color:"black"}}>{k}<span>%</span></b>
             </p>
           </div>
         </div>
@@ -301,7 +299,7 @@ const Jpp = () => {
     }
   }
   return (
-    <>
+    <div  style={{width:window.innerWidth}}>
     {loading?(
       <>
        <div className="loader" style={{height:"600px",width:"100%",display:"flex",justifyContent:"center",alignItems:"center"}}>
@@ -450,9 +448,49 @@ const Jpp = () => {
          <h2 style={{marginLeft:"180px",marginTop:"30px"}}>Recovery rate</h2>
           
           <i class="bi bi-graph-up-arrow" style={{display:"flex",alignItems:"center",justifyContent:"center",backgroundColor:"transparent",height:"150px",width:"150px",borderRadius:"50%",marginLeft:"20px",marginTop:"30px",color:"red",fontSize:"5rem"}}></i>
-          <div style={{height:"120px",width:"400px",position:"absolute",fontSize:"1.2rem",left:"190px",top:"100px"}}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam minima facilis distinctio nesciunt non id eos, iure perspiciatis. Soluta nisi voluptas similique esse doloribus itaque tenetur unde deserunt eius culpa.
-          </div>
+          <div style={{ height:"120px",width:"400px",wordWrap: "break-word",position:"absolute",fontSize:"1rem",left:"190px",top:"100px"}}>
+          ## *PERSONAL DATA*
+- Weight: 55 
+- Height: 5 feet 5 inches
+- BMI Range: Underweight 18.5
+## *GOALS*
+- Reduce risk of cardiovascular diseases
+- Manage blood pressure
+- Improve overall health and well-being
+## *MACRO NEEDS*
+- *Carbohydrates*: Moderate consumption to provide energy. Prioritize whole grains, fruits, and vegetables.
+- *Proteins*: Moderate consumption to support tissue repair and muscle function. Include lean protein sources like chicken, fish, and legumes.
+- *Fats*: Limit saturated and trans fats. Choose healthy fats from nuts, seeds, and avocados.
+## *MEAL PLAN - 1*
+- *Breakfast*: Oatmeal with berries and nuts, 1 cup of green tea
+- *Mid-Morning Snack*: 1 apple with 1 tablespoon of peanut butter
+- *Lunch*: Grilled salmon with roasted vegetables and quinoa, 1 cup of spinach salad
+- *Afternoon Snack*: 1 cup of non-fat yogurt with mixed berries
+- *Dinner*: Baked chicken breast with roasted sweet potatoes and steamed broccoli, 1 cup of mixed greens salad
+- *Evening Snack*: 1 small banana with a handful of almonds
+## *MEAL PLAN - 2*
+- *Breakfast*: Whole-wheat toast with avocado and a poached egg, 1 cup of orange juice
+- *Mid-Morning Snack*: 1 small cup of trail mix nuts, seeds, dried fruits
+- *Lunch*: Vegetarian chili with whole-wheat bread or brown rice, 1 cup of leafy green salad
+- *Afternoon Snack*: 1 cup of baby carrots with hummus
+- *Dinner*: Grilled tofu with steamed asparagus and roasted Brussels sprouts, 1 cup of quinoa
+- *Evening Snack*: 1 cup of chamomile tea with a small piece of dark chocolate
+## *MEAL PLAN - 3*
+- *Breakfast*: Scrambled eggs with sautéed spinach and mushrooms, 1 slice of whole-wheat toast
+- *Mid-Morning Snack*: 1 cup of sliced cucumber with 2 tablespoons of guacamole
+- *Lunch*: Grilled chicken Caesar salad with whole-wheat croutons, 1 cup of lentil soup
+- *Afternoon Snack*: 1 cup of non-fat yogurt with sliced peaches
+- *Dinner*: Baked cod with roasted vegetables and mashed cauliflower, 1 cup of mixed greens salad
+- *Evening Snack*: A small bowl of popcorn with a sprinkle of nutritional yeast
+## *GROCERY LIST*
+- Whole grains: brown rice, quinoa, oats, whole-wheat bread, whole-wheat pasta
+- Fruits: apples, oranges, bananas, berries, grapes, mangoes
+- Vegetables: spinach, broccoli, cauliflower, carrots, sweet potatoes, Brussels sprouts, asparagus, cucumber
+- Lean protein: chicken breast, fish salmon, cod, tofu, lentils, beans
+- Healthy fats: nuts almonds, walnuts, pecans, seeds flaxseeds, chia seeds, avocado, olive oil
+- Dairy: low-fat yogurt, cottage cheese, skim milk
+- Spices and herbs: garlic, ginger, turmeric, cumin, coriander, basil, oregano
+*Remember:* Adjust this plan to suit your personal needs and preferences. Consult with a healthcare professional or registered dietitian for personalized guidance.          </div>
          </div>
     </div>
     <footer style={{ width: '100%', height: '30px', backgroundColor: '#e11127', color: 'aliceblue', textAlign: 'center', marginTop: '40px', fontWeight: '200' }}>Copyright belongs to American Heart Association</footer>
@@ -460,7 +498,7 @@ const Jpp = () => {
       </>
     )}
     
-    </>
+    </div>
   );
 };
 
