@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema({
     // Adjust the minimum length as needed
   },
   risk:{},
+  riskfactors:{},
   tokens: [
     {
       token: {

@@ -72,8 +72,21 @@ const NearbyHospitalsMap = () => {
     console.log(hospital1);
   }, [hospital1]); 
 
+  useEffect(() => {
+    const handleScroll = (e) => {
+      console.log('Scroll event:', e);
+    };
+  
+    // Add event listener
+    window.addEventListener('scroll', handleScroll);
+  
+    // Cleanup function to remove event listener when the component unmounts
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+ }, []);
   return (
-    <>
+    <div className='scrollable-content' style={{scrollBehavior:"smooth"}}>
       <div style={{ backgroundColor:"rgba(66,77,92,255)"}}>
         <header className="header1" style={{ backgroundColor: "rgba(93,117,126,255)" }}>
           <nav className="navbar navbar-expand-lg">
@@ -156,7 +169,7 @@ const NearbyHospitalsMap = () => {
         &nbsp;
       </div>
       <footer style={{ width: "100%", height: "30px", backgroundColor: "rgba(93,117,126,255)", color: "aliceblue", textAlign: "center" }}>This belongs to bunnypower</footer>
-    </>
+    </div>
   );
 };
 

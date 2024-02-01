@@ -39,10 +39,7 @@ function Consult() {
       console.error("Error during login:", error);
     }
   }
-    useEffect(() => {
-        // Scroll to the top of the page when the component is mounted
-        window.scrollTo(0, 0);
-    }, []);
+    
     const [second, setSecond] = useState('colorchat colorchange')
     const [first, setFirst] = useState(false)
     setTimeout(() => {

@@ -241,15 +241,15 @@ app.post("/about", Authentication, async (req, resp) => {
   try {
     const data = req.userId;
     const user = await User.findOne({ _id: data });
-    const { name,medicalHistory,risk } = user;
+    const { name,medicalHistory,risk,riskfactors } = user;
     if (!user) {
       console.log("User not found");
       return resp.status(404).send("User not found");
     }
     console.log("Login successful");
     console.log({ name,medicalHistory,data,risk });
-    
-    resp.status(200).json({ name,medicalHistory,data,risk });
+    console.log(riskfactors)
+    resp.status(200).json({ name,medicalHistory,data,risk,riskfactors });
     console.log("Hello546");
   } catch (error) {
     console.error("Error during login:", error.message);
