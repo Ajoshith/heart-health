@@ -8,7 +8,7 @@ import os
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.prompts import ChatPromptTemplate
 from dotenv import load_dotenv
-from flask_cors import CORS  # Import the CORS module
+from flask_cors import CORS  
 
 load_dotenv() 
 from langchain_google_genai import ChatGoogleGenerativeAI
