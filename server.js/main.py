@@ -119,11 +119,8 @@ def summary():
 @app.route('/diet',methods = ["POST","GET"])
 def diet():
     info =  request.get_json()
-    keywords = info['risks']
-    peference = info['food']
-    height1 = info['height']
-    weight1 = info['weight']
-    veg = info['veg']
+    
+    
     bmi = weight1/((height1*height1)/100)
     prompt = ChatPromptTemplate.from_template("""generate personalized diet plan based on the following data based on context:
     <context>

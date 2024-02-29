@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import './hello.css';
 import pjLogo from '../images/pjlogo.png';
 import docteam from '../images/docteam.jpeg';
@@ -22,11 +23,13 @@ import dietl from "../images/81970.jpg"
 import dietl2 from "../images/n.png"
 import dietm from "../images/l.png"
 function DietPlan() {
+  ;
   const [loaing , setLoaing]=useState(true)
-  const [height,setHeight]=useState(0)
+  const [height,setHeight]=useState("")
   const [width,setWidth]=useState(0)
   const [foodpref,setFoodpref]=useState("")
   const [diet,setDiet]=useState("")
+  const [veg,setVeg]=useState("")
   function onC() {
     navigate("/experiment")
   }
@@ -35,6 +38,18 @@ function DietPlan() {
   const [ud, Setud] = useState('')
   const navigate = useNavigate()
   const [med,setMed]=useState('')
+  function Veg(e){
+    setVeg(e.target.value)
+  }
+  function Height1(e){
+    setHeight(e.target.value)
+  }
+  function Width(e){
+    setWidth(e.target.value)
+  }
+  function Food(e){
+    setFoodpref(e.target.value)
+  }
   useEffect(() => {
     HandleClick2();
   }, [])
@@ -77,6 +92,7 @@ function DietPlan() {
   async function HandleClick3(event) {
 
     try {
+      console.log(height,width,veg,foodpref)
       const res = await fetch("http://localhost:8000/diet", {
         method: "POST",
         headers: {
@@ -84,17 +100,20 @@ function DietPlan() {
         },
         body: JSON.stringify({
           
-          risk:riskfactors,
+          risks:riskfactors,
           food:foodpref,
-          height:height,
-          width:width
+          height:Number(height),
+          weight:Number(width),
+          veg:veg,
         }),
       });
 
       if (res.ok) {
         const data = await res.json();
         setDiet(data)
-        console.log(diet)
+        console.log("bye")
+        console.log(data)
+        setLoaing(false)
 
       } else {
         console.error("Login pass");
@@ -108,14 +127,27 @@ function DietPlan() {
     <>
     {
       loaing?(
-        <>
-        <div style={{height:"500px",width:"400px",backgroundColor:"brown",display:"flex",justifyContent:"center"}}>
-          <input  style={{outline:"none",width:"300px",height:"40px",border:"none",position:"absolute",top:"150px",backgroundColor:"rgb(243,211,158)"}}/>
+        
+        <div style={{height:"1000px",display:"flex",justifyContent:"center",backgroundColor:"white"}}>
+        <div className='' style={{height:"500px",width:"800px",backgroundColor:"white",display:"flex",justifyContent:"center",borderRadius:"50px",border:"solid red 10px",position:"absolute",top:"100px"}}>
+          <div style={{marginTop:"20px",fontSize:"2.5rem",color:"red ",fontWeight:"500"}}> Advanced diet plan</div>
+          <img className='slide-in-top' src={dietm} style={{height:"300px",position:"absolute",left:"400px",top:"60px"}}/>
+          <input className='inputd navinput1' placeholder='Height' onChange={Height1} style={{outline:"none",width:"350px",height:"50px",border:"none",position:"absolute",top:"170px",backgroundColor:"red",paddingLeft:"20px",borderRadius:"50px",fontSize:"1.25rem",color:"white",left:"90px"}}/>
           
-          <input  style={{outline:"none",width:"300px",height:"40px",border:"none",position:"absolute",top:"80px",backgroundColor:"rgb(243,211,158)"}}/>
-          <button onClick={HandleClick3} className='btn btn-lg' style={{position:"absolute",top:"200px",backgroundColor:"rgb(243,211,158)"}}>Submit</button>
+          <input className='inputd navinput1' placeholder='Weight' onChange={Width} style={{outline:"none",width:"350px",border:"none",height:"50px",position:"absolute",top:"100px",backgroundColor:"red",paddingLeft:"20px",borderRadius:"50px",fontSize:"1.25rem",color:"white",left:"20px"}}/>
+          <select className='navinput1' onChange={Food} style={{border:"none", outline: "none", width: "350px", height: "50px",  position: "absolute", top: "240px", backgroundColor: "red",borderRadius:"50px",paddingLeft:"20px" ,fontSize:"1.25rem",color:"white",left:"20px"}}>
+      <option value="" style={{paddingLeft:"10px"}}>Select Food Type</option>
+      <option value="southIndian">South Indian</option>
+      <option value="northIndian">North Indian</option>
+    </select>
+    <select className='navinput1' onChange={Veg} style={{ left:"90px",outline: "none", border:"none",width: "350px", height: "50px", position: "absolute", top: "310px", backgroundColor: "red",borderRadius:"50px" ,paddingLeft:"20px",fontSize:"1.25rem",color:"white"}}>
+      <option value="">Select Food Type</option>
+      <option value="veg">Veg</option>
+      <option value="nonveg">Non veg</option>
+    </select>
+          <button onClick={HandleClick3} className='btn btn-lg' style={{position:"absolute",top:"370px",backgroundColor:"red",color:"white",borderRadius:"50px",width:"200px"}}>Submit</button>
         </div>
-        </>
+        </div>
       )
       :(
         <>
