@@ -251,7 +251,7 @@ function DietPlan() {
       <div style={{backgroundColor:"",height:"500px",width:"1200px",borderRadius:"2%",border:"10px solid red",position:"absolute",top:"100px",left:"200px"}}>
       <img  src={stbg} className="card-img-top roll-in-left" style={{height:"400px",width:"550px",position:"relative",left:"20px",bottom:"130px",top:"20px"}} />
      <h1 style={{color:"red",paddingLeft:"550px",position:"absolute",top:"50px"} }>Goals</h1>
-     <div  style={{position:"absolute",left:"550px",top:"130px",color:"black",fontSize:"1.2rem",height:"400px",width:"600px"}} >{diet[2]}</div>
+     <div  style={{position:"absolute",left:"550px",top:"100px",color:"black",fontSize:"1.2rem",height:"400px",width:"600px"}} >{diet[2]}</div>
       </div>
       
       <div style={{backgroundColor:"",height:"1020px",width:"460px",borderRadius:"2%",border:"10px solid red",position:"absolute",top:"650px",left:"20px"}}>
