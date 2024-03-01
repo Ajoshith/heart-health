@@ -22,8 +22,18 @@ import dietk from "../images/k.png"
 import dietl from "../images/81970.jpg"
 import dietl2 from "../images/n.png"
 import dietm from "../images/l.png"
+import stbg from "../images/st2.png"
+import stbg1 from "../images/st1.png"
+
 function DietPlan() {
-  ;
+  const [personalData, setPersonalData] = useState('');
+  const [goals, setGoals] = useState('');
+  const [macroNeeds, setMacroNeeds] = useState('');
+  const [mealPlan1, setMealPlan1] = useState('');
+  const [mealPlan2, setMealPlan2] = useState('');
+  const [mealPlan3, setMealPlan3] = useState('');
+  const [groceryList, setGroceryList] = useState('');
+  const [mealsAndIngredients, setMealsAndIngredients] = useState('');
   const [loaing , setLoaing]=useState(true)
   const [height,setHeight]=useState("")
   const [width,setWidth]=useState(0)
@@ -111,8 +121,9 @@ function DietPlan() {
       if (res.ok) {
         const data = await res.json();
         setDiet(data)
-        console.log("bye")
-        console.log(data)
+        const sections = data.split(/\n\s*\*\*/).map(section => section.trim());
+        setDiet(sections)
+        console.log(sections)
         setLoaing(false)
 
       } else {
@@ -123,6 +134,7 @@ function DietPlan() {
       console.error("Error during login:", error);
     }
   }
+ 
   return (
     <>
     {
@@ -152,7 +164,7 @@ function DietPlan() {
       :(
         <>
         <div>
-      <header className="header1" style={{backgroundColor:"rgb(243,211,158)"}}>
+      <header className="header1" style={{backgroundColor:"white"}}>
         <nav className="navbar navbar-expand-lg">
           <div className="container-fluid">
             <Link to="/" id="header" className="navbar-brand navbarcolorfont scale-up-center">
@@ -230,35 +242,45 @@ function DietPlan() {
             </div>
             </div>
         </div>
-        <footer style={{width:"100%",backgroundColor:"#e11127",height:"15px"}}></footer>
+        <foo5ter style={{width:"100%",backgroundColor:"#e11127",height:"15px"}}></foo5ter>
 
       </div>
 
-      <div  className='dietb' style={{height:"8000px",width:"100vw",backgroundColor:"rgb(243,211,158)"}}>
+      <div  className='dietb' style={{height:"8000px",width:"100vw",backgroundColor:""}}>
         
-      <div style={{backgroundColor:"",height:"500px",width:"1200px",borderRadius:"2%",border:"10px solid rgb(250,242,193)",position:"absolute",top:"100px",left:"200px"}}>
-      <img  src={dieta} className="card-img-top roll-in-left" style={{height:"550px",width:"700px",position:"relative",left:"500px",bottom:"130px"}} />
+      <div style={{backgroundColor:"",height:"500px",width:"1200px",borderRadius:"2%",border:"10px solid red",position:"absolute",top:"100px",left:"200px"}}>
+      <img  src={stbg} className="card-img-top roll-in-left" style={{height:"400px",width:"550px",position:"relative",left:"20px",bottom:"130px",top:"20px"}} />
+     <h1 style={{color:"red",paddingLeft:"550px",position:"absolute",top:"50px"} }>Goals</h1>
+     <div  style={{position:"absolute",left:"550px",top:"130px",color:"black",fontSize:"1.2rem",height:"400px",width:"600px"}} >{diet[2]}</div>
       </div>
-      <div style={{backgroundColor:"",height:"500px",width:"1200px",borderRadius:"2%",border:"10px solid rgb(250,242,193)",position:"absolute",top:"630px",left:"200px",marginBottom:"40px"}}>
-      <img src={dietc} className="card-img-top roll-in-left" style={{height:"470px",width:"700px",position:"relative",left:"60px",bottom:"0px"}} />
-      </div>
-      <div style={{backgroundColor:"",height:"1020px",width:"460px",borderRadius:"2%",border:"10px solid rgb(250,242,193)",position:"absolute",top:"1160px",left:"20px"}}>
+      
+      <div style={{backgroundColor:"",height:"1020px",width:"460px",borderRadius:"2%",border:"10px solid red",position:"absolute",top:"650px",left:"20px"}}>
         <img src={dietd} className="card-img-top"  />
+        <h1 style={{color:"red",marginLeft:"10px"}}>Meal plans</h1>
+        <div style={{color:"black",fontSize:"1.1rem",marginLeft:"10px"}}>{diet[4]}</div>
+        <div style={{color:"black",fontSize:"1.1rem",marginTop:"20px",marginLeft:"10px"}}>{diet[5]}</div>
+        <div style={{color:"black",fontSize:"1.1rem",marginTop:"20px",marginLeft:"10px"}}>{diet[6]}</div>
+
+        
+
       </div>
 
-      <div style={{backgroundColor:"",height:"600px",width:"460px",borderRadius:"2%",border:"10px solid rgb(250,242,193) ",position:"absolute",top:"1160px",left:"510px"}}>
-      <img src={dietl} className="img-fluid rounded-start" style={{height:"260px"}}   />
       
-      </div>
-      <div style={{backgroundColor:"",height:"600px",width:"460px",borderRadius:"2%",border:"10px solid rgb(250,242,193)",position:"absolute",top:"1160px",left:"1000px"}}>
-      <img src={dieth} className="img-fluid rounded-start" style={{height:"270px",width:"100%"}}   />
       
-      </div>
-      <div style={{backgroundColor:"",height:"400px",width:"950px",borderRadius:"2%",border:"10px solid rgb(250,242,193)",position:"absolute",top:"1780px",left:"500px"}}>
+      
+      <div style={{backgroundColor:"",height:"400px",width:"950px",borderRadius:"2%",border:"10px solid red",position:"absolute",top:"650px",left:"500px"}}>
       <img src={dietm} className="img-fluid rounded-start" style={{height:"270px",position:"relative"}}   />
-
+      <h1 style={{color:"red",position:"absolute",left:"350px",top:"40px"}}>Grocery List</h1>
+      <div style={{color:"black",width:"550px",fontSize:"1.1rem",position:"absolute",left:"350px",top:"110px"}}>{diet[7]}</div>
       </div>
+      <div style={{backgroundColor:"",height:"400px",width:"950px",borderRadius:"2%",border:"10px solid red",position:"absolute",top:"1070px",left:"500px"}}>
+      <img src={stbg1} className="img-fluid rounded-start" style={{height:"270px",position:"relative"}}   />
+      <h1 style={{color:"red",position:"absolute",left:"350px",top:"40px"}}>Meals and their ingredients</h1>
+      <div style={{color:"black",width:"550px",fontSize:"1.1rem",position:"absolute",left:"350px",top:"110px"}}>{diet[8]}</div>
       </div>
+      
+      </div>
+      
       <footer style={{ width: '100%', height: '30px', backgroundColor: '#e11127', color: '', textAlign: 'center', marginTop: '40px', fontWeight: '200' }}>Copyright belongs to American Heart Association</footer>
     </div>
 

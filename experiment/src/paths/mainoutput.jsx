@@ -39,7 +39,7 @@ const Jpp = () => {
           setName(name);
           setMedicalData(medicalHistory);
           GetOutput(medicalHistory, name);
-          GetOutput1(medicalHistory);
+          GetOutput1(medicalHistory,name);
         } else {
           console.error("Error fetching data");
         }
@@ -90,7 +90,7 @@ const Jpp = () => {
         },
         body: JSON.stringify({
           data: [age, sex, cp, rbp, sc, fbs, rer, mhr, eia, olds, st, mvs, thal],
-
+          name:name
         }),
       });
 

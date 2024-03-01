@@ -44,9 +44,10 @@ def predict():
 @app.route("/summary", methods=["GET", "POST"])
 def summary():
     info = request.get_json()
+    print(info,"world")
     data = info['data']
-    name = info.get('name')
-    print(data)
+    name = info.get("name")
+    print(name)
     prompt = ChatPromptTemplate.from_template("""generate a medical report based only on the provided context:
 
         <context>
@@ -112,16 +113,20 @@ def summary():
     client = MongoClient("mongodb+srv://bunnypowers26:pepjkeljIEfn5zgN@cluster01.egs7npg.mongodb.net/?retryWrites=true&w=majority")
     db = client.test
     collection = db.articles
-    print(name)
     collection.update_one({"name": name}, {"$set": {"riskfactors":content }})
     print(content)
     return jsonify(preprocessed_text,content)
 @app.route('/diet',methods = ["POST","GET"])
 def diet():
     info =  request.get_json()
-    
-    
+    keywords = info['risks']
+    peference = info['food']
+    height1 = info['height']
+    weight1 = info['weight']
+    veg = info['veg']
     bmi = weight1/((height1*height1)/100)
+    
+    bmi = 50/((170*170)/100)
     prompt = ChatPromptTemplate.from_template("""generate personalized diet plan based on the following data based on context:
     <context>
     {context}
@@ -151,7 +156,7 @@ def diet():
         pkl = pickle.load(f)
     retriever = pkl.as_retriever()
     retrieval_chain = create_retrieval_chain(retriever, document_chain)
-    response = retrieval_chain.invoke({'input':"please generated the diet following the diet plan template given in context",'h':height1,'w':weight1,'m':bmi,'risk':keywords,'type':peference,'og':veg})
+    response = retrieval_chain.invoke({'input':"please generated the diet following the diet plan template given in context",'h':170,'w':50,'m':bmi,'risk':keywords,'type':peference,'og':veg})
     return jsonify(response['answer'])
    
 
