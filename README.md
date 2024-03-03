@@ -32,6 +32,7 @@ To get started with Heart-Health, follow these steps:
 2. Install dependencies (if any):
    ```
    npm install
+   pip install -r requirements.txt
    ```
 
 3. Configure environment variables (if applicable).
@@ -48,18 +49,3 @@ To get started with Heart-Health, follow these steps:
    npm run build
    ```
 
-## Contributing
-
-We welcome contributions! If you'd like to enhance Heart-Health, follow these steps:
-
-1. Fork this repository.
-2. Create a new branch: `git checkout -b feature/my-feature`.
-3. Make changes and commit: `git commit -m "Add my feature"`.
-4. Push to your fork: `git push origin feature/my-feature`.
-5. Open a pull request.
-
-## License
-
-This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
-
-Feel free to explore Heart-Health, contribute, and prioritize your heart health! 🌟🫀
