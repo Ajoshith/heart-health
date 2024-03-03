@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './hello.css';
-import pjLogo from '../images/pjlogo.png';
+
 import docteam from '../images/docteam.jpeg';
 import card1 from '../images/card1.jpeg';
 import card2 from '../images/card2.png';
@@ -8,7 +8,10 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useUserData } from './confirmation';
 import Registrationform from './login';
+import logo from "../images/image.png";
 import backp from "../images/backprofile.png"
+import pjLogo from '../images/pjlogo.png';
+
 function Home() {
   function onC() {
     navigate("/experiment")
@@ -150,9 +153,9 @@ function Home() {
             <Link to="/experiment" style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",marginLeft:"10px",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
             <i class="bi bi-files" style={{fontSize:"1.7rem",color:"#e11127"}}></i>
             </Link>
-            <div style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",marginLeft:"10px",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
+            <Link to="/dietplan" style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",marginLeft:"10px",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
             <i class="bi bi-universal-access" style={{fontSize:"1.7rem",color:"#e11127"}}></i>
-            </div>
+            </Link>
             
             </div>
             </div>

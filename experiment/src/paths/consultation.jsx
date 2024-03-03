@@ -2,7 +2,6 @@ import React from "react"
 import pjLogo from '../images/pjlogo.png'; // Import the image
 import "./hello.css"
 import "../index.css"
-import Conbg from "../images/headercon.png"
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import Cards from "./cards";

@@ -70,7 +70,6 @@ const Jpp = () => {
         const data = await res.json();
         setData(data);
         setK(data);
-        setK(70)
         
       } else {
         console.error("Error fetching data");
@@ -244,9 +243,9 @@ const Jpp = () => {
 
           <div className="desc _0" style={{marginLeft:"40px",marginTop:"20px",fontFamily:"initial",color:"aliceblue"}}>
 
-            <h2 style={{fontFamily:"initial",color:"aliceblue"}}>Risk level:</h2>
+            <h2 style={{fontFamily:"initial",color:"black"}}>Risk level:</h2>
             <p>
-              <b style={{color:"aliceblue",color:"aliceblue"}}>{k}<span>%</span></b>
+              <b style={{color:"aliceblue",color:"black"}}>{k}<span>%</span></b>
             </p>
           </div>
         </div>
@@ -367,7 +366,7 @@ const Jpp = () => {
           <button className='btn btn-lg' style={{ color: "#e11127", backgroundColor: 'aliceblue', borderRadius: "50px", position:"absolute",left:250,top:125}} onClick={handleClick1}><i class="bi bi-box-arrow-right"></i> Logout</button>
 
             <div style={{height:"200px",width:"200px",borderRadius:"50% ",border:"7px solid red",marginTop:"50px",marginLeft:"80px",display:'flex',alignItems:"center",justifyContent:"center",fontSize:'2 rem'}}>
-              <div style={{fontSize:"2.2rem",marginLeft:"10px"}} >{med[2]}{med[3]}%</div>
+              <div style={{fontSize:"2.2rem",marginLeft:"10px"}} >{k}%</div>
               <div style={{position:"absolute",top:"340px"}}>at risk  </div>
             </div>
             <div style={{marginTop:"20px",marginLeft:"60px",fontSize:"1.2rem"}}>Navigate throught our tools</div>
@@ -390,9 +389,9 @@ const Jpp = () => {
             <div style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",marginLeft:"10px",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
             <i class="bi bi-files" style={{fontSize:"1.7rem",color:"#e11127"}}></i>
             </div>
-            <div style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",marginLeft:"10px",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
+            <Link to="/dietplan" style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",marginLeft:"10px",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
             <i class="bi bi-universal-access" style={{fontSize:"1.7rem",color:"#e11127"}}></i>
-            </div>
+            </Link>
             
             </div>
             </div>
@@ -441,8 +440,8 @@ const Jpp = () => {
          <div className='text-focus-in' style={{height:"350px",width:"670px",position:"absolute",top:"700px",left:"780px",border:"9px red solid"}}>
          <h2 style={{marginLeft:"180px",marginTop:"30px"}}>Life expantansy</h2>
           <div style={{display:"flex",alignItems:"center",justifyContent:"center",backgroundColor:"transparent",height:"150px",width:"150px",borderRadius:"50%",border:"7px solid forestgreen",marginLeft:"20px",marginTop:"30px"}}>
-          <div style={{fontFamily:"fantasy",fontSize:"2rem"}}>30%</div>
-          <div style={{fontSize:"1.2rem",height:"120px",width:"400px",position:"absolute",left:"200px"}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam minima facilis distinctio nesciunt non id eos, iure perspiciatis. Soluta nisi voluptas similique esse doloribus itaque tenetur unde deserunt eius culpa.</div>
+          <div style={{fontFamily:"fantasy",fontSize:"2rem"}}>{100-k}%</div>
+          <div style={{fontSize:"1.2rem",height:"120px",width:"400px",position:"absolute",left:"200px"}}>Don't lose hope! Even if your heart health is at high risk, there's still a chance to recover. Take proactive steps, follow medical advice, and make healthy lifestyle choices to improve your heart health and overall well-being.</div>
           </div>
          </div>
          <div className='text-focus-in' style={{height:"350px",width:"670px",position:"absolute",top:"1100px",left:"780px",border:"9px red solid"}}>
@@ -450,7 +449,8 @@ const Jpp = () => {
           
           <i class="bi bi-graph-up-arrow" style={{display:"flex",alignItems:"center",justifyContent:"center",backgroundColor:"transparent",height:"150px",width:"150px",borderRadius:"50%",marginLeft:"20px",marginTop:"30px",color:"red",fontSize:"5rem"}}></i>
           <div style={{ height:"120px",width:"400px",wordWrap: "break-word",position:"absolute",fontSize:"1.2rem",left:"190px",top:"100px"}}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam minima facilis distinctio nesciunt non id eos, iure perspiciatis. Soluta nisi voluptas similique esse doloribus itaque tenetur unde deserunt eius culpa.          </div>
+          Recovery is possible! By following a balanced diet plan and staying committed to your health, you can improve your heart condition. Embrace the journey to wellness with confidence and determination.                </div>
+          <Link to="/dietplan"  className='btn btn-lg' style={{backgroundColor:"red",marginLeft:"300px",marginTop:"10px",borderRadius:"25px",color:"aliceblue"}}> Click me</Link>
          </div>
     </div>
     <footer style={{ width: '100%', height: '30px', backgroundColor: '#e11127', color: 'aliceblue', textAlign: 'center', marginTop: '40px', fontWeight: '200' }}>Copyright belongs to American Heart Association</footer>

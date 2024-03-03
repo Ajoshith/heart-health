@@ -125,10 +125,6 @@ function Registrationform() {
         {/* Login Box */}
         <div id="login">
           <h1>Sign In</h1>
-          <a href="#"><img className="social-login" src="https://image.flaticon.com/icons/png/128/59/59439.png" alt="social login" /></a>
-          <a href="#"><img className="social-login" src="https://image.flaticon.com/icons/png/128/49/49026.png" alt="social login" /></a>
-          <a href="#"><img className="social-login" src="https://image.flaticon.com/icons/png/128/34/34227.png" alt="social login" /></a>
-          <p>or use your email account:</p>
           <form>
             <input onChange={handleChange} type="email" placeholder="Email" autoComplete="off" /><br />
             <input onChange={handleChangePassword} type="password" placeholder="Password" autoComplete="off" /><br />
@@ -139,10 +135,6 @@ function Registrationform() {
         {/* Register Box */}
         <div id="register">
           <h1>Create Account</h1>
-          <a href="#"><img className="social-login" src="https://image.flaticon.com/icons/png/128/59/59439.png" alt="social login" /></a>
-          <a href="#"><img className="social-login" src="https://image.flaticon.com/icons/png/128/49/49026.png" alt="social login" /></a>
-          <a href="#"><img className="social-login" src="https://image.flaticon.com/icons/png/128/34/34227.png" alt="social login" /></a>
-          <p>or use your email for registration:</p>
           <form>
             <input onChange={handleChange} type="text" placeholder="Name" autoComplete="off" /><br />
             <input type="email" placeholder="Email" autoComplete="off" /><br />

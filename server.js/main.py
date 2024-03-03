@@ -161,6 +161,7 @@ def diet():
     retriever = pkl.as_retriever()
     retrieval_chain = create_retrieval_chain(retriever, document_chain)
     response = retrieval_chain.invoke({'input':"please generated the diet following the diet plan template given in context",'h':170,'w':50,'m':bmi,'risk':keywords,'type':peference,'og':veg})
+    print(response["answer"])
     return jsonify(response['answer'])
    
 

@@ -2,25 +2,12 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import './hello.css';
 import pjLogo from '../images/pjlogo.png';
-import docteam from '../images/docteam.jpeg';
-import card1 from '../images/card1.jpeg';
-import card2 from '../images/card2.png';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useUserData } from './confirmation';
 import Registrationform from './login';
 import backp from "../images/backprofile.png"
-import dietb from "../images/5.png"
-import dieta from "../images/b.png"
-import dietc from "../images/d.png"
 import dietd from "../images/e.jpg"
-import diete from "../images/81970.jpg"
-import dietf from "../images/f.png"
-import dietg from "../images/g.jpg"
-import dieth from "../images/dietb.jpg"
-import dietk from "../images/k.png"
-import dietl from "../images/81970.jpg"
-import dietl2 from "../images/n.png"
 import dietm from "../images/l.png"
 import stbg from "../images/st2.png"
 import stbg1 from "../images/st1.png"
@@ -121,7 +108,8 @@ function DietPlan() {
       if (res.ok) {
         const data = await res.json();
         setDiet(data)
-        const sections = data.split(/\n\s*\*\*/).map(section => section.trim());
+        const sections = data.split(/\n(?=[A-Z])/).filter(section => section.trim().length > 0);
+
         setDiet(sections)
         console.log(sections)
         setLoaing(false)
@@ -140,7 +128,7 @@ function DietPlan() {
     {
       loaing?(
         
-        <div style={{height:"1000px",display:"flex",justifyContent:"center",backgroundColor:"white"}}>
+        <div style={{height:"730px",display:"flex",justifyContent:"center",backgroundColor:"white"}}>
         <div className='' style={{height:"500px",width:"800px",backgroundColor:"white",display:"flex",justifyContent:"center",borderRadius:"50px",border:"solid red 10px",position:"absolute",top:"100px"}}>
           <div style={{marginTop:"20px",fontSize:"2.5rem",color:"red ",fontWeight:"500"}}> Advanced diet plan</div>
           <img className='slide-in-top' src={dietm} style={{height:"300px",position:"absolute",left:"400px",top:"60px"}}/>
@@ -235,9 +223,9 @@ function DietPlan() {
             <Link to="/experiment" style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",marginLeft:"10px",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
             <i class="bi bi-files" style={{fontSize:"1.7rem",color:"#e11127"}}></i>
             </Link>
-            <div style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",marginLeft:"10px",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
+            <Link to="/dietplan" style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",marginLeft:"10px",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
             <i class="bi bi-universal-access" style={{fontSize:"1.7rem",color:"#e11127"}}></i>
-            </div>
+            </Link>
             
             </div>
             </div>
@@ -248,7 +236,7 @@ function DietPlan() {
 
       <div  className='dietb' style={{height:"8000px",width:"100vw",backgroundColor:""}}>
         
-      <div style={{backgroundColor:"",height:"500px",width:"1200px",borderRadius:"2%",border:"10px solid red",position:"absolute",top:"100px",left:"200px"}}>
+      <div style={{backgroundColor:"",height:"530px",width:"1200px",borderRadius:"2%",border:"10px solid red",position:"absolute",top:"100px",left:"200px"}}>
       <img  src={stbg} className="card-img-top roll-in-left" style={{height:"400px",width:"550px",position:"relative",left:"20px",bottom:"130px",top:"20px"}} />
      <h1 style={{color:"red",paddingLeft:"550px",position:"absolute",top:"50px"} }>Goals</h1>
      <div  style={{position:"absolute",left:"550px",top:"100px",color:"black",fontSize:"1.2rem",height:"400px",width:"600px"}} >{diet[2]}</div>

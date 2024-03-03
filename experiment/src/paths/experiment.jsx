@@ -3,11 +3,13 @@ import pjlogo from "../images/pjlogo.png";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import logo from "../images/image.png";
-
+import backp from "../images/backprofile.png"
+import pjLogo from '../images/pjlogo.png';
 
 const Experiment = () => {
   const [medicaldata,setMedicalData]=useState(false);
   const [patientname,setPatientName]=useState(false);
+  const [med,setMedical]=useState()
   const [username, setUsername] = useState("");
   const [username1, setUsername1] = useState("");
   const [username2, setUsername2] = useState("");
@@ -38,9 +40,10 @@ const Experiment = () => {
     )
       .then(response => response.json())
       .then(response => {
-        const { name,medicalHistory } = response;
+        const { name,medicalHistory,risk } = response;
         setK(Object.keys(medicalHistory).length)
         setMedicalData(medicalHistory)
+        setMedical(risk)
         console.log(name,medicalHistory);
       });
   }, []);
@@ -243,29 +246,58 @@ const Experiment = () => {
             </div>
           </nav>
         </header>
-        <div
-          className="offcanvas offcanvas-end"
-          tabIndex="-1"
-          id="offcanvasExample"
-          aria-labelledby="offcanvasExampleLabel"
-        >
-          <div className="offcanvas-header">
-            <h1 style={{ color: "#e11127" }}>Profile</h1>
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div className="offcanvas-body">
-            <div className="details">
-              <h3 style={{ display: "block" }}>Patients details</h3>
-              <div className="details1">Name, age, blood group, etc .......</div>
-            </div>
-          </div>
+        <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style={{backgroundColor:"aliceblue"}}>
+        <div className="offcanvas-header">
+          <Link to="/" id="header" className="navbar-brand navbarcolorfont scale-in-center" style={{marginLeft:"150px"}}>
+            <img className='imagezoomer' src={pjLogo} style={{ height: '60px' }} alt="logo" />
+          </Link>
+          
         </div>
+        <div className="offcanvas-body">
+          <div className="details">
+            <div className="details1">
 
+              <div style={{ height: "70px", width: "70px", border: "solid 5px #e11127 ", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                <img src={backp} style={{ height: "50px", width: "50px" }} alt="..." />
+              </div>
+              <div style={{ position: "absolute", top: "130px", right: "1", left: "100px", fontSize: "1.5rem", fontWeight: "400" }}>Hello</div>
+            </div>
+          <button className='btn btn-lg' style={{ color: "#e11127", backgroundColor: 'aliceblue', borderRadius: "50px", position:"absolute",left:250,top:125}} onClick={handleClick1}><i class="bi bi-box-arrow-right"></i> Logout</button>
+
+            <div style={{height:"200px",width:"200px",borderRadius:"50% ",border:"7px solid red",marginTop:"50px",marginLeft:"80px",display:'flex',alignItems:"center",justifyContent:"center",fontSize:'2 rem'}}>
+              <div style={{fontSize:"2.2rem",marginLeft:"10px"}} >{med}%</div>
+              <div style={{position:"absolute",top:"340px"}}>at risk  </div>
+            </div>
+            <div style={{marginTop:"20px",marginLeft:"60px",fontSize:"1.2rem"}}>Navigate throught our tools</div>
+            <div style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"20px"}}>
+            <div style={{height:"100px",borderRadius:"25px",width:"100px",backgroundColor:"#D7ECFF",display:"flex",justifyContent:"center",alignItems:"center"}}>
+            <i class="bi bi-archive-fill" style={{fontSize:"1.7rem",color:"#e11127"}}></i>
+            </div>
+            <Link to="/waterfilloutput" style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",marginLeft:"10px",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
+            <i class="bi bi-bandaid" style={{fontSize:"1.7rem",color:"#e11127"}}></i>
+            </Link>
+            <Link to="/map" style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",marginLeft:"10px",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
+            <i class="bi bi-compass" style={{fontSize:"1.7rem",color:"#e11127"}}></i>
+            </Link>
+            
+            </div>
+            <div style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"20px"}}>
+            <Link to="/fillform" style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
+            <i class="bi bi-file-earmark-medical" style={{fontSize:"1.7rem",color:"#e11127"}}></i>
+            </Link>
+            <Link to="/experiment" style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",marginLeft:"10px",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
+            <i class="bi bi-files" style={{fontSize:"1.7rem",color:"#e11127"}}></i>
+            </Link>
+            <Link to="/dietplan" style={{height:"100px",width:"100px",backgroundColor:"#D7ECFF",marginLeft:"10px",borderRadius:"25px",display:"flex",justifyContent:"center",alignItems:"center"}}>
+            <i class="bi bi-universal-access" style={{fontSize:"1.7rem",color:"#e11127"}}></i>
+            </Link>
+            
+            </div>
+            </div>
+        </div>
+        <footer style={{width:"100%",backgroundColor:"#e11127",height:"15px"}}></footer>
+
+      </div>
 
       <div className="" style={{ backgroundColor: "aliceblue", height: "710px" }}>
 

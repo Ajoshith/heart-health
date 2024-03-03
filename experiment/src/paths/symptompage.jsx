@@ -75,18 +75,18 @@ function Symptom() {
         </div>
       </div>
       <div className="symptomdetails" style={{ backgroundColor: 'aliceblue', height: '270px', width: '100%' }}>
-        <div className="title" style={{ fontWeight: '400', fontSize: '3rem', position: 'absolute', top: '100px', left: '150px', display: 'inline-block' }}>
+        <div className="title" style={{ fontWeight: '400', fontSize: '3rem', position: 'absolute', top: '100px', left: '150px', display: 'inline-block',color:"black" }}>
           Cardiac arrest, Stroke and other problems
         </div>
-        <div className="title" style={{ fontWeight: '400', fontSize: '3rem', position: 'absolute', top: '155px', left: '150px', display: 'inline-block' }}>
+        <div className="title" style={{ fontWeight: '400', fontSize: '3rem', position: 'absolute', top: '155px', left: '150px', display: 'inline-block',color:"black" }}>
           related to heart symptoms:
         </div>
         <h1 style={{ color: '#e11127', display: 'inline-block', fontWeight: '400', fontSize: '1.2rem', position: 'absolute', top: '230px', left: '150px' }}>
           If you are having any of the following symptoms, please consult the nearest cardiologist
         </h1>
-        <button className="btn btn-lg" style={{ backgroundColor: '#e11127', position: 'absolute', top: '280px', left: '150px', borderRadius: '50px', color: 'aliceblue' }}>
+        <Link to="/fillform" className="btn btn-lg" style={{ backgroundColor: '#e11127', position: 'absolute', top: '280px', left: '150px', borderRadius: '50px', color: 'aliceblue' }}>
           Get emergency Help
-        </button>
+        </Link>
       </div>
       <div className="info">
         <div className="card" style={{ width: '18rem', position: 'absolute', top: '400px', left: '250px', width: '500px', height: '500px' }}>
@@ -116,27 +116,24 @@ function Symptom() {
         </div>
         <div className="card" style={{ width: '18rem', position: 'absolute', top: '400px', left: '800px', width: '500px', height: '500px' }}>
           <div className="card-body">
-            <h5 className="card-title" style={{ fontSize: '2rem' }}>Cardiac Arrest Symptoms</h5>
+            <h5 className="card-title" style={{ fontSize: '2rem' }}>Stroke Symptoms</h5>
             <h6 className="card-subtitle mb-2 text-body-secondary">Check carefully</h6>
             <p className="card-text">
-              <div style={{ fontSize: '1.2rem', fontWeight: '500px', color: '#e11127' }}>Discomfort in the upper body</div>
+              <div style={{ fontSize: '1.2rem', fontWeight: '500px', color: '#e11127' }}>FACE DROOPING</div>
               <div>
-                Symptoms can include pain or discomfort in one or both arms, the back, neck, jaw, or stomach.
+              Does one side of the face droop or is it numb? Ask the person to smile.              </div>
+              <div style={{ fontSize: '1.2rem', color: '#e11127' }}>ARM WEAKNESS</div>
+              <div>
+              Is one arm weak or numb? Ask the person to raise both arms. Does one arm drift downward?              </div>
+              <div style={{ fontSize: '1.2rem', color: '#e11127' }}>SPEECH DIFFICULTY</div>
+              <div>
+              Is speech slurred, are they unable to speak, or are they hard to understand? Ask the person to repeat a simple sentence, like "the sky is blue." Is the sentence repeated correctly?
               </div>
-              <div style={{ fontSize: '1.2rem', color: '#e11127' }}>Chest discomfort</div>
+              <div style={{ fontSize: '1.2rem', color: '#e11127' }}>TIME TO CALL 108</div>
               <div>
-                Most heart attacks involve discomfort in the center of the chest that lasts more than a few minutes, or that goes away and comes back. It can feel like uncomfortable pressure, squeezing, fullness, or pain.
-              </div>
-              <div style={{ fontSize: '1.2rem', color: '#e11127' }}>Shortness of breath</div>
-              <div>
-                with or without chest discomfort.
-              </div>
-              <div style={{ fontSize: '1.2rem', color: '#e11127' }}>Other signs</div>
-              <div>
-                may include breaking out in a cold sweat, nausea, or lightheadedness.
+              If the person shows any of these symptoms, even if the symptoms go away, call 911 and get them to the hospital immediately.
               </div>
             </p>
-            <a href="#" style={{ color: '#e11127' }}>If you feel any of these symptoms, please seek immediate help</a>
           </div>
         </div>
       </div>
