@@ -51,11 +51,13 @@ To get started with Heart-Health, follow these steps:
    cd server.js
    nodemon server.js
    ```
+
 3.Run the python app:
   ```
   cd server.js
   python main.py
   ```
+ The command runs the app in the development mode. Open http://localhost:3000 to view it in your browser. The page will reload when you make changes. You may also see any lint errors in the console.
 
 ## .env
 
