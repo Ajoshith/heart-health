@@ -57,7 +57,7 @@ To get started with Heart-Health, follow these steps:
   cd server.js
   python main.py
   ```
- The command runs the app in the development mode. Open http://localhost:3000 to view it in your browser. The page will reload when you make changes. You may also see any lint errors in the console.
+ The command runs the app in the development mode. Open http://localhost:5000 to view it in your browser. The page will reload when you make changes. You may also see any lint errors in the console.
 
 ## .env
 
@@ -66,7 +66,10 @@ key available at https://ai.google.dev/?gad_source=1&gclid=CjwKCAiA3JCvBhA8EiwA4
 ```
 GOOGLE_API_KEY = "replace with your api key"
 ```
+## Tech Stack
 
-
-
+- **Python**: Used for machine learning model development and data processing.
+- **Express**: A Node.js framework for building the backend API.
+- **MongoDB Atlas**: Cloud-based MongoDB service for storing health data.
+- **Python (again)**: Utilized for generating summary reports and diet plans.
 
