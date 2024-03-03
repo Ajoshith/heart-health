@@ -26,26 +26,45 @@ To get started with Heart-Health, follow these steps:
 
 1. Clone this repository:
    ```
-   git clone https://github.com/your-username/heart-health.git
+   git clone https://github.com/Ajoshith/heart-health
    ```
 
 2. Install dependencies (if any):
    ```
    npm install
    pip install -r requirements.txt
+   pip install faiss-cpu
    ```
 
 3. Configure environment variables (if applicable).
 
 ## Usage
 
-1. Run the development server:
+1. Run the frontend server:
    ```
+   cd experiment
    npm start
    ```
 
-2. Build the production version:
+2. Run the express server:
    ```
-   npm run build
+   cd server.js
+   nodemon server.js
    ```
+3.Run the python app:
+  ```
+  cd server.js
+  python main.py
+  ```
+
+## .env
+
+Replace with your own google api key:
+key available at https://ai.google.dev/?gad_source=1&gclid=CjwKCAiA3JCvBhA8EiwA4kujZvKT5EIFKPMLSSZN0Efn5lJtYson44CfqPb2e-eWcsiANrpk7-qYYBoC5xEQAvD_BwE
+```
+GOOGLE_API_KEY = "replace with your api key"
+```
+
+
+
 
