@@ -444,7 +444,7 @@ const Experiment = () => {
                       marginLeft:"130px"
                     }}
                   >
-                    <label htmlFor="">CP</label>
+                    <label htmlFor="">Chest Pain</label>
                     {k === 0 ? (
                       <>
                         <input
@@ -478,7 +478,7 @@ const Experiment = () => {
                       marginLeft: "80px"
                     }}
                   >
-                    <label htmlFor="">RBP</label>
+                    <label htmlFor="">Resting Blood Presure</label>
                     {k===0?(
                       <input onChange={Handle4}
                       type="text"
@@ -508,7 +508,7 @@ const Experiment = () => {
                       margin: "4px 0"
                     }}
                   >
-                    <label htmlFor="">SC</label>
+                    <label htmlFor="">Serum Cholestrol</label>
                     {k===0?(
                       <input onChange={Handle5}
                       type="text"
@@ -539,7 +539,7 @@ const Experiment = () => {
                       margin: "4px 0"
                     }}
                   >
-                    <label htmlFor="">Fbs</label>
+                    <label htmlFor="">Fasting blood sugar</label>
                     {k===0?(
                       <input onChange={Handle6}
                       type="text"
@@ -569,7 +569,7 @@ const Experiment = () => {
                       margin: "4px 0"
                     }}
                   >
-                    <label htmlFor="" style={{ marginLeft: "80px" }}>Rer</label>
+                    <label htmlFor="" style={{ marginLeft: "80px" }}>Resting electrocardiographic result</label>
                     {
                       k===0?(
                         <input onChange={Handle7}
@@ -602,7 +602,7 @@ const Experiment = () => {
                       margin: "4px 0"
                     }}
                   >
-                    <label htmlFor="" style={{ marginLeft: "38px" }}>MHR</label>
+                    <label htmlFor="" style={{ marginLeft: "38px" }}>Maximum heart rate</label>
                    {k===0?(
                      <input onChange={Handle8}
                      type="text"
@@ -633,7 +633,8 @@ const Experiment = () => {
                       margin: "4px 0"
                     }}
                   >
-                    <label htmlFor="">Eia</label>
+                    <label htmlFor="">Exercise induced angina
+</label>
                     {k===0?(
                       <input onChange={Handle9}
                       type="text"
@@ -663,7 +664,7 @@ const Experiment = () => {
                       margin: "4px 0"
                     }}
                   >
-                    <label htmlFor="" style={{ marginLeft: "80px" }}>Olds</label>
+                    <label htmlFor="" style={{ marginLeft: "80px" }}>Oldpeak</label>
                     {k===0?(
                       <input onChange={Handle10}
                       type="text"

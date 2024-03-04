@@ -442,10 +442,12 @@ const Jpp = () => {
           <div style={{display:"flex",alignItems:"center",justifyContent:"center",backgroundColor:"transparent",height:"150px",width:"150px",borderRadius:"50%",border:"7px solid forestgreen",marginLeft:"20px",marginTop:"30px"}}>
           <div style={{fontFamily:"fantasy",fontSize:"2rem"}}>{100-k}%</div>
           <div style={{fontSize:"1.2rem",height:"120px",width:"400px",position:"absolute",left:"200px"}}>Don't lose hope! Even if your heart health is at high risk, there's still a chance to recover. Take proactive steps, follow medical advice, and make healthy lifestyle choices to improve your heart health and overall well-being.</div>
+          <Link to="/experiment"  className='btn btn-lg' style={{backgroundColor:"red",marginLeft:"300px",marginTop:"10px",borderRadius:"25px",color:"aliceblue",position:"absolute",width:"200px",top:"260px",left:"0px",right:"10px"}}>News articles</Link>
+
           </div>
          </div>
          <div className='text-focus-in' style={{height:"350px",width:"670px",position:"absolute",top:"1100px",left:"780px",border:"9px red solid"}}>
-         <h2 style={{marginLeft:"180px",marginTop:"30px"}}>Recovery rate</h2>
+         <h2 style={{marginLeft:"180px",marginTop:"30px"}}>Personalised diet plan</h2>
           
           <i class="bi bi-graph-up-arrow" style={{display:"flex",alignItems:"center",justifyContent:"center",backgroundColor:"transparent",height:"150px",width:"150px",borderRadius:"50%",marginLeft:"20px",marginTop:"30px",color:"red",fontSize:"5rem"}}></i>
           <div style={{ height:"120px",width:"400px",wordWrap: "break-word",position:"absolute",fontSize:"1.2rem",left:"190px",top:"100px"}}>
