@@ -133,10 +133,10 @@ def diet():
     </context>
         Rules to be followed while generating:
         1. Do not generate * and **.
-        2.the section:Goals should not exceed 560 characters
-        3.the section: meal plans should not exceed 570 characters
-        4.the section:Grocery list should not exceed 370 characters
-        5. the section:meals and their ingridents should not exceed 370 characters
+        2.the section:Goals should not exceed limit of 560 characters
+        3.the section: meal plans should not exceed limit of  500 characters
+        4.the section:Grocery list should not exceed limit of  300 characters
+        5. the section:meals and their ingridents should not limit of  exceed 300 characters
         Classification	BMI range - kg/m2
         Severe Thinness	< 16
         Moderate Thinness	16 - 17

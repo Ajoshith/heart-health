@@ -10,11 +10,9 @@ import Searchpage from "./paths/docsea";
 import Consult from "./paths/consultation";
 import Registrationform from "./paths/login";
 import Experiment1 from "./paths/experiment1";
-import Output from "./paths/output";
 import MyNewsComponent from "./paths/experiment1";
 import NearbyHospitalsMap from "./paths/map";
 import Jpp from "./paths/mainoutput";
-import Flasktester from "./paths/flasktester";
 import DietPlan from "./paths/dietpan";
 function App() {
   return (
@@ -29,11 +27,9 @@ function App() {
           <Route path="/docsearch" element={<Searchpage />} />
           <Route path="/consultation" element={<Consult />} />
           <Route path="/fillform" element={<Experiment />} />
-          <Route path="/output" element={<Output/>}/>
           <Route path="/experiment" element={<MyNewsComponent/>}/>
           <Route path="/map" element={<NearbyHospitalsMap />}/>
           <Route path="/waterfilloutput" element={<Jpp/>}/>
-          <Route path="/flasktester" element={<Flasktester/>}/>
           <Route path="/dietplan" element={<DietPlan/>}/>
         </Routes>
       </Router>

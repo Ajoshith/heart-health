@@ -171,7 +171,7 @@ function Home() {
         <h3 style={{ display: 'block', position: 'absolute', top: '300px', left: '530px', color: '#e11127', wordSpacing: '5px', fontWeight: '200' }}>
           Precaution: Safeguarding Your Future Health
         </h3>
-        <button onClick={onC} style={{ fontWeight: '200', borderRadius: '50px', display: 'block', position: 'absolute', top: '350px', left: '650px', backgroundColor: '#e11127', color: 'aliceblue', width: '250px', height: '50px', fontSize: '1.5rem' }} className="btn" type="submit">Health data form</button>
+        <Link to="/fillform" style={{ fontWeight: '200', borderRadius: '50px', display: 'block', position: 'absolute', top: '350px', left: '650px', backgroundColor: '#e11127', color: 'aliceblue', width: '250px', height: '50px', fontSize: '1.5rem' }} className="btn" type="submit">Health data form</Link>
       </div>
 
       <div className="middle" style={{ height: '600px', width: '100%', backgroundColor: "aliceblue" }}>
@@ -205,7 +205,7 @@ function Home() {
           <div className="card-body">
             <h5 className="card-title">Know your heart</h5>
             <p className="card-text">Get to know about your heart. With our advanced tool</p>
-            <a href="#" className="btn" style={{ backgroundColor: '#e11127', color: 'aliceblue' }}>Heartbeat</a>
+            <Link to="/waterfilloutput" className="btn" style={{ backgroundColor: '#e11127', color: 'aliceblue' }}>Get summary</Link>
           </div>
         </div>
         <div className="card text-center shadow" style={{ width: '18rem', height: '400px' }}>

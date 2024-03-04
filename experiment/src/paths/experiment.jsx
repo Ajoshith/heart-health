@@ -215,13 +215,17 @@ const Experiment = () => {
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a
+                    {k===0?(
+                      <></>
+                    ):(
+                      <Link to="/waterfilloutput"
                       className="nav-link"
                       style={{ color: "aliceblue" }}
                       
                     >
-                      About us
-                    </a>
+                      Heart Health's summary
+                    </Link>
+                    )}
                   </li>
                   <a
                     style={{
@@ -800,7 +804,6 @@ const Experiment = () => {
           </form>
         </div>
       </div>
-
 
 
 

@@ -450,7 +450,7 @@ const Jpp = () => {
           <i class="bi bi-graph-up-arrow" style={{display:"flex",alignItems:"center",justifyContent:"center",backgroundColor:"transparent",height:"150px",width:"150px",borderRadius:"50%",marginLeft:"20px",marginTop:"30px",color:"red",fontSize:"5rem"}}></i>
           <div style={{ height:"120px",width:"400px",wordWrap: "break-word",position:"absolute",fontSize:"1.2rem",left:"190px",top:"100px"}}>
           Recovery is possible! By following a balanced diet plan and staying committed to your health, you can improve your heart condition. Embrace the journey to wellness with confidence and determination.                </div>
-          <Link to="/dietplan"  className='btn btn-lg' style={{backgroundColor:"red",marginLeft:"300px",marginTop:"10px",borderRadius:"25px",color:"aliceblue"}}> Click me</Link>
+          <Link to="/dietplan"  className='btn btn-lg' style={{backgroundColor:"red",marginLeft:"300px",marginTop:"10px",borderRadius:"25px",color:"aliceblue"}}> Diet plan</Link>
          </div>
     </div>
     <footer style={{ width: '100%', height: '30px', backgroundColor: '#e11127', color: 'aliceblue', textAlign: 'center', marginTop: '40px', fontWeight: '200' }}>Copyright belongs to American Heart Association</footer>
