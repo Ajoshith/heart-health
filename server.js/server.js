@@ -7,8 +7,8 @@ const cookieParser = require("cookie-parser");
 const Authentication = require("./authenticate.js");
 const app = express();
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-const API_KEY = require("dotenv").config();
-const secretKey = "hello world";
+require("dotenv").config(); // Ensures .env is loaded at the top
+const secretKey = process.env.JWT_SECRET || "fallback_secret_key_if_not_set"; // Load JWT Secret
 const {PythonShell}=require("python-shell")
 const {spawn} = require("child_process");
 const { exitCode } = require("process");
@@ -16,9 +16,11 @@ const { exitCode } = require("process");
 app.use(express.json());
 app.use(cookieParser());
 
+const MONGODB_URI = process.env.DATABASE_URL || "mongodb+srv://bunnypowers26:pepjkeljIEfn5zgN@cluster01.egs7npg.mongodb.net/?retryWrites=true&w=majority";
+
 mongoose
   .connect(
-    "mongodb+srv://bunnypowers26:pepjkeljIEfn5zgN@cluster01.egs7npg.mongodb.net/?retryWrites=true&w=majority",
+    MONGODB_URI,
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {
@@ -329,49 +331,106 @@ app.post("/prediction",async(req,resp)=>{
     const {age,sex,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal}=data;
     const array=[age,1,cp,rbp,sc,fbs,rer,mhr,eia,olds,st,mvs,thal]
     const existingUser = await User.findOne({ _id: data.id });
-    console.log(array)
-    const child=spawn('python',['prediction.py',array]);
-    child.stdout.on("data",async(data)=>{
-      console.log("Hello")
-      let data1=data.toString();
-      console.log(data1)
-      console.log(typeof data1)
-      data1=data1.slice(0,4) 
-      existingUser.risk=data1  
-      await existingUser.save();
-      resp.json(data1)
-    })
+    console.log("Input array for prediction:", array);
+
+    // Make HTTP POST request to the Flask server's /predict_heart_disease/ endpoint
+    const flaskApiUrl = process.env.FLASK_API_URL || "http://localhost:8000"; // Default if not set
+
+    try {
+      const response = await axios.post(`${flaskApiUrl}/predict_heart_disease/`, { data: array });
+      const predictionResult = response.data; // Flask returns jsonify(prediction_result)
+
+      console.log("Prediction from Flask API:", predictionResult);
+
+      if (existingUser) {
+        existingUser.risk = String(predictionResult); // Ensure it's a string for DB
+        await existingUser.save();
+        console.log("Prediction saved to user.");
+      }
+      resp.json(predictionResult);
+
+    } catch (apiError) {
+      console.error("Error calling Flask prediction API:", apiError.message);
+      if (apiError.response) {
+        console.error("Flask API response error:", apiError.response.data);
+        resp.status(apiError.response.status).json(apiError.response.data);
+      } else if (apiError.request) {
+        console.error("Flask API no response:", apiError.request);
+        resp.status(500).send("No response from prediction service.");
+      } else {
+        resp.status(500).send("Error setting up request to prediction service.");
+      }
+    }
+
   } catch (error) {
-    console.log(error)
+    console.error("Error in /prediction route:", error);
+    resp.status(500).send("Internal server error in /prediction route.");
   }
-})
+});
+
 app.post("/prediction1", async (req, resp) => {
+  // This route is redundant. For now, it will also call the new Flask endpoint.
+  // It should be considered for removal after testing.
   try {
-    console.log("dasf");
+    console.log("Accessing /prediction1 route (redundant, uses new Flask endpoint)");
     const data = req.body;
     const { age, sex, cp, rbp, sc, fbs, rer, mhr, eia, olds, st, mvs, thal } = data;
     const array = [age, sex, cp, rbp, sc, fbs, rer, mhr, eia, olds, st, mvs, thal];
+    // Note: This route doesn't save to a user, it just returns the prediction.
 
-    // Assuming your User model has a 'name' field, change the query accordingly
-    const existingUser = await User.findOne({ name: "Hello" });
+    const flaskApiUrl = process.env.FLASK_API_URL || "http://localhost:8000";
 
-    console.log(existingUser);
-    console.log(array);
-    console.log("checkpoint");
+    try {
+      const response = await axios.post(`${flaskApiUrl}/predict_heart_disease/`, { data: array });
+      const predictionResult = response.data;
+      resp.json(predictionResult);
+    } catch (apiError) {
+      console.error("Error calling Flask prediction API from /prediction1:", apiError.message);
+      if (apiError.response) {
+        resp.status(apiError.response.status).json(apiError.response.data);
+      } else {
+        resp.status(500).send("Error interacting with prediction service from /prediction1.");
+      }
+    }
 
-    const child = spawn('python', ['prediction1.py', ...array]); // Spread the 'array'
-    child.stdout.on("data", async (data) => {
-      console.log("Hello");
-      let data1 = data.toString();
-      console.log(data1);
-      console.log(typeof data1);
-      resp.json(data1);
-    });
   } catch (error) {
-    console.log(error);
-    resp.status(500).json({ error: 'Internal Server Error' }); // Return a meaningful error response
+    console.error("Error in /prediction1 route:", error);
+    resp.status(500).json({ error: 'Internal Server Error in /prediction1 route' });
   }
 });
+
+// New /chatbot endpoint
+app.post("/chatbot", async (req, res) => {
+  try {
+    const userMessage = req.body.message;
+    if (!userMessage) {
+      return res.status(400).json({ error: "No message provided." });
+    }
+
+    console.log("User message to chatbot:", userMessage);
+
+    const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+    // Simple prompt for now, can be improved or made to use RAG later
+    const prompt = `User: ${userMessage}\nAI:`;
+
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+
+    console.log("AI response from chatbot:", text);
+    res.json({ response: text });
+
+  } catch (error) {
+    console.error("Error in /chatbot endpoint:", error.message);
+    if (error.message.includes("API_KEY")) {
+        return res.status(500).json({ error: "Server configuration error: Missing API Key for AI service." });
+    }
+    res.status(500).json({ error: "Internal Server Error in chatbot." });
+  }
+});
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
